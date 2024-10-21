@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B9F7F16A-36C8-4AEA-B7F9-B02A2B2D6CF8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PharmacyService", "PharmacyService", "{1065A619-209B-41B5-A4D6-8F29E3670E4D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{8E87F21A-1C61-4009-814C-B14023D64B0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PharmacyService.Domain", "src\PharmacyService\Core\PharmacyService.Domain\PharmacyService.Domain.csproj", "{3C7E21BA-18A8-48DE-B6CA-45479DB0345C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PharmacyService.Application", "src\PharmacyService\Core\PharmacyService.Application\PharmacyService.Application.csproj", "{8050B31A-9818-4634-9F96-B39447437EC4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PharmacyService.Persistence", "src\PharmacyService\Infrastructure\PharmacyService.Persistence\PharmacyService.Persistence.csproj", "{6CE4F31F-8C06-4915-AF44-D57F538AD73E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{19B90D33-755B-4CD5-97C5-BB5DF9FF8D83}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{143BABAC-F91C-4A0B-9A5F-0E5CCE899E70}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PharmacyService.API", "src\PharmacyService\Presentation\PharmacyService.API\PharmacyService.API.csproj", "{FB89D18E-680C-4416-981E-61E8BA56AC84}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{86D0AF4B-ACBF-4CCB-8A56-4B7FEE219864}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "src\Shared\SharedLibrary\SharedLibrary.csproj", "{8B982ECA-9B04-48CF-A52B-166864DE45AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PharmancyService.Infrastructure", "src\PharmacyService\Infrastructure\PharmancyService.Infrastructure\PharmancyService.Infrastructure.csproj", "{F36452B8-9D8A-40E6-AFB3-2EDAA99502EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3C7E21BA-18A8-48DE-B6CA-45479DB0345C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C7E21BA-18A8-48DE-B6CA-45479DB0345C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C7E21BA-18A8-48DE-B6CA-45479DB0345C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C7E21BA-18A8-48DE-B6CA-45479DB0345C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8050B31A-9818-4634-9F96-B39447437EC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8050B31A-9818-4634-9F96-B39447437EC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8050B31A-9818-4634-9F96-B39447437EC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8050B31A-9818-4634-9F96-B39447437EC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CE4F31F-8C06-4915-AF44-D57F538AD73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CE4F31F-8C06-4915-AF44-D57F538AD73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CE4F31F-8C06-4915-AF44-D57F538AD73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CE4F31F-8C06-4915-AF44-D57F538AD73E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB89D18E-680C-4416-981E-61E8BA56AC84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB89D18E-680C-4416-981E-61E8BA56AC84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB89D18E-680C-4416-981E-61E8BA56AC84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB89D18E-680C-4416-981E-61E8BA56AC84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B982ECA-9B04-48CF-A52B-166864DE45AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B982ECA-9B04-48CF-A52B-166864DE45AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B982ECA-9B04-48CF-A52B-166864DE45AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B982ECA-9B04-48CF-A52B-166864DE45AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F36452B8-9D8A-40E6-AFB3-2EDAA99502EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F36452B8-9D8A-40E6-AFB3-2EDAA99502EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F36452B8-9D8A-40E6-AFB3-2EDAA99502EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F36452B8-9D8A-40E6-AFB3-2EDAA99502EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1065A619-209B-41B5-A4D6-8F29E3670E4D} = {B9F7F16A-36C8-4AEA-B7F9-B02A2B2D6CF8}
+		{8E87F21A-1C61-4009-814C-B14023D64B0B} = {1065A619-209B-41B5-A4D6-8F29E3670E4D}
+		{3C7E21BA-18A8-48DE-B6CA-45479DB0345C} = {8E87F21A-1C61-4009-814C-B14023D64B0B}
+		{8050B31A-9818-4634-9F96-B39447437EC4} = {8E87F21A-1C61-4009-814C-B14023D64B0B}
+		{6CE4F31F-8C06-4915-AF44-D57F538AD73E} = {19B90D33-755B-4CD5-97C5-BB5DF9FF8D83}
+		{19B90D33-755B-4CD5-97C5-BB5DF9FF8D83} = {1065A619-209B-41B5-A4D6-8F29E3670E4D}
+		{143BABAC-F91C-4A0B-9A5F-0E5CCE899E70} = {1065A619-209B-41B5-A4D6-8F29E3670E4D}
+		{FB89D18E-680C-4416-981E-61E8BA56AC84} = {143BABAC-F91C-4A0B-9A5F-0E5CCE899E70}
+		{86D0AF4B-ACBF-4CCB-8A56-4B7FEE219864} = {B9F7F16A-36C8-4AEA-B7F9-B02A2B2D6CF8}
+		{8B982ECA-9B04-48CF-A52B-166864DE45AF} = {86D0AF4B-ACBF-4CCB-8A56-4B7FEE219864}
+		{F36452B8-9D8A-40E6-AFB3-2EDAA99502EE} = {19B90D33-755B-4CD5-97C5-BB5DF9FF8D83}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5FB30B17-BCEB-43F5-A24B-E043438AB294}
+	EndGlobalSection
+EndGlobal
