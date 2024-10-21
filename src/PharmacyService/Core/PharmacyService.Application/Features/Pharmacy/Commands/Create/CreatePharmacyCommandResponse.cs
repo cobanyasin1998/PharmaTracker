@@ -1,6 +1,8 @@
-﻿namespace PharmacyService.Application.Features.Pharmacy.Commands.Create;
+﻿using PharmacyService.Application.Concrete.Response;
 
-public class CreatePharmacyCommandResponse
+namespace PharmacyService.Application.Features.Pharmacy.Commands.Create;
+
+public class CreatePharmacyCommandResponse : ResponseWithErrors
 {
     public long Id { get; set; }
 }
