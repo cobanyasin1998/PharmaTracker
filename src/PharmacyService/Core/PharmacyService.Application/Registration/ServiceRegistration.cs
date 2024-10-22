@@ -1,6 +1,5 @@
 ﻿
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using PharmacyService.Application.Pipelines.Validation;
 using System.Reflection;
@@ -18,6 +17,8 @@ public static class ServiceRegistration
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             configuration.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
         });
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
 
     }
 }

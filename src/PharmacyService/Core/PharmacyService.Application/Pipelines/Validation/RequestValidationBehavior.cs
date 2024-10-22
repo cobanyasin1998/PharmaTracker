@@ -38,9 +38,11 @@ public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
         if (errors.Any())
         {
             response.Errors = errors;
-            return response; 
+            response.Success = false;
+            response.Message = "İşlem Başarısız"; // todo Daha sonra dil desteği eklenecek
+            return response;
         }
-
+        response.Message = "İşlem Başarılı";
         return await next();
     }
 }
