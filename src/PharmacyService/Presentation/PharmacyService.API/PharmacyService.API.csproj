@@ -21,4 +21,10 @@
     <ProjectReference Include="..\..\Infrastructure\PharmancyService.Infrastructure\PharmancyService.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="tr.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -25,6 +25,5 @@ public class FileRecordEntity : BaseEntity
     [BsonElement("storageType")]
     public EStorageType StorageType { get; set; }
 
-    [BsonElement("metadata")]
-    public BsonDocument Metadata { get; set; }
+  
 }

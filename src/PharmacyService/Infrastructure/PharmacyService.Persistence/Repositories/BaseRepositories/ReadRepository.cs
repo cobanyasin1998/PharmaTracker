@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PharmacyService.Application.BaseRepository;
-using PharmacyService.Domain.Entities.Common;
 using PharmacyService.Persistence.Contexts;
+using SharedLibrary.Core.Domain.Entities.Common;
 using System.Linq.Expressions;
 
 namespace PharmacyService.Persistence.Repositories.BaseRepositories;

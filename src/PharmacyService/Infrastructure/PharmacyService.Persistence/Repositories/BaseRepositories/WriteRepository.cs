@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PharmacyService.Application.BaseRepository;
-using PharmacyService.Domain.Entities.Common;
 using PharmacyService.Persistence.Contexts;
+using SharedLibrary.Core.Domain.Entities.Common;
 
 namespace PharmacyService.Persistence.Repositories.BaseRepositories;
 

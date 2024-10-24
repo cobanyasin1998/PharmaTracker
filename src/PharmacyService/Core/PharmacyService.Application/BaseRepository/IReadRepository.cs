@@ -1,5 +1,5 @@
 ﻿using PharmacyService.Application.BaseRepository.Common;
-using PharmacyService.Domain.Entities.Common;
+using SharedLibrary.Core.Domain.Entities.Common;
 using System.Linq.Expressions;
 
 namespace PharmacyService.Application.BaseRepository;

@@ -1,4 +1,4 @@
-﻿namespace PharmacyService.Domain.Enums;
+﻿namespace SharedLibrary.Core.Domain.Enums;
 
 public enum EStatus : byte
 {

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using PharmacyService.Domain.Enums;
+using SharedLibrary.Core.Domain.Enums;
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Create;
 

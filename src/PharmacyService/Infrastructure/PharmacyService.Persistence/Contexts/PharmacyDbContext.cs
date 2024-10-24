@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PharmacyService.Domain.Entities;
-using PharmacyService.Domain.Entities.Common;
+using SharedLibrary.Core.Domain.Entities.Common;
 
 namespace PharmacyService.Persistence.Contexts;
 
@@ -15,16 +15,21 @@ public class PharmacyDbContext : DbContext
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         var datas = ChangeTracker.Entries<BaseEntity>();
+
+        int currentUserId = 1;
+
         foreach (var entity in datas)
         {
-            _ = entity.State switch
+            if (entity.State == EntityState.Added)
             {
-                EntityState.Added => entity.Entity.CreatedDate = DateTime.UtcNow,
-                EntityState.Modified => entity.Entity.UpdatedDate = DateTime.UtcNow,
-                _ => DateTime.UtcNow,
-            };
-
-
+                entity.Entity.CreatedDate = DateTime.UtcNow;
+                entity.Entity.CreatedUserId = currentUserId;
+            }
+            else if (entity.State == EntityState.Modified)
+            {
+                entity.Entity.UpdatedDate = DateTime.UtcNow;
+                entity.Entity.UpdatedUserId = currentUserId; 
+            }
         }
         return await base.SaveChangesAsync(cancellationToken);
     }

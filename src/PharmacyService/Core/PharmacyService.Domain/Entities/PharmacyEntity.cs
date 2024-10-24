@@ -1,4 +1,5 @@
 ﻿using PharmacyService.Domain.Entities.Common;
+using SharedLibrary.Core.Domain.Entities.Common;
 
 namespace PharmacyService.Domain.Entities;
 

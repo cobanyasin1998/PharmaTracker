@@ -1,18 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
 using PharmacyService.API.Controllers.Base;
 using PharmacyService.Application.Features.Pharmacy.Commands.Create;
+using PharmacyService.Application.Features.Pharmacy.Commands.Update;
+using PharmacyService.Application.Features.Pharmacy.Queries.GetById;
 
 namespace PharmacyService.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class PharmacyController : BaseController
+    public class PharmacyController : AbstractController<CreatePharmacyCommandRequest, UpdatePharmacyCommandRequest, GetByIdPharmacyQueryRequest, CreatePharmacyCommandResponse>
     {
-        [HttpPost]
-        public async Task<IActionResult> CreatePharmacy([FromBody] CreatePharmacyCommandRequest request)
-        {
-            var response = await Mediator.Send(request);
-            return Ok(response);
-        }
     }
 }

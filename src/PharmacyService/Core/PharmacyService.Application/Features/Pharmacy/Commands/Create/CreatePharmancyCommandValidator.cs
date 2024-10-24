@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
-using PharmacyService.Application.Abstraction.Language;
 using PharmacyService.Application.ExtensionsMethod;
+using SharedLibrary.Core.Application.Language;
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Create;
 
@@ -9,6 +9,8 @@ public class CreatePharmancyCommandValidator : AbstractValidator<CreatePharmacyC
     public CreatePharmancyCommandValidator(ILocalizationService localizationService)
     {
         RuleFor(p => p.Name)
-            .IsValidName(localizationService);
+            .IsValidName(localizationService, "PharmacyName");
+        RuleFor(p => p.Description)
+            .IsValidName(localizationService, "PharmacyDescription");
     }
 }

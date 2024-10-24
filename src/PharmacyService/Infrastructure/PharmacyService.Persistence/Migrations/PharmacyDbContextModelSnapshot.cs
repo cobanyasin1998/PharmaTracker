@@ -34,6 +34,9 @@ namespace PharmacyService.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<long>("CreatedUserId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
@@ -48,6 +51,9 @@ namespace PharmacyService.Persistence.Migrations
 
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<long?>("UpdatedUserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 

@@ -1,10 +1,13 @@
-﻿namespace PharmacyService.Application.Abstraction.Response;
+﻿using System.Net;
 
-public interface IResponseWithErrors
+namespace PharmacyService.Application.Abstraction.Response;
+
+public interface IResponseCustom
 {
     IEnumerable<ValidationExceptionModel> Errors { get; set; }
     public bool Success { get; set; }
     public string  Message { get; set; }
+    public HttpStatusCode HttpStatusCode { get; set; } 
 }
 
     public class ValidationExceptionModel

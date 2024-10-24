@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PharmacyService.Domain.Entities.Common;
+using SharedLibrary.Core.Domain.Entities.Common;
 
 namespace PharmacyService.Persistence.ExtensionMethod;
 

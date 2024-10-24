@@ -35,11 +35,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{4A98E2F1-42CC-47BF-9CAC-878D7AF9ACA5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorageService.Domain", "src\FileStorageService\Core\FileStorageService.Domain\FileStorageService.Domain.csproj", "{A4136477-8702-431C-B905-51EAFC769C72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileStorageService.Domain", "src\FileStorageService\Core\FileStorageService.Domain\FileStorageService.Domain.csproj", "{A4136477-8702-431C-B905-51EAFC769C72}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorageService.Application", "src\FileStorageService\Core\FileStorageService.Application\FileStorageService.Application.csproj", "{96585AD7-5C0B-4CF7-AD59-C414BCCF601E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileStorageService.Application", "src\FileStorageService\Core\FileStorageService.Application\FileStorageService.Application.csproj", "{96585AD7-5C0B-4CF7-AD59-C414BCCF601E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorageService.Persistence", "src\FileStorageService\Infrastructure\FileStorageService.Persistence\FileStorageService.Persistence.csproj", "{31081CDA-783A-407A-8F2F-02DCE8D6C2C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileStorageService.Persistence", "src\FileStorageService\Infrastructure\FileStorageService.Persistence\FileStorageService.Persistence.csproj", "{31081CDA-783A-407A-8F2F-02DCE8D6C2C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileStorageService.API", "src\FileStorageService\Presentation\FileStorageService.API\FileStorageService.API.csproj", "{AA1274DD-D59C-4FF0-BCAE-8EAF401928A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MedicineService", "MedicineService", "{CCC3F5AC-22D2-4A6F-99BD-66A504560930}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{1D7ED2C2-73D1-4A84-B051-26F65837B8AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicineService.Domain", "src\MedicineService\Core\MedicineService.Domain\MedicineService.Domain.csproj", "{D0902730-1574-4AB5-8CD9-9C6E437A006E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityManagementService", "IdentityManagementService", "{CF496A76-72DA-40E5-A40F-656657BBBB8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NotificationService", "NotificationService", "{A781A208-508C-48C8-B49A-A2C9CA3770B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B85455C9-492F-42AC-8BE8-9BB751F7B946}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityManagementService.Domain", "src\IdentityManagementService\Core\IdentityManagementService.Domain\IdentityManagementService.Domain.csproj", "{E0D20756-703A-44D8-B89D-783D069F66CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +99,18 @@ Global
 		{31081CDA-783A-407A-8F2F-02DCE8D6C2C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31081CDA-783A-407A-8F2F-02DCE8D6C2C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31081CDA-783A-407A-8F2F-02DCE8D6C2C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA1274DD-D59C-4FF0-BCAE-8EAF401928A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA1274DD-D59C-4FF0-BCAE-8EAF401928A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA1274DD-D59C-4FF0-BCAE-8EAF401928A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA1274DD-D59C-4FF0-BCAE-8EAF401928A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0902730-1574-4AB5-8CD9-9C6E437A006E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0902730-1574-4AB5-8CD9-9C6E437A006E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0902730-1574-4AB5-8CD9-9C6E437A006E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0902730-1574-4AB5-8CD9-9C6E437A006E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0D20756-703A-44D8-B89D-783D069F66CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0D20756-703A-44D8-B89D-783D069F66CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0D20756-703A-44D8-B89D-783D069F66CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0D20756-703A-44D8-B89D-783D069F66CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,6 +134,14 @@ Global
 		{A4136477-8702-431C-B905-51EAFC769C72} = {21D8D6A1-AB63-4F8F-A65D-B8C21FFDC00D}
 		{96585AD7-5C0B-4CF7-AD59-C414BCCF601E} = {21D8D6A1-AB63-4F8F-A65D-B8C21FFDC00D}
 		{31081CDA-783A-407A-8F2F-02DCE8D6C2C2} = {6C1FF3C0-9137-4973-B8AB-84AE2A640D23}
+		{AA1274DD-D59C-4FF0-BCAE-8EAF401928A5} = {4A98E2F1-42CC-47BF-9CAC-878D7AF9ACA5}
+		{CCC3F5AC-22D2-4A6F-99BD-66A504560930} = {B9F7F16A-36C8-4AEA-B7F9-B02A2B2D6CF8}
+		{1D7ED2C2-73D1-4A84-B051-26F65837B8AE} = {CCC3F5AC-22D2-4A6F-99BD-66A504560930}
+		{D0902730-1574-4AB5-8CD9-9C6E437A006E} = {1D7ED2C2-73D1-4A84-B051-26F65837B8AE}
+		{CF496A76-72DA-40E5-A40F-656657BBBB8D} = {B9F7F16A-36C8-4AEA-B7F9-B02A2B2D6CF8}
+		{A781A208-508C-48C8-B49A-A2C9CA3770B5} = {B9F7F16A-36C8-4AEA-B7F9-B02A2B2D6CF8}
+		{B85455C9-492F-42AC-8BE8-9BB751F7B946} = {CF496A76-72DA-40E5-A40F-656657BBBB8D}
+		{E0D20756-703A-44D8-B89D-783D069F66CA} = {B85455C9-492F-42AC-8BE8-9BB751F7B946}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5FB30B17-BCEB-43F5-A24B-E043438AB294}

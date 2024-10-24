@@ -20,7 +20,6 @@
   <ItemGroup>
     <Folder Include="Features\Pharmacy\Constants\" />
     <Folder Include="Features\Pharmacy\Rules\" />
-    <Folder Include="Features\Pharmacy\Queries\" />
   </ItemGroup>
 
 </Project>

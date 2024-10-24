@@ -15,9 +15,4 @@
     <ProjectReference Include="..\FileStorageService.Domain\FileStorageService.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Abstracts\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

@@ -2,7 +2,7 @@
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Create;
 
-public class CreatePharmacyCommandResponse : ResponseWithErrors
+public class CreatePharmacyCommandResponse : ResponseCustom
 {
     public long Id { get; set; }
 }

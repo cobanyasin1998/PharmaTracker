@@ -1,0 +1,20 @@
+{
+  "Hello": "Merhaba",
+  "Welcome": "Hoş geldiniz",
+  "Logout": "Çıkış",
+  "Login": "Giriş",
+  "Username": "Kullanıcı Adı",
+  "Password": "Şifre",
+  "Email": "E-posta",
+  "Submit": "Gönder",
+  "Cancel": "İptal",
+  "Search": "Ara",
+  "Language": "Dil",
+  "Settings": "Ayarlar",
+  "Profile": "Profil",
+  "Save": "Kaydet",
+  "Home": "Ana Sayfa",
+  "Contact": "İletişim",
+  "Help": "Yardım",
+  "PharmacyNameRequired": "Eczane Adı Zorunludur"
+}
