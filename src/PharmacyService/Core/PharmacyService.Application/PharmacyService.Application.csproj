@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\core\Coban.Application\Coban.Application.csproj" />
+    <ProjectReference Include="..\..\..\..\core\Coban.GeneralDto\Coban.GeneralDto.csproj" />
+    <ProjectReference Include="..\..\..\..\core\Coban.Infrastructure\Coban.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\..\core\Coban.Persistence\Coban.Persistence.csproj" />
+    <ProjectReference Include="..\PharmacyService.Domain\PharmacyService.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

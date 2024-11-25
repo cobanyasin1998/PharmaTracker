@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.DataProtection.Abstractions" Version="9.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" Version="9.0.0" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Coban.Consts\Coban.Consts.csproj" />
+	  <ProjectReference Include="..\Coban.Domain\Coban.Domain.csproj" />
+	</ItemGroup>
+
+</Project>

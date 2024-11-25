@@ -1,0 +1,25 @@
+﻿using Coban.Persistence.Repositories.EntityFramework.Abstractions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using PharmacyService.Persistence.DbContexts;
+using PharmacyService.Persistence.EntityFramework;
+
+namespace PharmacyService.Persistence.Registration;
+public static class ServiceRegistration
+{
+    public static void AddPharmacyPersistenceServices(this IServiceCollection services)
+    {
+        DatabaseConnection(services);
+
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+    }
+
+    private static void DatabaseConnection(IServiceCollection services)
+    {
+        services.AddDbContext<PharmacyDbContext>(opt =>
+        {
+            opt.UseNpgsql("User ID=postgres;Password=postgrespassword;Host=localhost;Port=5432;Database=mydatabase;IncludeErrorDetail=true;");
+        });
+    }
+}
