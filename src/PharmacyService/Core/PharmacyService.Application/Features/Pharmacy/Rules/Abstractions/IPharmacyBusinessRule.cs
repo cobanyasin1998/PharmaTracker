@@ -1,8 +1,8 @@
 ﻿using Coban.Application.Abstractions.Rules;
 
-namespace PharmacyService.Application.Features.Pharmacy.Rules.Base;
+namespace PharmacyService.Application.Features.Pharmacy.Rules.Abstractions;
 
-public interface IPharmacyBusinessRule:IBaseBusinessRule
+public interface IPharmacyBusinessRule : IBaseBusinessRule
 {
     Task IsPharmacyNameUnique(string Name);
     Task IsPharmacyNameUnique(string Name, long Id);

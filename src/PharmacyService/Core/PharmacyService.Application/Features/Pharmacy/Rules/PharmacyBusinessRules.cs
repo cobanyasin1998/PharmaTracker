@@ -1,9 +1,8 @@
-﻿using Coban.Application.Abstractions.Rules;
-using Coban.Infrastructure.Exceptions.ExceptionTypes;
+﻿using Coban.Infrastructure.Exceptions.ExceptionTypes;
 using Coban.Persistence.Repositories.EntityFramework.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using PharmacyService.Application.Features.Pharmacy.Constants;
-using PharmacyService.Application.Features.Pharmacy.Rules.Base;
+using PharmacyService.Application.Features.Pharmacy.Rules.Abstractions;
 
 namespace PharmacyService.Application.Features.Pharmacy.Rules;
 

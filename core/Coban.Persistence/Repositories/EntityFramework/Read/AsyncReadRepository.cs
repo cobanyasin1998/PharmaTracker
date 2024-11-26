@@ -19,7 +19,7 @@ public class AsyncReadRepository<TEntity, TContext>
     }
     public DbSet<TEntity> Table => Context.Set<TEntity>();
 
-    public async Task<TEntity?> GetByIdAsync(int id, bool tracking = true, CancellationToken cancellationToken = default)
+    public async Task<TEntity?> GetByIdAsync(long id, bool tracking = true, CancellationToken cancellationToken = default)
     {
         var query = Table.AsQueryable();
         if (!tracking)

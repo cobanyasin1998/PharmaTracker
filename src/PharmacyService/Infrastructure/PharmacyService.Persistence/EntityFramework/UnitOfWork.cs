@@ -28,6 +28,10 @@ public class UnitOfWork : IUnitOfWork
     public IAsyncReadRepository<PharmacyEntity> AsyncPharmacyReadRepository 
         => new AsyncReadRepository<PharmacyEntity, PharmacyDbContext>(_context);
 
-    public async Task<int> SaveChangesAsync() 
-        => await _context.SaveChangesAsync();
+    public int SaveChanges() 
+        => _context.SaveChanges();
+
+
+    public async Task<int> SaveChangesAsync(CancellationToken cancellationToken) 
+        => await _context.SaveChangesAsync(cancellationToken);
 }
