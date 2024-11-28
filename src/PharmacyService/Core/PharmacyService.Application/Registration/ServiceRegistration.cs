@@ -1,6 +1,7 @@
 ﻿using Coban.Application.Abstractions.Rules;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using PharmacyService.Application.Features.Pharmacy.Queries.GetAll.Specification.Factory;
 using System.Reflection;
 
 namespace PharmacyService.Application.Registration;
@@ -26,6 +27,9 @@ public static class ServiceRegistration
         });
         //Business Rules servislerinin eklenmesi
         services.AddBusinessRules();
+
+        services.AddScoped<PharmacySpecificationFactory>();
+
     }
     private static IServiceCollection AddBusinessRules(this IServiceCollection services)
     {

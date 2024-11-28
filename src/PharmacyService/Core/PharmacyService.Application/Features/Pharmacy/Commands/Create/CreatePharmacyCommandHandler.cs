@@ -37,7 +37,7 @@ public class CreatePharmacyCommandHandler : IRequestHandler<CreatePharmacyComman
 
         await _unitOfWork.AsyncPharmacyWriteRepository.AddAsync(entity);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
-
+ 
         return Response<CreatePharmacyCommandResponse, GeneralErrorDTO>
             .CreateSuccess(new CreatePharmacyCommandResponse(_dataProtectService.Encrypt(entity.Id)));
     }

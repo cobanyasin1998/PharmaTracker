@@ -1,8 +1,8 @@
 using Coban.Application.Registration;
-using PharmacyService.Application.Registration;
-using PharmacyService.Persistence.Registration;
 using Coban.Infrastructure.Exceptions.Extensions;
 using Coban.Infrastructure.Registration;
+using PharmacyService.Application.Registration;
+using PharmacyService.Persistence.Registration;
 namespace PharmacyService.Presentation;
 
 public class Program
@@ -30,11 +30,24 @@ public class Program
             };
         });
         var app = builder.Build();
+        //using (var scope = app.Services.CreateScope())
+        //{
+        //    var seedManager = scope.ServiceProvider.GetRequiredService<SeedDataManager>();
+
+        //    try
+        //    {
+        //        seedManager.SeedAll(); 
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"An error occurred during seeding: {ex.Message}");
+        //    }
+        //}
 
         if (app.Environment.IsDevelopment())
         {
             app.UseOpenApi();
-            app.UseSwaggerUi(); // Swagger UI ekranýný ekler
+            app.UseSwaggerUi(); 
 
         }
         app.ConfigureCustomExceptionMiddleware();

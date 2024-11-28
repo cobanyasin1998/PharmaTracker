@@ -45,5 +45,10 @@ public sealed class PharmacyDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PharmacyDbContext).Assembly);
+
+
     }
+
+
+    
 }
