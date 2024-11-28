@@ -4,7 +4,7 @@ using MediatR;
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Create;
 
-public class CreatePharmacyCommandRequest : IRequest<IResponse<CreatePharmacyCommandResponse, GeneralErrorDTO>>
+public class CreatePharmacyCommandRequest : IRequest<IResponse<CreatePharmacyCommandResponse, GeneralErrorDto>>
 {
     public String Name { get; set; }
     public String Description { get; set; }

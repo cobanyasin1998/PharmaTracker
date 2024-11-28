@@ -5,7 +5,7 @@ using MediatR;
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Update;
 
-public class UpdatePharmacyCommandRequest : IRequest<IResponse<UpdatePharmacyCommandResponse, GeneralErrorDTO>>
+public class UpdatePharmacyCommandRequest : IRequest<IResponse<UpdatePharmacyCommandResponse, GeneralErrorDto>>
 {
     public EEntityStatus Status { get; set; }
     public String Id { get; set; }

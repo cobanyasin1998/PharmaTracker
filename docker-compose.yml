@@ -58,9 +58,37 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer-data:/data
 
+  # Hangfire Service
+  hangfire:
+    image: mcr.microsoft.com/dotnet/aspnet:7.0
+    container_name: hangfire-app
+    ports:
+      - "5000:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=db;Database=HangfireDB;User=sa;Password=YourPassword123!;
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    depends_on:
+      - db
+
+  # SQL Server Service
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: hangfire-db
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "YourPassword123!"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - mssql_data:/var/opt/mssql
+
 volumes:
   minio-data:
   redis-data:
   postgres-data:
   mongo-data:
   portainer-data:
+  mssql_data:

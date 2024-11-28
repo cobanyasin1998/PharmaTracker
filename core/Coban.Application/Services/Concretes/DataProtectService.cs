@@ -1,5 +1,7 @@
 ﻿using Coban.Application.Services.Abstractions;
+using Coban.Application.Services.Exceptions;
 using Microsoft.AspNetCore.DataProtection;
+
 
 namespace Coban.Application.Services.Concretes;
 
@@ -15,13 +17,13 @@ public class DataProtectService : IDataProtectService
     {
         if (string.IsNullOrWhiteSpace(encryptedText))
         {
-            throw new Exception("Geçersiz Key");
+            throw new DataProtectKeyException("Geçersiz Key");
         }
         string key = _dataProtector.Unprotect(encryptedText);
 
         if (!long.TryParse(key, out long result))
         {
-            throw new Exception("Geçersiz Key");
+            throw new DataProtectKeyException("Geçersiz Key");
 
         }
         return result;

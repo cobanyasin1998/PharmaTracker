@@ -10,11 +10,13 @@ public abstract class ExceptionHandler
        {
            BusinessRuleException businessRuleException => HandleException(businessRuleException, context),
            ValidationRuleException validationRuleException => HandleException(validationRuleException, context),
+           DataProtectKeyException dataProtectKeyException => HandleException(dataProtectKeyException, context),
            _ => HandleException(exception, context)
        };
 
     protected abstract Task HandleException(BusinessRuleException exception, HttpContext context);
     protected abstract Task HandleException(ValidationRuleException exception, HttpContext context);
+    protected abstract Task HandleException(DataProtectKeyException exception, HttpContext context);
     protected abstract Task HandleException(System.Exception exception, HttpContext context);
 
 }

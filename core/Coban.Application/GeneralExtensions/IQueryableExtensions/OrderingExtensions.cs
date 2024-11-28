@@ -23,9 +23,8 @@ public static class OrderingExtensions
             var property = Expression.Property(param, propertyName);
             var sortExpression = Expression.Lambda(property, param);
 
-            string methodName = ascending
-                ? (i == 0 ? "OrderBy" : "ThenBy")
-                : (i == 0 ? "OrderByDescending" : "ThenByDescending");
+            string methodName = AscendingOrDescending(ascending, i);
+
 
             var resultExpression = Expression.Call(
                 typeof(Queryable),
@@ -38,6 +37,11 @@ public static class OrderingExtensions
         }
 
         return orderedQuery ?? query;
+    }
+    private static string AscendingOrDescending(bool ascending, int i)
+    {
+        var baseMethod = i == 0 ? "OrderBy" : "ThenBy";
+        return ascending ? baseMethod : $"{baseMethod}Descending";
     }
 
     public static IQueryable<T> ApplyOrdering<T>(

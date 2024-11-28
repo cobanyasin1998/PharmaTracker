@@ -11,7 +11,7 @@ using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Create;
 
-public class CreatePharmacyCommandHandler : IRequestHandler<CreatePharmacyCommandRequest, IResponse<CreatePharmacyCommandResponse, GeneralErrorDTO>>
+public class CreatePharmacyCommandHandler : IRequestHandler<CreatePharmacyCommandRequest, IResponse<CreatePharmacyCommandResponse, GeneralErrorDto>>
 {
     private readonly IMapper _mapper;
     private readonly IDataProtectService _dataProtectService;
@@ -26,7 +26,7 @@ public class CreatePharmacyCommandHandler : IRequestHandler<CreatePharmacyComman
         _pharmacyBusinessRules = pharmacyBusinessRules;
     }
 
-    public async Task<IResponse<CreatePharmacyCommandResponse, GeneralErrorDTO>> Handle(CreatePharmacyCommandRequest request, CancellationToken cancellationToken)
+    public async Task<IResponse<CreatePharmacyCommandResponse, GeneralErrorDto>> Handle(CreatePharmacyCommandRequest request, CancellationToken cancellationToken)
     {
         await BusinessRuleValidator.CheckRulesAsync(
                   () => _pharmacyBusinessRules.IsPharmacyNameUnique(request.Name),
@@ -38,7 +38,7 @@ public class CreatePharmacyCommandHandler : IRequestHandler<CreatePharmacyComman
         await _unitOfWork.AsyncPharmacyWriteRepository.AddAsync(entity);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
  
-        return Response<CreatePharmacyCommandResponse, GeneralErrorDTO>
+        return Response<CreatePharmacyCommandResponse, GeneralErrorDto>
             .CreateSuccess(new CreatePharmacyCommandResponse(_dataProtectService.Encrypt(entity.Id)));
     }
 }

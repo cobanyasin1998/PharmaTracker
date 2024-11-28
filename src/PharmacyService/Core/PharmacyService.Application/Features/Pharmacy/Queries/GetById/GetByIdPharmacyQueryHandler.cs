@@ -9,7 +9,7 @@ using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.Pharmacy.Queries.GetById;
 
-public class GetByIdPharmacyQueryHandler : IRequestHandler<GetByIdPharmacyQueryRequest, IResponse<GetByIdPharmacyQueryResponse, GeneralErrorDTO>>
+public class GetByIdPharmacyQueryHandler : IRequestHandler<GetByIdPharmacyQueryRequest, IResponse<GetByIdPharmacyQueryResponse, GeneralErrorDto>>
 {
     private readonly IMapper _mapper;
     private readonly IDataProtectService _dataProtectService;
@@ -22,12 +22,12 @@ public class GetByIdPharmacyQueryHandler : IRequestHandler<GetByIdPharmacyQueryR
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<IResponse<GetByIdPharmacyQueryResponse, GeneralErrorDTO>> Handle(GetByIdPharmacyQueryRequest request, CancellationToken cancellationToken)
+    public async Task<IResponse<GetByIdPharmacyQueryResponse, GeneralErrorDto>> Handle(GetByIdPharmacyQueryRequest request, CancellationToken cancellationToken)
     {
         long id = _dataProtectService.Decrypt(request.Id);
         PharmacyEntity? pharmacyEntity = await _unitOfWork.AsyncPharmacyReadRepository.GetByIdAsync(id, tracking: false, cancellationToken: cancellationToken);
         var dto = _mapper.Map<PharmacyEntity, GetByIdPharmacyQueryResponse>(pharmacyEntity);
 
-        return Response<GetByIdPharmacyQueryResponse, GeneralErrorDTO>.CreateSuccess(dto);
+        return Response<GetByIdPharmacyQueryResponse, GeneralErrorDto>.CreateSuccess(dto);
     }
 }

@@ -8,7 +8,7 @@ using PharmacyService.Application.Features.Pharmacy.Queries.GetAll.RequestDto;
 
 namespace PharmacyService.Application.Features.Pharmacy.Queries.GetAll;
 
-public class GetAllPharmacyQueryRequest : Paging, IRequest<IResponse<GetAllPharmacyQueryResponse, GeneralErrorDTO>>
+public class GetAllPharmacyQueryRequest : Paging, IRequest<IResponse<GetAllPharmacyQueryResponse, GeneralErrorDto>>
 {
     public List<FilterGroup>? CustomFilters { get; set; }
     public List<Sorting>? CustomSorting { get; set; }

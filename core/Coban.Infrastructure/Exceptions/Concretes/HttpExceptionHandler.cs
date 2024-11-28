@@ -11,10 +11,10 @@ public class HttpExceptionHandler : ExceptionHandler
 {
     protected override Task HandleException(BusinessRuleException exception, HttpContext context)
     {
-        Response<object, GeneralErrorDTO> response =  Response<object, GeneralErrorDTO>.CreateFailure(
-            errors: new List<GeneralErrorDTO>
+        Response<object, GeneralErrorDto> response =  Response<object, GeneralErrorDto>.CreateFailure(
+            errors: new List<GeneralErrorDto>
             {
-                new GeneralErrorDTO(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
+                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
             },
             message: exception.Message,
             errorType: ErrorType.BusinessRuleViolation,
@@ -27,10 +27,10 @@ public class HttpExceptionHandler : ExceptionHandler
 
     protected override Task HandleException(ValidationRuleException exception, HttpContext context)
     {
-        Response<object, GeneralErrorDTO> response = Response<object, GeneralErrorDTO>.CreateFailure(
-             errors: new List<GeneralErrorDTO>
+        Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
+             errors: new List<GeneralErrorDto>
              {
-                new GeneralErrorDTO(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
+                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
              },
              message: exception.Message,
              errorType: ErrorType.BusinessRuleViolation,
@@ -42,15 +42,30 @@ public class HttpExceptionHandler : ExceptionHandler
 
     protected override Task HandleException(Exception exception, HttpContext context)
     {
-        Response<object, GeneralErrorDTO> response = Response<object, GeneralErrorDTO>.CreateFailure(
-           errors: new List<GeneralErrorDTO>
+        Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
+           errors: new List<GeneralErrorDto>
            {
-                new GeneralErrorDTO(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
+                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
            },
            message: exception.Message,
            errorType: ErrorType.BusinessRuleViolation,
            httpStatusCode: 400
            );
+
+        return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+    }
+
+    protected override Task HandleException(DataProtectKeyException exception, HttpContext context)
+    {
+        Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
+            errors: new List<GeneralErrorDto>
+            {
+                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
+            },
+            message: exception.Message,
+            errorType: ErrorType.BusinessRuleViolation,
+            httpStatusCode: 400
+            );
 
         return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
     }

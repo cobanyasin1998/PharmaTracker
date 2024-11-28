@@ -11,7 +11,7 @@ using PharmacyService.Application.Features.Pharmacy.Rules.Abstractions;
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Update;
 
-public class UpdatePharmacyCommandHandler : IRequestHandler<UpdatePharmacyCommandRequest, IResponse<UpdatePharmacyCommandResponse, GeneralErrorDTO>>
+public class UpdatePharmacyCommandHandler : IRequestHandler<UpdatePharmacyCommandRequest, IResponse<UpdatePharmacyCommandResponse, GeneralErrorDto>>
 {
     private readonly IMapper _mapper;
     private readonly IDataProtectService _dataProtectService;
@@ -26,7 +26,7 @@ public class UpdatePharmacyCommandHandler : IRequestHandler<UpdatePharmacyComman
         _pharmacyBusinessRules = pharmacyBusinessRules;
     }
 
-    public async Task<IResponse<UpdatePharmacyCommandResponse, GeneralErrorDTO>> Handle(UpdatePharmacyCommandRequest request, CancellationToken cancellationToken)
+    public async Task<IResponse<UpdatePharmacyCommandResponse, GeneralErrorDto>> Handle(UpdatePharmacyCommandRequest request, CancellationToken cancellationToken)
     {
         long id = _dataProtectService.Decrypt(request.Id);
 
@@ -57,7 +57,7 @@ public class UpdatePharmacyCommandHandler : IRequestHandler<UpdatePharmacyComman
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         // Başarılı Yanıt Dönülmesi
-        return Response<UpdatePharmacyCommandResponse, GeneralErrorDTO>
+        return Response<UpdatePharmacyCommandResponse, GeneralErrorDto>
             .CreateSuccess(new UpdatePharmacyCommandResponse(_dataProtectService.Encrypt(entity.Id)));
     }
 }

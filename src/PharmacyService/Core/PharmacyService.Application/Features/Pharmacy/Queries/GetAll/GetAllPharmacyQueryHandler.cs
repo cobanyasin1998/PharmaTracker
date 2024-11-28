@@ -1,6 +1,5 @@
 ﻿using Coban.Application.GeneralExtensions.IQueryableExtensions;
 using Coban.Application.Requests.Filter.Dynamic.Extensions;
-using Coban.Application.Requests.Filter.Dynamic.QueryRequest.Dto;
 using Coban.Application.Requests.Filter.Specification.Extensions;
 using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
@@ -14,7 +13,7 @@ using System.Linq.Expressions;
 
 namespace PharmacyService.Application.Features.Pharmacy.Queries.GetAll;
 
-public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryRequest, IResponse<GetAllPharmacyQueryResponse, GeneralErrorDTO>>
+public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryRequest, IResponse<GetAllPharmacyQueryResponse, GeneralErrorDto>>
 {
 
     private readonly IDataProtectService _dataProtectService;
@@ -28,7 +27,7 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
         _specificationFactory = specificationFactory;
     }
 
-    public async Task<IResponse<GetAllPharmacyQueryResponse, GeneralErrorDTO>> Handle(GetAllPharmacyQueryRequest request, CancellationToken cancellationToken)
+    public async Task<IResponse<GetAllPharmacyQueryResponse, GeneralErrorDto>> Handle(GetAllPharmacyQueryRequest request, CancellationToken cancellationToken)
     {
         var query = _unitOfWork.AsyncPharmacyReadRepository.GetAll(tracking: false);
 
@@ -56,7 +55,7 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
 
         int totalCount = await query.CountAsync();
         int totalPage = (int)Math.Ceiling((double)totalCount / pharmacyList.Count);
-        return Response<GetAllPharmacyQueryResponse, GeneralErrorDTO>.CreateSuccess(new GetAllPharmacyQueryResponse
+        return Response<GetAllPharmacyQueryResponse, GeneralErrorDto>.CreateSuccess(new GetAllPharmacyQueryResponse
         {
             TotalCount = totalCount,
             Result = pharmacyList,

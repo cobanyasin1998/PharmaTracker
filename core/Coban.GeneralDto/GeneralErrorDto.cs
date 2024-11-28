@@ -1,3 +1,3 @@
 ﻿namespace Coban.GeneralDto;
 
-public record GeneralErrorDTO(string ErrorMessage, string Details);
+public record GeneralErrorDto(string ErrorMessage, string Details);
