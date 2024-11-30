@@ -7,21 +7,16 @@ namespace Coban.Presentation.Controllers.Abstractions;
 [Route("api/[controller]/[action]")]
 [ApiController]
 public abstract class AbstractController<
-    TCreateReq, TCreateRes,
-    TUpdateReq, TUpdateRes,
-     TDeleteReq, TDeleteRes,
-    TGetByIdReq, TGetByIdRes,
-    TGetAllReq, TGetAllRes> : BaseController,
+    TCreateReq,
+    TUpdateReq,
+     TDeleteReq,
+    TGetByIdReq,
+    TGetAllReq> : BaseController,
     ICreateController<TCreateReq>,
     IUpdateController<TUpdateReq>,
     IDeleteController<TDeleteReq>,
     IGetByIdController<TGetByIdReq>,
     IGetAllController<TGetAllReq>
-    where TCreateRes : IResponseBase
-    where TUpdateRes : IResponseBase
-    where TDeleteRes : IResponseBase
-    where TGetByIdRes : IResponseBase
-    where TGetAllRes: IResponseBase
 {
     [HttpPost]
     public virtual async Task<IActionResult> Create([FromBody] TCreateReq request)

@@ -36,7 +36,7 @@ public static class OrderingExtensions
             orderedQuery = (IOrderedQueryable<T>)query.Provider.CreateQuery<T>(resultExpression);
         }
 
-        return orderedQuery ?? query;
+        return orderedQuery;
     }
     private static string AscendingOrDescending(bool ascending, int i)
     {
@@ -63,6 +63,6 @@ public static class OrderingExtensions
                 : (ascending ? orderedQuery.ThenBy(keySelector) : orderedQuery.ThenByDescending(keySelector));
         }
 
-        return orderedQuery ?? query;
+        return orderedQuery;
     }
 }

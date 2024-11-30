@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PharmacyService.Application.Features.Pharmacy.Constants;
 using PharmacyService.Domain.Entities;
 using PharmacyService.Persistence.Consts;
 

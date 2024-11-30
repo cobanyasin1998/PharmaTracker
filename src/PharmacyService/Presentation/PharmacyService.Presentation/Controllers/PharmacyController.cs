@@ -12,11 +12,11 @@ namespace PharmacyService.Presentation.Controllers;
 
 
 public class PharmacyController : Coban.Presentation.Controllers.Abstractions.AbstractController<
-    CreatePharmacyCommandRequest, IResponse<CreatePharmacyCommandResponse, GeneralErrorDto>,
-    UpdatePharmacyCommandRequest, IResponse<UpdatePharmacyCommandResponse, GeneralErrorDto>,
-    DeletePharmacyCommandRequest, IResponse<DeletePharmacyCommandResponse, GeneralErrorDto>,
-    GetByIdPharmacyQueryRequest, IResponse<GetByIdPharmacyQueryResponse, GeneralErrorDto>,
-    GetAllPharmacyQueryRequest, IResponse<GetAllPharmacyQueryResponse, GeneralErrorDto>
+    CreatePharmacyCommandRequest, 
+    UpdatePharmacyCommandRequest, 
+    DeletePharmacyCommandRequest,
+    GetByIdPharmacyQueryRequest,
+    GetAllPharmacyQueryRequest
     >
 {
     [HttpPost]
