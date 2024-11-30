@@ -8,20 +8,20 @@ namespace PharmacyService.Application.Features.Pharmacy.Queries.GetAll.Specifica
 
 public class PharmacySpecificationFactory
 {
-    public ISpecification<PharmacyEntity> GetNameSpecification(string? name)
+    public static ISpecification<PharmacyEntity> GetNameSpecification(string? name)
     {
         return string.IsNullOrEmpty(name)
             ? new NullSpecification<PharmacyEntity>()
             : new PharmacyNameSpecification(name);
     }
 
-    public ISpecification<PharmacyEntity> GetStatusSpecification(EEntityStatus? status)
+    public static ISpecification<PharmacyEntity> GetStatusSpecification(EEntityStatus? status)
     {
         return status == null
             ? new NullSpecification<PharmacyEntity>()
             : new PharmacyStatusSpecification(status.Value);
     }
-    public ISpecification<PharmacyEntity> GetLicenseNumberSpecification(string? licenseNumber)
+    public static ISpecification<PharmacyEntity> GetLicenseNumberSpecification(string? licenseNumber)
     {
         return string.IsNullOrEmpty(licenseNumber)
             ? new NullSpecification<PharmacyEntity>()

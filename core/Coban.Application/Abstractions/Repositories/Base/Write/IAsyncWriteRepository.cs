@@ -2,7 +2,7 @@
 
 namespace Coban.Application.Abstractions.Repositories.Base.Write;
 
-public interface IAsyncWriteRepository<T> where T : BaseEntity
+public interface IAsyncWriteRepository<in T> where T : BaseEntity
 {
     Task<bool> AddAsync(T entity);
     Task AddManyAsync(IEnumerable<T> entities);

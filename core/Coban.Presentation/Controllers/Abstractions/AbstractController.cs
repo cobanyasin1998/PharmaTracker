@@ -51,7 +51,7 @@ public abstract class AbstractController<
         var response = await Mediator!.Send(request);
         return HandleResponse((IResponseBase)response);
     }
-
+    [HttpPost]
     public virtual async Task<IActionResult> Delete([FromBody] TDeleteReq deleteRequest)
     {
         var response = await Mediator!.Send(deleteRequest);

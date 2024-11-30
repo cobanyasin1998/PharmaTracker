@@ -1,6 +1,6 @@
 ﻿namespace Coban.Consts;
 
-public class GeneralOperationConsts
+public static class GeneralOperationConsts
 {
     public const string OperationSuccessfull = "Operation successfull";
     public const string OperationFailed = "Operation failed";

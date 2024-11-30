@@ -1,6 +1,6 @@
 ﻿namespace Coban.Application.Responses.Base.Enums;
 
-public enum ErrorType : int
+public enum ErrorType :uint
 {
     // 400 - Client Errors
     BadRequest = 400,

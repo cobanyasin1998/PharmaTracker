@@ -2,7 +2,7 @@
 
 namespace Coban.Application.Abstractions.Repositories.Base.Write;
 
-public interface IWriteRepository<T> where T : BaseEntity
+public interface IWriteRepository<in T> where T : BaseEntity
 {
     bool Add(T entity);
     void AddMany(IEnumerable<T> entities);

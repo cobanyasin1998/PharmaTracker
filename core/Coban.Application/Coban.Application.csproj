@@ -17,4 +17,8 @@
 	  <ProjectReference Include="..\Coban.Domain\Coban.Domain.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Responses\Extensions\" />
+	</ItemGroup>
+
 </Project>

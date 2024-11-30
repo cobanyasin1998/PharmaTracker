@@ -15,7 +15,7 @@ public class SeedDataManager
     {
         foreach (var seedService in _seedDataServices)
         {
-            var result = seedService.SeedEntityData(count);
+            _ = seedService.SeedEntityData(count);
         }
     }
 }
