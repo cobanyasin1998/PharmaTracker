@@ -4,7 +4,7 @@ namespace PharmacyService.Domain.Entities;
 
 public class PharmacyBranchEntity : BaseEntity
 {
-    public string BranchName { get; set; }
+    public string Name { get; set; }
     public long PharmacyEntityId { get; set; }
     public PharmacyEntity PharmacyEntity { get; set; }
 

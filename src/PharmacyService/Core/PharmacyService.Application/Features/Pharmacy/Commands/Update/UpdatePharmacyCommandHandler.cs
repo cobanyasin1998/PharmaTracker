@@ -35,7 +35,7 @@ public class UpdatePharmacyCommandHandler : IRequestHandler<UpdatePharmacyComman
             () => _pharmacyBusinessRules.IsPharmacyLicenseNumberUnique(request.LicenseNumber, id)
         );
 
-        var entity = await _unitOfWork.AsyncPharmacyReadRepository
+        var entity = await _unitOfWork.PharmacyReadRepository
             .GetWhere(y => y.Id == id, tracking: true)
             .FirstOrDefaultAsync(cancellationToken);
 
@@ -53,7 +53,7 @@ public class UpdatePharmacyCommandHandler : IRequestHandler<UpdatePharmacyComman
         
 
         // Veritabanında Güncelleme ve Kaydetme
-        _unitOfWork.AsyncPharmacyWriteRepository.Update(entity);
+        _unitOfWork.PharmacyWriteRepository.Update(entity);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         // Başarılı Yanıt Dönülmesi

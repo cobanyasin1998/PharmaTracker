@@ -29,13 +29,13 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
 
     public async Task<IResponse<GetAllPharmacyQueryResponse, GeneralErrorDto>> Handle(GetAllPharmacyQueryRequest request, CancellationToken cancellationToken)
     {
-        var query = _unitOfWork.AsyncPharmacyReadRepository.GetAll(tracking: false);
+        var query = _unitOfWork.PharmacyReadRepository.GetAll(tracking: false);
 
 
         List<GetAllPharmacyQueryResponseItemDto> pharmacyList = await query
-            //.ApplySpecification(_specificationFactory.GetNameSpecification(request.RequestFilterDto?.Name))
-            //.ApplySpecification(_specificationFactory.GetStatusSpecification(request.RequestFilterDto?.Status))
-            //.ApplySpecification(_specificationFactory.GetLicenseNumberSpecification(request.RequestFilterDto?.LicenseNumber))
+            .ApplySpecification(_specificationFactory.GetNameSpecification(request.RequestFilterDto?.Name))
+            .ApplySpecification(_specificationFactory.GetStatusSpecification(request.RequestFilterDto?.Status))
+            .ApplySpecification(_specificationFactory.GetLicenseNumberSpecification(request.RequestFilterDto?.LicenseNumber))
             .ApplyFilters(request.CustomFilters)
             .ApplyOrdering(orderByProperties: request.CustomSorting)            
             .Select(p => new GetAllPharmacyQueryResponseItemDto

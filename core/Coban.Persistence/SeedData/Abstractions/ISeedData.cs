@@ -2,5 +2,5 @@
 
 public interface ISeedData
 {
-    int SeedEntityData(int count = 5000);
+    Task<int> SeedEntityData(int count = 5000);
 }

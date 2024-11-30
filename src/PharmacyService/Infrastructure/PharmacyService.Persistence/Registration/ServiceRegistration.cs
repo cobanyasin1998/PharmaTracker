@@ -15,7 +15,7 @@ public static class ServiceRegistration
         DatabaseConnection(services, postgresqlConn);
 
         services.AddScoped<ISeedData, PharmacySeedData>();
-       services.AddScoped<SeedDataManager>();
+        services.AddScoped<SeedDataManager>();
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

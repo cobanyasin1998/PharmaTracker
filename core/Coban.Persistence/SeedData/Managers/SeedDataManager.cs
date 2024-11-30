@@ -11,11 +11,11 @@ public class SeedDataManager
         _seedDataServices = seedDataServices;
     }
 
-    public void SeedAll(int count = 5000)
+    public async Task SeedAll(int count = 5000)
     {
         foreach (var seedService in _seedDataServices)
         {
-            _ = seedService.SeedEntityData(count);
+            _ = await seedService.SeedEntityData(count);
         }
     }
 }

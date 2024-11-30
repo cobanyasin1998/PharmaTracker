@@ -15,7 +15,7 @@ public class PharmacySeedData : ISeedData
         _unitOfWork = unitOfWork;
     }
 
-    public int SeedEntityData(int count = 5000)
+    public async Task<int> SeedEntityData(int count = 5000)
     {
         var generatedLicenseNumbers = new HashSet<string>();
         var generatedNames = new HashSet<string>();
@@ -47,7 +47,7 @@ public class PharmacySeedData : ISeedData
             .RuleFor(p => p.Status, f => EEntityStatus.Active);
 
         var addedPharmacyEntities = pharmacyFaker.Generate(count);
-        _unitOfWork.PharmacyWriteRepository.AddMany(addedPharmacyEntities);
+       await  _unitOfWork.PharmacyWriteRepository.AddManyAsync(addedPharmacyEntities);
         return _unitOfWork.SaveChanges();
     }
 }

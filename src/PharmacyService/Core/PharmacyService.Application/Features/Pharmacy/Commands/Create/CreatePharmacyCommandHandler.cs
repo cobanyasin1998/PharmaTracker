@@ -35,7 +35,7 @@ public class CreatePharmacyCommandHandler : IRequestHandler<CreatePharmacyComman
 
         PharmacyEntity entity = _mapper.Map<CreatePharmacyCommandRequest, PharmacyEntity>(request);
 
-        await _unitOfWork.AsyncPharmacyWriteRepository.AddAsync(entity);
+        await _unitOfWork.PharmacyWriteRepository.AddAsync(entity);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
  
         return Response<CreatePharmacyCommandResponse, GeneralErrorDto>

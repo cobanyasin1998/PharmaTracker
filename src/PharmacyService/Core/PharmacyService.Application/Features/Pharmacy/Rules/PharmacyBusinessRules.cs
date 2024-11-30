@@ -15,7 +15,7 @@ public class PharmacyBusinessRules : IPharmacyBusinessRule
 
     public async Task IsPharmacyNameUnique(string Name)
     {
-        bool isExists = await _unitOfWork.AsyncPharmacyReadRepository
+        bool isExists = await _unitOfWork.PharmacyReadRepository
             .GetWhere(
                 predicate: pharmacy => pharmacy.Name.ToLower() == Name.ToLower(),
                 tracking: false)
@@ -27,7 +27,7 @@ public class PharmacyBusinessRules : IPharmacyBusinessRule
     }
     public async Task IsPharmacyNameUnique(string Name, long Id)
     {
-        bool isExists = await _unitOfWork.AsyncPharmacyReadRepository
+        bool isExists = await _unitOfWork.PharmacyReadRepository
             .GetWhere(
                 predicate: pharmacy => pharmacy.Name.ToLower() == Name.ToLower() && pharmacy.Id != Id,
                 tracking: false)
@@ -39,7 +39,7 @@ public class PharmacyBusinessRules : IPharmacyBusinessRule
     }
     public async Task IsPharmacyLicenseNumberUnique(string LicenseNumber)
     {
-        bool isExists = await _unitOfWork.AsyncPharmacyReadRepository
+        bool isExists = await _unitOfWork.PharmacyReadRepository
             .GetWhere(
                 predicate: pharmacy => pharmacy.LicenseNumber.ToLower() == LicenseNumber.ToLower(),
                 tracking: false)
@@ -51,7 +51,7 @@ public class PharmacyBusinessRules : IPharmacyBusinessRule
     }
     public async Task IsPharmacyLicenseNumberUnique(string LicenseNumber, long Id)
     {
-        bool isExists = await _unitOfWork.AsyncPharmacyReadRepository
+        bool isExists = await _unitOfWork.PharmacyReadRepository
             .GetWhere(
                 predicate: pharmacy => pharmacy.LicenseNumber.ToLower() == LicenseNumber.ToLower() && pharmacy.Id != Id,
                 tracking: false)
