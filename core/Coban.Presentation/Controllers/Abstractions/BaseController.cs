@@ -22,7 +22,7 @@ public class BaseController : ControllerBase
             StatusCodes.Status404NotFound => NotFound(new { message = result.Message }),
             StatusCodes.Status401Unauthorized => Unauthorized(new { message = result.Message }),
             StatusCodes.Status200OK => Ok(result),
-            _ => StatusCode((int)result.HttpStatusCode, new
+            _ => StatusCode(result.HttpStatusCode, new
             {
                 message = result.Message ?? GeneralOperationConsts.AnUnexpectedErrorOccurred
             })

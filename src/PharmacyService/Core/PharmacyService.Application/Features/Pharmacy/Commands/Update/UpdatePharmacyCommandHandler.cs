@@ -13,14 +13,14 @@ namespace PharmacyService.Application.Features.Pharmacy.Commands.Update;
 
 public class UpdatePharmacyCommandHandler : IRequestHandler<UpdatePharmacyCommandRequest, IResponse<UpdatePharmacyCommandResponse, GeneralErrorDto>>
 {
-    private readonly IMapper _mapper;
+
     private readonly IDataProtectService _dataProtectService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPharmacyBusinessRule _pharmacyBusinessRules;
 
-    public UpdatePharmacyCommandHandler(IMapper mapper, IDataProtectService dataProtectService, IUnitOfWork unitOfWork, IPharmacyBusinessRule pharmacyBusinessRules)
+    public UpdatePharmacyCommandHandler( IDataProtectService dataProtectService, IUnitOfWork unitOfWork, IPharmacyBusinessRule pharmacyBusinessRules)
     {
-        _mapper = mapper;
+      
         _dataProtectService = dataProtectService;
         _unitOfWork = unitOfWork;
         _pharmacyBusinessRules = pharmacyBusinessRules;

@@ -4,7 +4,7 @@ namespace PharmacyService.Application.Features.Pharmacy.Queries.GetAll.RequestDt
 
 public class GetAllPharmacyQueryRequestFilterDto
 {
-    public string Name { get; set; }
-    public string LicenseNumber { get; set; }
+    public string? Name { get; set; }
+    public string? LicenseNumber { get; set; }
     public EEntityStatus? Status { get; set; }
 }

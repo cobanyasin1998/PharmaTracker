@@ -10,9 +10,9 @@ using PharmacyService.Persistence.SeedData;
 namespace PharmacyService.Persistence.Registration;
 public static class ServiceRegistration
 {
-    public static void AddPharmacyPersistenceServices(this IServiceCollection services)
+    public static void AddPharmacyPersistenceServices(this IServiceCollection services,string postgresqlConn)
     {
-        DatabaseConnection(services);
+        DatabaseConnection(services, postgresqlConn);
 
         services.AddScoped<ISeedData, PharmacySeedData>();
        services.AddScoped<SeedDataManager>();
@@ -21,11 +21,11 @@ public static class ServiceRegistration
 
     }
 
-    private static void DatabaseConnection(IServiceCollection services)
+    private static void DatabaseConnection(IServiceCollection services, string postgresqlConn)
     {
         services.AddDbContext<PharmacyDbContext>(opt =>
         {
-            opt.UseNpgsql("User ID=postgres;Password=postgrespassword;Host=localhost;Port=5432;Database=mydatabase;IncludeErrorDetail=true;");
+            opt.UseNpgsql(postgresqlConn);
         });
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PharmacyService.Application.Features.Pharmacy.Constants;
 using PharmacyService.Domain.Entities;
+using PharmacyService.Persistence.Consts;
 
 namespace PharmacyService.Persistence.EntityConfigurations;
 
@@ -12,7 +13,7 @@ public class PharmacyEntityConfiguration : IEntityTypeConfiguration<PharmacyEnti
         builder
             .HasIndex(
                 indexExpression: pharmacy => pharmacy.Name, 
-                name: PharmacyConstants.PharmancyNameIndex)
+                name: PharmacyPersistenceConsts.PharmancyNameIndex)
             .IsUnique();
     }
 }
