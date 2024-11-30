@@ -2,7 +2,7 @@
 
 namespace Coban.Presentation.Controllers.Abstractions.Base.BaseCRUD;
 
-public interface ICreateController<TCreateReq, TCreateRes> : IBaseController
+public interface ICreateController<TCreateReq> : IBaseController
 {
     Task<IActionResult> Create([FromBody] TCreateReq request);
 }

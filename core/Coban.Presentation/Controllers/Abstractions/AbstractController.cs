@@ -12,11 +12,11 @@ public abstract class AbstractController<
      TDeleteReq, TDeleteRes,
     TGetByIdReq, TGetByIdRes,
     TGetAllReq, TGetAllRes> : BaseController,
-    ICreateController<TCreateReq, TCreateRes>,
-    IUpdateController<TUpdateReq, TUpdateRes>,
-    IDeleteController<TDeleteReq, TDeleteRes>,
-    IGetByIdController<TGetByIdReq, TGetByIdRes>,
-    IGetAllController<TGetAllReq, TGetAllRes>
+    ICreateController<TCreateReq>,
+    IUpdateController<TUpdateReq>,
+    IDeleteController<TDeleteReq>,
+    IGetByIdController<TGetByIdReq>,
+    IGetAllController<TGetAllReq>
     where TCreateRes : IResponseBase
     where TUpdateRes : IResponseBase
     where TDeleteRes : IResponseBase

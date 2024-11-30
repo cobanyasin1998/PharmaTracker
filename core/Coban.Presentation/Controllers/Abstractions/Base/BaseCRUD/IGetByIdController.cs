@@ -2,7 +2,7 @@
 
 namespace Coban.Presentation.Controllers.Abstractions.Base.BaseCRUD;
 
-public interface IGetByIdController<TGetByIdReq, TGetByIdRes> : IBaseController
+public interface IGetByIdController<TGetByIdReq> : IBaseController
 {
     Task<IActionResult> GetById([FromBody] TGetByIdReq getByIdRequest);
 }
