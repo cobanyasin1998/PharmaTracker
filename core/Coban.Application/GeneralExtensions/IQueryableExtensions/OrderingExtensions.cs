@@ -6,8 +6,8 @@ namespace Coban.Application.GeneralExtensions.IQueryableExtensions;
 public static class OrderingExtensions
 {
     public static IQueryable<T> ApplyOrdering<T>(
-       this IQueryable<T> query,
-       List<Sorting> orderByProperties)
+        this IQueryable<T> query,
+        List<Sorting> orderByProperties)
     {
         if (orderByProperties == null || !orderByProperties.Any())
             return query;
@@ -25,7 +25,6 @@ public static class OrderingExtensions
 
             string methodName = AscendingOrDescending(ascending, i);
 
-
             var resultExpression = Expression.Call(
                 typeof(Queryable),
                 methodName,
@@ -37,11 +36,6 @@ public static class OrderingExtensions
         }
 
         return orderedQuery;
-    }
-    private static string AscendingOrDescending(bool ascending, int i)
-    {
-        var baseMethod = i == 0 ? "OrderBy" : "ThenBy";
-        return ascending ? baseMethod : $"{baseMethod}Descending";
     }
 
     public static IQueryable<T> ApplyOrdering<T>(
@@ -58,11 +52,21 @@ public static class OrderingExtensions
             var keySelector = keySelectors[i].KeySelector;
             var ascending = keySelectors[i].Ascending;
 
-            orderedQuery = i == 0
-                ? (ascending ? query.OrderBy(keySelector) : query.OrderByDescending(keySelector))
-                : (ascending ? orderedQuery.ThenBy(keySelector) : orderedQuery.ThenByDescending(keySelector));
+            string methodName = AscendingOrDescending(ascending, i);
+
+            orderedQuery = (IOrderedQueryable<T>)typeof(Queryable)
+                .GetMethods()
+                .First(m => m.Name == methodName && m.GetParameters().Length == 2)
+                .MakeGenericMethod(typeof(T), typeof(object))
+                .Invoke(null, new object[] { i == 0 ? query : orderedQuery, keySelector });
         }
 
         return orderedQuery;
+    }
+
+    private static string AscendingOrDescending(bool ascending, int i)
+    {
+        var baseMethod = i == 0 ? "OrderBy" : "ThenBy";
+        return ascending ? baseMethod : $"{baseMethod}Descending";
     }
 }

@@ -28,7 +28,6 @@ public static class ServiceRegistration
         //Business Rules servislerinin eklenmesi
         services.AddBusinessRules();
 
-        services.AddScoped<PharmacySpecificationFactory>();
 
     }
     private static IServiceCollection AddBusinessRules(this IServiceCollection services)
