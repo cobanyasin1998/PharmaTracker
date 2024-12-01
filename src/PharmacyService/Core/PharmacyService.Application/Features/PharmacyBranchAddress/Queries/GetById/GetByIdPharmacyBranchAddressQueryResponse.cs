@@ -2,4 +2,5 @@
 
 public class GetByIdPharmacyBranchAddressQueryResponse
 {
+    public String Id { get; set; }
 }

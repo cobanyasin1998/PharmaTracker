@@ -1,5 +1,8 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranch.Queries.GetAll;
+﻿using Coban.Application.Responses.GetAll;
+using PharmacyService.Application.Features.Pharmacy.Queries.GetAll;
 
-public class GetAllPharmacyBranchQueryResponse
+namespace PharmacyService.Application.Features.PharmacyBranch.Queries.GetAll;
+
+public class GetAllPharmacyBranchQueryResponse : GetAllResponse<GetAllPharmacyBranchQueryResponseItemDto>
 {
 }
