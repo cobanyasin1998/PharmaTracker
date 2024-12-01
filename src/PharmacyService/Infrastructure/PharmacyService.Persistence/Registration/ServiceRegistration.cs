@@ -26,7 +26,7 @@ public static class ServiceRegistration
     {
         services.AddDbContext<PharmacyDbContext>(opt =>
         {
-            opt.UseNpgsql(DatabaseConnectionHelper.GetConnectionStringAsync().GetAwaiter().GetResult());
+            opt.UseNpgsql(Environment.GetEnvironmentVariable("PharmacyServicePostgreSqlConnection"));
         });
     }
 }
