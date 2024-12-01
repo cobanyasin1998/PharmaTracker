@@ -10,5 +10,8 @@ public class UpdatePharmacyBranchCommandRequest : IRequest<IResponse<UpdatePharm
 {
     public EEntityStatus Status { get; set; }
     public String Id { get; set; }
- 
+
+    public string Name { get; set; }
+
+
 }
