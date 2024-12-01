@@ -1,6 +1,4 @@
 ﻿namespace PharmacyService.Application.Features.Pharmacy.Commands.Delete;
 
-public record DeletePharmacyCommandResponse
-{
 
-}
+public record DeletePharmacyCommandResponse(string Id);

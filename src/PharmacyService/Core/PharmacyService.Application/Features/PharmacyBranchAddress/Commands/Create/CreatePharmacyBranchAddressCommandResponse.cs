@@ -1,5 +1,4 @@
 ﻿namespace PharmacyService.Application.Features.PharmacyBranchAddress.Commands.Create;
 
-public class CreatePharmacyBranchAddressCommandResponse
-{
-}
+
+public record CreatePharmacyBranchAddressCommandResponse(string Id);

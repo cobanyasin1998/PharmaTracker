@@ -1,5 +1,5 @@
 ﻿namespace PharmacyService.Application.Features.PharmacyBranchContact.Commands.Create;
 
-public class CreatePharmacyBranchContactCommandResponse
-{
-}
+
+
+public record CreatePharmacyBranchContactCommandResponse(string Id);

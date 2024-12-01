@@ -1,5 +1,13 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranchContact.Commands.Update;
+﻿using FluentValidation;
 
-public class UpdatePharmacyBranchContactCommandValidator
+namespace PharmacyService.Application.Features.PharmacyBranchContact.Commands.Update;
+
+
+
+public class UpdatePharmacyBranchContactCommandValidator : AbstractValidator<UpdatePharmacyBranchContactCommandRequest>
 {
+    public UpdatePharmacyBranchContactCommandValidator()
+    {
+
+    }
 }

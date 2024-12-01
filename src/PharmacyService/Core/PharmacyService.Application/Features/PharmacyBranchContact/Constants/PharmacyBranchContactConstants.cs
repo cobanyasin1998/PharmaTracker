@@ -1,5 +1,5 @@
 ﻿namespace PharmacyService.Application.Features.PharmacyBranchContact.Constants;
 
-public class PharmacyBranchContactConstants
+public static class PharmacyBranchContactConstants
 {
 }

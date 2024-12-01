@@ -1,5 +1,7 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranchAddress.Rules.Abstractions;
+﻿using Coban.Application.Abstractions.Rules;
 
-public class IPharmacyBranchAddressBusinessRule
+namespace PharmacyService.Application.Features.PharmacyBranchAddress.Rules.Abstractions;
+
+public interface IPharmacyBranchAddressBusinessRule : IBaseBusinessRule
 {
 }

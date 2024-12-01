@@ -1,5 +1,13 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranchAddress.Commands.Create;
+﻿using FluentValidation;
 
-public class CreatePharmacyBranchAddressCommandValidator
+namespace PharmacyService.Application.Features.PharmacyBranchAddress.Commands.Create;
+
+
+
+public class CreatePharmacyBranchAddressCommandValidator : AbstractValidator<CreatePharmacyBranchAddressCommandRequest>
 {
+    public CreatePharmacyBranchAddressCommandValidator()
+    {
+
+    }
 }

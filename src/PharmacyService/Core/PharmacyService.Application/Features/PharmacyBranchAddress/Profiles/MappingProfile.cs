@@ -1,5 +1,12 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranchAddress.Profiles;
+﻿using AutoMapper;
 
-public class MappingProfile
+namespace PharmacyService.Application.Features.PharmacyBranchAddress.Profiles;
+
+internal class MappingProfile : Profile
 {
+    public MappingProfile()
+    {
+
+
+    }
 }

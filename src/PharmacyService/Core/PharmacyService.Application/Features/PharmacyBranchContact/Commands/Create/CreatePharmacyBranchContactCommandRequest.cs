@@ -1,5 +1,11 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranchContact.Commands.Create;
+﻿using Coban.Application.Responses.Base.Abstractions;
+using Coban.GeneralDto;
+using MediatR;
 
-public class CreatePharmacyBranchContactCommandRequest
+namespace PharmacyService.Application.Features.PharmacyBranchContact.Commands.Create;
+
+
+public class CreatePharmacyBranchContactCommandRequest : IRequest<IResponse<CreatePharmacyBranchContactCommandResponse, GeneralErrorDto>>
 {
+
 }

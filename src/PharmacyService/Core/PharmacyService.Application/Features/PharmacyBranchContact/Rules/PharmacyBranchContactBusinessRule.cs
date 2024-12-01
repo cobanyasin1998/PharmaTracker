@@ -1,5 +1,7 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranchContact.Rules;
+﻿using PharmacyService.Application.Features.PharmacyBranchContact.Rules.Abstractions;
 
-public class PharmacyBranchContactBusinessRule
+namespace PharmacyService.Application.Features.PharmacyBranchContact.Rules;
+
+public class PharmacyBranchContactBusinessRule : IPharmacyBranchContactBusinessRule
 {
 }
