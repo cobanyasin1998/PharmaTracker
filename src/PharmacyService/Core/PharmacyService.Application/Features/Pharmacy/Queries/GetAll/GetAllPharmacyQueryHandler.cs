@@ -18,13 +18,11 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
 
     private readonly IDataProtectService _dataProtectService;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly PharmacySpecificationFactory _specificationFactory;
 
-    public GetAllPharmacyQueryHandler(IDataProtectService dataProtectService, IUnitOfWork unitOfWork, PharmacySpecificationFactory specificationFactory)
+    public GetAllPharmacyQueryHandler(IDataProtectService dataProtectService, IUnitOfWork unitOfWork)
     {
         _dataProtectService = dataProtectService;
         _unitOfWork = unitOfWork;
-        _specificationFactory = specificationFactory;
     }
 
     public async Task<IResponse<GetAllPharmacyQueryResponse, GeneralErrorDto>> Handle(GetAllPharmacyQueryRequest request, CancellationToken cancellationToken)
@@ -33,9 +31,9 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
 
 
         List<GetAllPharmacyQueryResponseItemDto> pharmacyList = await query
-            .ApplySpecification(_specificationFactory.GetNameSpecification(request.RequestFilterDto?.Name))
-            .ApplySpecification(_specificationFactory.GetStatusSpecification(request.RequestFilterDto?.Status))
-            .ApplySpecification(_specificationFactory.GetLicenseNumberSpecification(request.RequestFilterDto?.LicenseNumber))
+            .ApplySpecification(PharmacySpecificationFactory.GetNameSpecification(request.RequestFilterDto?.Name))
+            .ApplySpecification(PharmacySpecificationFactory.GetStatusSpecification(request.RequestFilterDto?.Status))
+            .ApplySpecification(PharmacySpecificationFactory.GetLicenseNumberSpecification(request.RequestFilterDto?.LicenseNumber))
             .ApplyFilters(request.CustomFilters)
             .ApplyOrdering(orderByProperties: request.CustomSorting)            
             .Select(p => new GetAllPharmacyQueryResponseItemDto

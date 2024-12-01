@@ -1,6 +1,5 @@
 using Coban.Application.Registration;
 using Coban.Infrastructure.Exceptions.Extensions;
-using Coban.Infrastructure.Registration;
 using PharmacyService.Application.Registration;
 using PharmacyService.Persistence.Registration;
 namespace PharmacyService.Presentation;
@@ -16,10 +15,10 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         //Core katmanýndaki servislerin eklenmesi
         builder.Services.AddCoreApplicationServices();
-        builder.Services.AddCoreInfrastructureServices();
+ 
         //Pharmacy katmanýndaki servislerin eklenmesi
         builder.Services.AddPharmacyApplicationServices();
-        builder.Services.AddPharmacyPersistenceServices(builder.Configuration.GetConnectionString("PharmacyDatabase")!);
+        builder.Services.AddPharmacyPersistenceServices();
         builder.Services.AddSwaggerDocument(config =>
         {
             config.PostProcess = document =>
