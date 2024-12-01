@@ -37,7 +37,7 @@ public static class ServiceRegistration
 
         var businessRuleTypes = assembly.GetTypes()
             .Where(type => type.IsClass && !type.IsAbstract)
-            .Where(type => type.GetInterfaces().Any(i => i.Name.StartsWith('I') && typeof(IBaseBusinessRule).IsAssignableFrom(i)));
+            .Where(type => type.GetInterfaces().Any(i => i.Name.StartsWith("I") && typeof(IBaseBusinessRule).IsAssignableFrom(i)));
 
         foreach (var implementationType in businessRuleTypes)
         {

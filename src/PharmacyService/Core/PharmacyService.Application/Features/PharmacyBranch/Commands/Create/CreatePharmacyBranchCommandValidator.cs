@@ -1,16 +1,5 @@
-﻿using Coban.Application.GeneralExtensions.ValidationGeneralExtensions;
-using FluentValidation;
+﻿namespace PharmacyService.Application.Features.PharmacyBranch.Commands.Create;
 
-namespace PharmacyService.Application.Features.PharmacyBranch.Commands.Create;
-
-
-public class CreatePharmacyBranchCommandValidator : AbstractValidator<CreatePharmacyBranchCommandRequest>
+public class CreatePharmacyBranchCommandValidator
 {
-    public CreatePharmacyBranchCommandValidator()
-    {
-        RuleFor(p => p.Name)
-                .ApplyCommonStringRules("Name");
-
-   
-    }
 }
