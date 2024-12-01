@@ -19,7 +19,7 @@ public class Program
         builder.Services.AddCoreInfrastructureServices();
         //Pharmacy katmanýndaki servislerin eklenmesi
         builder.Services.AddPharmacyApplicationServices();
-        builder.Services.AddPharmacyPersistenceServices(builder.Configuration.GetConnectionString("PharmacyDatabase")!);
+        builder.Services.AddPharmacyPersistenceServices();
         builder.Services.AddSwaggerDocument(config =>
         {
             config.PostProcess = document =>

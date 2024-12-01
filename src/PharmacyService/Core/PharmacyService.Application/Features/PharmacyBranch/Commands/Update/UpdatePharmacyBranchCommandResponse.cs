@@ -1,5 +1,4 @@
 ﻿namespace PharmacyService.Application.Features.PharmacyBranch.Commands.Update;
 
-public class UpdatePharmacyBranchCommandResponse
-{
-}
+
+public record UpdatePharmacyBranchCommandResponse(string Id);

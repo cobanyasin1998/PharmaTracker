@@ -3,6 +3,7 @@ using Coban.Persistence.SeedData.Abstractions;
 using Coban.Persistence.SeedData.Managers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using PharmacyService.Persistence.AWSSecret;
 using PharmacyService.Persistence.DbContexts;
 using PharmacyService.Persistence.EntityFramework;
 using PharmacyService.Persistence.SeedData;
@@ -10,9 +11,9 @@ using PharmacyService.Persistence.SeedData;
 namespace PharmacyService.Persistence.Registration;
 public static class ServiceRegistration
 {
-    public static void AddPharmacyPersistenceServices(this IServiceCollection services,string postgresqlConn)
+    public static void AddPharmacyPersistenceServices(this IServiceCollection services)
     {
-        DatabaseConnection(services, postgresqlConn);
+        DatabaseConnection(services);
 
         services.AddScoped<ISeedData, PharmacySeedData>();
         services.AddScoped<SeedDataManager>();
@@ -21,11 +22,11 @@ public static class ServiceRegistration
 
     }
 
-    private static void DatabaseConnection(IServiceCollection services, string postgresqlConn)
+    private static void DatabaseConnection(IServiceCollection services)
     {
         services.AddDbContext<PharmacyDbContext>(opt =>
         {
-            opt.UseNpgsql(postgresqlConn);
+            opt.UseNpgsql(DatabaseConnectionHelper.GetConnectionStringAsync().GetAwaiter().GetResult());
         });
     }
 }
