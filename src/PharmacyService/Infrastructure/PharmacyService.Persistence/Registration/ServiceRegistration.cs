@@ -25,7 +25,7 @@ public static class ServiceRegistration
     {
         services.AddDbContext<PharmacyDbContext>(opt =>
         {
-            opt.UseNpgsql(Environment.GetEnvironmentVariable("PharmacyServicePostgreSqlConnection"));
+            opt.UseNpgsql("Host=localhost;Port=5432;Database=pharmacyServicePostgresDatabase;Username=pharmacyPostgres;Password=dRakyDKVyF5S");
         });
     }
 }

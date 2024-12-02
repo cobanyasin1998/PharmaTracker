@@ -24,7 +24,6 @@ public class HttpExceptionHandler : ExceptionHandler
         return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
 
     }
-
     protected override Task HandleException(ValidationRuleException exception, HttpContext context)
     {
         Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
@@ -39,7 +38,6 @@ public class HttpExceptionHandler : ExceptionHandler
 
         return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
     }
-
     protected override Task HandleException(Exception exception, HttpContext context)
     {
         Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
@@ -54,7 +52,20 @@ public class HttpExceptionHandler : ExceptionHandler
 
         return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
     }
+    protected override Task HandleException(BlackListRuleException exception, HttpContext context)
+    {
+        Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
+            errors: new List<GeneralErrorDto>
+            {
+                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
+            },
+            message: exception.Message,
+            errorType: ErrorType.AccessDenied,
+            httpStatusCode: 400
+            );
 
+        return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+    }
     protected override Task HandleException(DataProtectKeyException exception, HttpContext context)
     {
         Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(

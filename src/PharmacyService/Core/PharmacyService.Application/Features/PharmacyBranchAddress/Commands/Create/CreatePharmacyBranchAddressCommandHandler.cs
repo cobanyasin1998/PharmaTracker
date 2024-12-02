@@ -24,8 +24,13 @@ public class CreatePharmacyBranchAddressCommandHandler : IRequestHandler<CreateP
 
     public async Task<IResponse<CreatePharmacyBranchAddressCommandResponse, GeneralErrorDto>> Handle(CreatePharmacyBranchAddressCommandRequest request, CancellationToken cancellationToken)
     {
-        PharmacyBranchAddressEntity entity = _mapper.Map<CreatePharmacyBranchAddressCommandRequest, PharmacyBranchAddressEntity>(request);
 
+        long decryptedPharmacyBranchEntityId = _dataProtectService.Decrypt(request.PharmacyBranchEntityId);
+
+        request.PharmacyBranchEntityId = null;
+
+        PharmacyBranchAddressEntity entity = _mapper.Map<CreatePharmacyBranchAddressCommandRequest, PharmacyBranchAddressEntity>(request);
+        entity.PharmacyBranchEntityId = decryptedPharmacyBranchEntityId;
         await _unitOfWork.PharmacyBranchAddressWriteRepository.AddAsync(entity);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

@@ -15,5 +15,7 @@ public class CreatePharmacyBranchAddressCommandRequest : IRequest<IResponse<Crea
     public long? StreetId { get; set; }
     public decimal? Latitude { get; set; }
     public decimal? Longitude { get; set; }
+    public string PharmacyBranchEntityId { get; set; }
+
 
 }

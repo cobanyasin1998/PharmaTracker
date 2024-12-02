@@ -13,6 +13,6 @@ public class PharmacyBranchAddressEntity : BaseEntity
     public decimal? Latitude { get; set; }
     public decimal? Longitude { get; set; }
 
-    public long PharmacyBranchEntityBranchId { get; set; }
+    public long PharmacyBranchEntityId { get; set; }
     public PharmacyBranchEntity PharmacyBranchEntity { get; set; }
 }

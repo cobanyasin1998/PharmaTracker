@@ -20,6 +20,7 @@
     <ProjectReference Include="..\..\..\..\core\Coban.GeneralDto\Coban.GeneralDto.csproj" />
     <ProjectReference Include="..\..\..\..\core\Coban.Infrastructure\Coban.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\..\core\Coban.Presentation\Coban.Presentation.csproj" />
+    <ProjectReference Include="..\..\..\..\core\Coban.Security\Coban.Security.csproj" />
     <ProjectReference Include="..\..\Core\PharmacyService.Application\PharmacyService.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\PharmacyService.Persistence\PharmacyService.Persistence.csproj" />
   </ItemGroup>

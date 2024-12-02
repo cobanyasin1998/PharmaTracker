@@ -3,6 +3,7 @@ using Coban.Infrastructure.Exceptions.Extensions;
 using Coban.Persistence.SeedData.Managers;
 using PharmacyService.Application.Registration;
 using PharmacyService.Persistence.Registration;
+using Coban.Security.Middlewares.BlackList;
 namespace PharmacyService.Presentation;
 
 public class Program
@@ -52,6 +53,8 @@ public class Program
 
         }
         app.ConfigureCustomExceptionMiddleware();
+        app.ConfigureCustomBlackListControlMiddleware();
+       
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
