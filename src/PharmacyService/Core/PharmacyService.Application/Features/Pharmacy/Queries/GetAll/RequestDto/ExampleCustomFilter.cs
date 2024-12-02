@@ -4,6 +4,8 @@ namespace PharmacyService.Application.Features.Pharmacy.Queries.GetAll.RequestDt
 
 public class ExampleCustomFilter
 {
+    private const string LicenseNumber = "LicenseNumber";
+    private const string Eq = "equals";
     public List<FilterGroup> ExampleFilter()
     {
         var filters = new List<FilterGroup>()
@@ -15,13 +17,13 @@ public class ExampleCustomFilter
             Filters = new List<Filter>() {
                 new Filter()
                 {
-                    Member = "LicenseNumber",
+                    Member = LicenseNumber,
                     FilterValue = "965-187-3464",
-                    FilterOperator = "equals"
+                    FilterOperator = Eq
                 },
                 new Filter()
                 {
-                    Member = "LicenseNumber",
+                    Member = LicenseNumber,
                     FilterValue = "",
                     FilterOperator = "isnotnull"
                 }
@@ -41,7 +43,7 @@ public class ExampleCustomFilter
                 },
                 new Filter()
                 {
-                    Member = "LicenseNumber",
+                    Member = LicenseNumber,
                     FilterValue = "965-",
                     FilterOperator = "startswith"
                 }
@@ -56,15 +58,15 @@ public class ExampleCustomFilter
                     {
                         new Filter()
                         {
-                            Member = "licenseNumber",
+                            Member = LicenseNumber,
                             FilterValue = "965-304-2032",
-                            FilterOperator = "equals"
+                            FilterOperator = Eq
                         },
                         new Filter()
                         {
-                            Member = "licenseNumber",
+                            Member = LicenseNumber,
                             FilterValue = "965-412-5388",
-                            FilterOperator = "equals"
+                            FilterOperator = Eq
                         }
                     }
                 },
@@ -76,13 +78,13 @@ public class ExampleCustomFilter
                     {
                         new Filter()
                         {
-                            Member = "licenseNumber",
+                            Member = LicenseNumber,
                             FilterValue = "965",
                             FilterOperator = "equals"
                         },
                         new Filter()
                         {
-                            Member = "licenseNumber",
+                            Member = LicenseNumber,
                             FilterValue = "5388",
                             FilterOperator = "endswith"
                         }

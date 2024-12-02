@@ -15,13 +15,11 @@ public class UpdatePharmacyBranchAddressCommandHandler : IRequestHandler<UpdateP
 {
     private readonly IDataProtectService _dataProtectService;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IPharmacyBusinessRule _pharmacyBusinessRules;
 
-    public UpdatePharmacyBranchAddressCommandHandler(IDataProtectService dataProtectService, IUnitOfWork unitOfWork, IPharmacyBusinessRule pharmacyBusinessRules)
+    public UpdatePharmacyBranchAddressCommandHandler(IDataProtectService dataProtectService, IUnitOfWork unitOfWork)
     {
         _dataProtectService = dataProtectService;
         _unitOfWork = unitOfWork;
-        _pharmacyBusinessRules = pharmacyBusinessRules;
     }
 
     public async Task<IResponse<UpdatePharmacyBranchAddressCommandResponse, GeneralErrorDto>> Handle(UpdatePharmacyBranchAddressCommandRequest request, CancellationToken cancellationToken)
