@@ -2,7 +2,7 @@
 using Coban.Application.Abstractions.Repositories.Base.Write;
 using PharmacyService.Domain.Entities;
 
-namespace Coban.Persistence.Repositories.EntityFramework.Abstractions;
+namespace PharmacyService.Application.Abstractions.UnitOfWork;
 public interface IUnitOfWork
 {
     //Save Methods
@@ -14,7 +14,7 @@ public interface IUnitOfWork
 
     //Pharmacy Branch Entity Repository
     IAsyncWriteRepository<PharmacyBranchEntity> PharmacyBranchWriteRepository { get; }
-    IAsyncReadRepository<PharmacyBranchEntity>PharmacyBranchReadRepository { get; }
+    IAsyncReadRepository<PharmacyBranchEntity> PharmacyBranchReadRepository { get; }
 
     //Pharmacy Branch Contact Entity Repository
     IAsyncWriteRepository<PharmacyBranchContactEntity> PharmacyBranchContactWriteRepository { get; }

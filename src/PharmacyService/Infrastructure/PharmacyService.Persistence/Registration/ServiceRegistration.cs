@@ -1,8 +1,8 @@
-﻿using Coban.Persistence.Repositories.EntityFramework.Abstractions;
-using Coban.Persistence.SeedData.Abstractions;
+﻿using Coban.Persistence.SeedData.Abstractions;
 using Coban.Persistence.SeedData.Managers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using PharmacyService.Application.Abstractions.UnitOfWork;
 using PharmacyService.Persistence.DbContexts;
 using PharmacyService.Persistence.EntityFramework;
 using PharmacyService.Persistence.SeedData;

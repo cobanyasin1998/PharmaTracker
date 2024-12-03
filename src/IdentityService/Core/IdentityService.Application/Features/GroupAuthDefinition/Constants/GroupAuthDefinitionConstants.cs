@@ -2,5 +2,4 @@ namespace GroupAuthDefinitionService.Application.Features.GroupAuthDefinition.Co
 
 public static class GroupAuthDefinitionConstants
 {
-    public const string GroupAuthDefinition = "GroupAuthDefinition";
 }

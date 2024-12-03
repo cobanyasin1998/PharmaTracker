@@ -4,8 +4,8 @@ using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
 using Coban.Application.Services.Abstractions;
 using Coban.GeneralDto;
-using Coban.Persistence.Repositories.EntityFramework.Abstractions;
 using MediatR;
+using PharmacyService.Application.Abstractions.UnitOfWork;
 using PharmacyService.Application.Features.Pharmacy.Rules.Abstractions;
 using PharmacyService.Domain.Entities;
 

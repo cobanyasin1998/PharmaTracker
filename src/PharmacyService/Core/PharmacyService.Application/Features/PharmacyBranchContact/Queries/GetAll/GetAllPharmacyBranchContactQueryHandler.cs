@@ -3,9 +3,9 @@ using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
 using Coban.Application.Services.Abstractions;
 using Coban.GeneralDto;
-using Coban.Persistence.Repositories.EntityFramework.Abstractions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PharmacyService.Application.Abstractions.UnitOfWork;
 using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.PharmacyBranchContact.Queries.GetAll;

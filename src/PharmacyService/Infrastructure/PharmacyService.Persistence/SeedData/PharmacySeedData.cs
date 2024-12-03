@@ -1,8 +1,8 @@
 ﻿using Bogus;
 using Coban.Domain.Enums.Base;
-using Coban.Persistence.Repositories.EntityFramework.Abstractions;
 using Coban.Persistence.SeedData.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using PharmacyService.Application.Abstractions.UnitOfWork;
 using PharmacyService.Domain.Entities;
 using PharmacyService.Domain.Enums;
 
