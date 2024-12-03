@@ -8,7 +8,7 @@ public class ExampleCustomFilter
     private const string Eq = "equals";
     public List<FilterGroup> ExampleFilter()
     {
-        var filters = new List<FilterGroup>()
+        List<FilterGroup> filters = new List<FilterGroup>()
     {
         new FilterGroup()
         {

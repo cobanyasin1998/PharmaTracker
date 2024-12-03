@@ -6,6 +6,7 @@ using Coban.GeneralDto;
 using Coban.Persistence.Repositories.EntityFramework.Abstractions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.PharmacyBranchAddress.Queries.GetAll;
 
@@ -22,7 +23,7 @@ public class GetAllPharmacyBranchAddressQueryHandler : IRequestHandler<GetAllPha
 
     public async Task<IResponse<GetAllPharmacyBranchAddressQueryResponse, GeneralErrorDto>> Handle(GetAllPharmacyBranchAddressQueryRequest request, CancellationToken cancellationToken)
     {
-        var query = _unitOfWork.PharmacyBranchAddressReadRepository.GetAll(tracking: false);
+        IQueryable<PharmacyBranchAddressEntity>? query = _unitOfWork.PharmacyBranchAddressReadRepository.GetAll(tracking: false);
 
 
         List<GetAllPharmacyBranchAddressQueryResponseItemDto> pharmacyBranchAddressList = await query

@@ -21,14 +21,14 @@ public abstract class AbstractController<
     [HttpPost]
     public virtual async Task<IActionResult> Create([FromBody] TCreateReq request)
     {
-        var response = await Mediator!.Send(request);
+        object? response = await Mediator!.Send(request);
         return HandleResponse((IResponseBase)response);
     }
 
     [HttpPut]
     public virtual async Task<IActionResult> Update([FromBody] TUpdateReq request)
     {
-        var response = await Mediator.Send(request);
+        object? response = await Mediator.Send(request);
         return HandleResponse((IResponseBase)response);
     }
 
@@ -36,20 +36,20 @@ public abstract class AbstractController<
     public virtual async Task<IActionResult> GetById([FromBody] TGetByIdReq getByIdRequest)
     {
 
-        var response = await Mediator!.Send(getByIdRequest);
+        object? response = await Mediator!.Send(getByIdRequest);
         return HandleResponse((IResponseBase)response);
     }
 
     [HttpPost]
     public virtual async Task<IActionResult> GetAll([FromBody] TGetAllReq request)
     {
-        var response = await Mediator!.Send(request);
+        object? response = await Mediator!.Send(request);
         return HandleResponse((IResponseBase)response);
     }
     [HttpPost]
     public virtual async Task<IActionResult> Delete([FromBody] TDeleteReq deleteRequest)
     {
-        var response = await Mediator!.Send(deleteRequest);
+        object? response = await Mediator!.Send(deleteRequest);
         return HandleResponse((IResponseBase)response);
     }
 }

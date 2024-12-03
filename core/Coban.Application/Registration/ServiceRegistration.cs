@@ -14,12 +14,12 @@ public static class ServiceRegistration
 
     private static void AddDataProtection(IServiceCollection services)
     {
-        var dataProtectionProvider = DataProtectionProvider.Create(new DirectoryInfo("./Keys"));
-        services.AddSingleton<IDataProtectionProvider>(dataProtectionProvider);
+        IDataProtectionProvider dataProtectionProvider = DataProtectionProvider.Create(new DirectoryInfo("./Keys"));
+        services.AddSingleton(dataProtectionProvider);
 
         services.AddSingleton(sp =>
         {
-            var provider = sp.GetRequiredService<IDataProtectionProvider>();
+            IDataProtectionProvider provider = sp.GetRequiredService<IDataProtectionProvider>();
             return provider.CreateProtector("CorePurpose");
         });
 

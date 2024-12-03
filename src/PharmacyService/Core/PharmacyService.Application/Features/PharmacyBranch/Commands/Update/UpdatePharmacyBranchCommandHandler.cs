@@ -5,6 +5,7 @@ using Coban.GeneralDto;
 using Coban.Persistence.Repositories.EntityFramework.Abstractions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.PharmacyBranch.Commands.Update;
 
@@ -23,7 +24,7 @@ public class UpdatePharmacyBranchCommandHandler : IRequestHandler<UpdatePharmacy
     {
         long id = _dataProtectService.Decrypt(request.Id);
 
-        var entity = await _unitOfWork.PharmacyBranchReadRepository
+        PharmacyBranchEntity? entity = await _unitOfWork.PharmacyBranchReadRepository
             .GetWhere(y => y.Id == id, tracking: true)
             .FirstOrDefaultAsync(cancellationToken);
 

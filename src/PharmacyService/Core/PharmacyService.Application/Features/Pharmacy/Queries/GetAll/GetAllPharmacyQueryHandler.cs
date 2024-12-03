@@ -9,6 +9,7 @@ using Coban.Persistence.Repositories.EntityFramework.Abstractions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PharmacyService.Application.Features.Pharmacy.Queries.GetAll.Specification.Factory;
+using PharmacyService.Domain.Entities;
 using System.Linq.Expressions;
 
 namespace PharmacyService.Application.Features.Pharmacy.Queries.GetAll;
@@ -27,7 +28,7 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
 
     public async Task<IResponse<GetAllPharmacyQueryResponse, GeneralErrorDto>> Handle(GetAllPharmacyQueryRequest request, CancellationToken cancellationToken)
     {
-        var query = _unitOfWork.PharmacyReadRepository.GetAll(tracking: false);
+        IQueryable<PharmacyEntity>? query = _unitOfWork.PharmacyReadRepository.GetAll(tracking: false);
 
 
         List<GetAllPharmacyQueryResponseItemDto> pharmacyList = await query

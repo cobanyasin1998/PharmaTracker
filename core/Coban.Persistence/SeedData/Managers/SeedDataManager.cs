@@ -13,7 +13,7 @@ public class SeedDataManager
 
     public async Task SeedAll(int count = 5000)
     {
-        foreach (var seedService in _seedDataServices)
+        foreach (ISeedData seedService in _seedDataServices)
         {
             _ = await seedService.SeedEntityData(count);
         }

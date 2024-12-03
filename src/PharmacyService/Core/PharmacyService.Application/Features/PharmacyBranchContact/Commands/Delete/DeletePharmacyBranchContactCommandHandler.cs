@@ -6,6 +6,7 @@ using Coban.Persistence.Repositories.EntityFramework.Abstractions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PharmacyService.Application.Features.Pharmacy.Commands.Delete;
+using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.PharmacyBranchContact.Commands.Delete;
 
@@ -24,7 +25,7 @@ public class DeletePharmacyBranchContactCommandHandler : IRequestHandler<DeleteP
     {
         long id = _dataProtectService.Decrypt(request.Id);
 
-        var entity = await _unitOfWork.PharmacyBranchContactReadRepository
+        PharmacyBranchContactEntity? entity = await _unitOfWork.PharmacyBranchContactReadRepository
             .GetWhere(y => y.Id == id, tracking: true)
             .FirstOrDefaultAsync(cancellationToken);
 

@@ -27,7 +27,7 @@ public class GetByIdPharmacyBranchQueryHandler : IRequestHandler<GetByIdPharmacy
     {
         long id = _dataProtectService.Decrypt(request.Id);
         PharmacyBranchEntity? pharmacyBranchEntity = await _unitOfWork.PharmacyBranchReadRepository.GetByIdAsync(id, tracking: false, cancellationToken: cancellationToken);
-        var dto = _mapper.Map<PharmacyBranchEntity, GetByIdPharmacyBranchQueryResponse>(pharmacyBranchEntity);
+        GetByIdPharmacyBranchQueryResponse dto = _mapper.Map<PharmacyBranchEntity, GetByIdPharmacyBranchQueryResponse>(pharmacyBranchEntity);
 
         return Response<GetByIdPharmacyBranchQueryResponse, GeneralErrorDto>.CreateSuccess(dto);
     }

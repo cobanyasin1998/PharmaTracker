@@ -7,6 +7,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PharmacyService.Application.Features.Pharmacy.Commands.Delete;
 using PharmacyService.Application.Features.PharmacyBranchAddress.Commands.Create;
+using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.PharmacyBranchAddress.Commands.Delete;
 
@@ -25,7 +26,7 @@ public class DeletePharmacyBranchAddressCommandHandler : IRequestHandler<DeleteP
     {
         long id = _dataProtectService.Decrypt(request.Id);
 
-        var entity = await _unitOfWork.PharmacyBranchAddressReadRepository
+        PharmacyBranchAddressEntity? entity = await _unitOfWork.PharmacyBranchAddressReadRepository
             .GetWhere(y => y.Id == id, tracking: true)
             .FirstOrDefaultAsync(cancellationToken);
 

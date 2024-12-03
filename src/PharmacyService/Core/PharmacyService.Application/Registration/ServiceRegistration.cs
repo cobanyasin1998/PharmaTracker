@@ -32,15 +32,15 @@ public static class ServiceRegistration
     }
     private static IServiceCollection AddBusinessRules(this IServiceCollection services)
     {
-        var assembly = Assembly.GetExecutingAssembly();
+        Assembly? assembly = Assembly.GetExecutingAssembly();
 
-        var businessRuleTypes = assembly.GetTypes()
+        IEnumerable<Type>? businessRuleTypes = assembly.GetTypes()
             .Where(type => type.IsClass && !type.IsAbstract)
             .Where(type => type.GetInterfaces().Any(i => i.Name.StartsWith('I') && typeof(IBaseBusinessRule).IsAssignableFrom(i)));
 
-        foreach (var implementationType in businessRuleTypes)
+        foreach (Type? implementationType in businessRuleTypes)
         {
-            var interfaceType = implementationType.GetInterfaces()
+            Type? interfaceType = implementationType.GetInterfaces()
                 .FirstOrDefault(i => typeof(IBaseBusinessRule).IsAssignableFrom(i));
 
             if (interfaceType != null)

@@ -1,94 +1,30 @@
 version: '3.8'
 
 services:
-  # # MinIO Service
-  # minio:
-  #   image: minio/minio:latest
-  #   container_name: minio
-  #   environment:
-  #     - MINIO_ROOT_USER=minioadmin
-  #     - MINIO_ROOT_PASSWORD=minioadminpassword
-  #   ports:
-  #     - "9000:9000"
-  #   volumes:
-  #     - minio-data:/data
-  #   command: server /data
-
-  # # Redis Service
-  # redis:
-  #   image: redis:latest
-  #   container_name: redis
-  #   ports:
-  #     - "6379:6379"
-  #   volumes:
-  #     - redis-data:/data
-
-  # PostgreSQL Service
   postgres:
     image: postgres:latest
-    container_name: pharmacyServicePostgres
+    container_name: pharmacy_service_postgres
     environment:
-      - POSTGRES_USER=pharmacyPostgres
-      - POSTGRES_PASSWORD=dRakyDKVyF5S
-      - POSTGRES_DB=pharmacyServicePostgresDatabase
+      POSTGRES_USER: pharmacyPostgres
+      POSTGRES_PASSWORD: dRakyDKVyF5S
+      POSTGRES_DB: pharmacyServicePostgresDatabase
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
-  # # MongoDB Service
-  # mongodb:
-  #   image: mongo:latest
-  #   container_name: mongodb
-  #   ports:
-  #     - "27017:27017"
-  #   environment:
-  #     - MONGO_INITDB_ROOT_USERNAME=mongoadmin
-  #     - MONGO_INITDB_ROOT_PASSWORD=mongopassword
-  #   volumes:
-  #     - mongo-data:/data/db
-
-  # # Portainer Service
-  # portainer:
-  #   image: portainer/portainer-ce:latest
-  #   container_name: portainer
-  #   ports:
-  #     - "9001:9000"
-  #   volumes:
-  #     - /var/run/docker.sock:/var/run/docker.sock
-  #     - portainer-data:/data
-
-  # # Hangfire Service
-  # hangfire:
-  #   image: mcr.microsoft.com/dotnet/aspnet:7.0
-  #   container_name: hangfire-app
-  #   ports:
-  #     - "5000:80"
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Development
-  #     - ConnectionStrings__DefaultConnection=Server=db;Database=HangfireDB;User=sa;Password=YourPassword123!;
-  #   volumes:
-  #     - ./app:/app
-  #   working_dir: /app
-  #   depends_on:
-  #     - db
-
-  # # SQL Server Service
-  # db:
-  #   image: mcr.microsoft.com/mssql/server:2019-latest
-  #   container_name: hangfire-db
-  #   ports:
-  #     - "1433:1433"
-  #   environment:
-  #     SA_PASSWORD: "YourPassword123!"
-  #     ACCEPT_EULA: "Y"
-  #   volumes:
-  #     - mssql_data:/var/opt/mssql
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    ports:
+      - "5341:80"
+    environment:
+      SEQ_ACCEPT_EULA: Y
+    volumes:
+      - seq-data:/data
+      - seq-logs:/logs
 
 volumes:
-  # minio-data:
-  # redis-data:
   postgres-data:
-  # mongo-data:
-  # portainer-data:
-  # mssql_data:
+  seq-data:
+  seq-logs:

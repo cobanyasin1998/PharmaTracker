@@ -4,16 +4,18 @@ using Coban.Persistence.SeedData.Managers;
 using PharmacyService.Application.Registration;
 using PharmacyService.Persistence.Registration;
 using Coban.Security.Middlewares.BlackList;
+using Serilog;
 namespace PharmacyService.Presentation;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        var builder = WebApplication.CreateBuilder(args);
+        WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 
         builder.Services.AddControllers();
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddEndpointsApiExplorer();
         //Core katmanýndaki servislerin eklenmesi
         builder.Services.AddCoreApplicationServices();
@@ -30,11 +32,19 @@ public class Program
                 document.Info.Description = "A sample API using NSwag in .NET Core";
             };
         });
-        var app = builder.Build();
-
-        using (var scope = app.Services.CreateScope())
+        builder.Host.UseSerilog((context, configuration) =>
         {
-            var seedManager = scope.ServiceProvider.GetRequiredService<SeedDataManager>();
+            configuration
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .WriteTo.Seq("http://localhost:5341")               
+                .ReadFrom.Configuration(context.Configuration);
+        });
+        WebApplication? app = builder.Build();
+
+        using (IServiceScope scope = app.Services.CreateScope())
+        {
+            SeedDataManager? seedManager = scope.ServiceProvider.GetRequiredService<SeedDataManager>();
 
             try
             {
@@ -52,6 +62,8 @@ public class Program
             app.UseSwaggerUi(); 
 
         }
+        app.UseSerilogRequestLogging(); // HTTP request loglarý için
+
         app.ConfigureCustomExceptionMiddleware();
         app.ConfigureCustomBlackListControlMiddleware();
        

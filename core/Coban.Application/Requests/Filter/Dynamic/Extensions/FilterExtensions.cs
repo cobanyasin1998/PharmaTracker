@@ -12,13 +12,13 @@ public static class FilterExtensions
         if (filterGroups == null || !filterGroups.Any())
             return query;
 
-        var parameter = Expression.Parameter(typeof(T), "x");
+        ParameterExpression parameter = Expression.Parameter(typeof(T), "x");
 
-        var combinedExpression = (Expression)null;
+        Expression combinedExpression = (Expression)null;
 
-        foreach (var item in filterGroups)
+        foreach (FilterGroup item in filterGroups)
         {
-            var expressionGroup = BuildExpression(parameter, item);
+            Expression expressionGroup = BuildExpression(parameter, item);
             if (expressionGroup is not null)
             {
                 if (combinedExpression is null)
@@ -31,7 +31,7 @@ public static class FilterExtensions
         }
         if (combinedExpression is not null)
         {
-            var lambda = Expression.Lambda<Func<T, bool>>(combinedExpression, parameter);
+            Expression<Func<T, bool>> lambda = Expression.Lambda<Func<T, bool>>(combinedExpression, parameter);
             query = query.Where(lambda);
         }
 
@@ -40,22 +40,22 @@ public static class FilterExtensions
 
     private static Expression BuildExpression(ParameterExpression parameter, FilterGroup filterGroup)
     {
-        var expressions = new List<Expression>();
+        List<Expression> expressions = new List<Expression>();
 
         if (filterGroup.Filters is not null)
         {
-            foreach (var filter in filterGroup.Filters)
+            foreach (QueryRequest.Dto.Filter filter in filterGroup.Filters)
             {
-                var filterExpression = BuildFilterExpression(parameter, filter);
+                Expression filterExpression = BuildFilterExpression(parameter, filter);
                 if (filterExpression is not null)
                     expressions.Add(filterExpression);
             }
         }
         if (filterGroup.ChildGroups is not null)
         {
-            foreach (var childGroup in filterGroup.ChildGroups)
+            foreach (FilterGroup childGroup in filterGroup.ChildGroups)
             {
-                var childExpression = BuildExpression(parameter, childGroup);
+                Expression childExpression = BuildExpression(parameter, childGroup);
                 if (childExpression is not null)
                     expressions.Add(childExpression);
             }
@@ -79,12 +79,12 @@ public static class FilterExtensions
 
     private static Expression BuildFilterExpression(ParameterExpression parameter, QueryRequest.Dto.Filter filter)
     {
-        var member = Expression.PropertyOrField(parameter, filter.Member);
+        MemberExpression member = Expression.PropertyOrField(parameter, filter.Member);
 
         Expression constant;
         if (member.Type.IsEnum)
         {
-            var enumValue = Enum.ToObject(member.Type, filter.FilterValue);
+            object enumValue = Enum.ToObject(member.Type, filter.FilterValue);
             constant = Expression.Constant(enumValue, member.Type);
         }
         else

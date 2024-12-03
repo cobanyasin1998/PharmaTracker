@@ -21,7 +21,7 @@ public class AsyncReadRepository<TEntity, TContext>
 
     public async Task<TEntity?> GetByIdAsync(long id, bool tracking = true, CancellationToken cancellationToken = default)
     {
-        var query = Table.AsQueryable();
+        IQueryable<TEntity>? query = Table.AsQueryable();
         if (!tracking)
         {
             query = query.AsNoTracking();
@@ -31,7 +31,7 @@ public class AsyncReadRepository<TEntity, TContext>
 
     public IQueryable<TEntity> GetAll(bool tracking = true)
     {
-        var query = Table.AsQueryable();
+        IQueryable<TEntity>? query = Table.AsQueryable();
         if (!tracking)
         {
             query = query.AsNoTracking();
@@ -41,7 +41,7 @@ public class AsyncReadRepository<TEntity, TContext>
 
     public IQueryable<TEntity> GetWhere(Expression<Func<TEntity, bool>> predicate, bool tracking = true)
     {
-        var query = Table.Where(predicate);
+        IQueryable<TEntity>? query = Table.Where(predicate);
         if (!tracking)
         {
             query = query.AsNoTracking();

@@ -26,7 +26,7 @@ public class GetByIdPharmacyQueryHandler : IRequestHandler<GetByIdPharmacyQueryR
     {
         long id = _dataProtectService.Decrypt(request.Id);
         PharmacyEntity? pharmacyEntity = await _unitOfWork.PharmacyReadRepository.GetByIdAsync(id, tracking: false, cancellationToken: cancellationToken);
-        var dto = _mapper.Map<PharmacyEntity, GetByIdPharmacyQueryResponse>(pharmacyEntity);
+        GetByIdPharmacyQueryResponse dto = _mapper.Map<PharmacyEntity, GetByIdPharmacyQueryResponse>(pharmacyEntity);
 
         return Response<GetByIdPharmacyQueryResponse, GeneralErrorDto>.CreateSuccess(dto);
     }

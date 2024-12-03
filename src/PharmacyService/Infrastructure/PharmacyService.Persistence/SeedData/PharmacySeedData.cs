@@ -22,10 +22,10 @@ public class PharmacySeedData : ISeedData
         bool isExistsRecords = await _unitOfWork.PharmacyReadRepository.GetAll().AnyAsync();
         if (!isExistsRecords)
         {
-            var generatedLicenseNumbers = new HashSet<string>();
-            var generatedNames = new HashSet<string>();
+            HashSet<string> generatedLicenseNumbers = new HashSet<string>();
+            HashSet<string> generatedNames = new HashSet<string>();
 
-            var addressFaker = new Faker<PharmacyBranchAddressEntity>()
+            Faker<PharmacyBranchAddressEntity> addressFaker = new Faker<PharmacyBranchAddressEntity>()
                 .RuleFor(a => a.IsPrimary, f => f.Random.Bool())
                 .RuleFor(a => a.Address, f => f.Address.FullAddress())
                 .RuleFor(a => a.ProvinceId, f => f.Random.Long(1, 81))
@@ -35,17 +35,17 @@ public class PharmacySeedData : ISeedData
                 .RuleFor(a => a.Latitude, f => (decimal)f.Address.Latitude())
                 .RuleFor(a => a.Longitude, f => (decimal)f.Address.Longitude());
 
-            var contactFaker = new Faker<PharmacyBranchContactEntity>()
+            Faker<PharmacyBranchContactEntity> contactFaker = new Faker<PharmacyBranchContactEntity>()
                 .RuleFor(c => c.Type, f => f.PickRandom<EContactType>())
                 .RuleFor(c => c.Value, f => f.Internet.Email());
 
-            var branchFaker = new Faker<PharmacyBranchEntity>()
+            Faker<PharmacyBranchEntity> branchFaker = new Faker<PharmacyBranchEntity>()
                 .RuleFor(b => b.Id, f => 0)
                 .RuleFor(b => b.Name, f => f.Address.City() + "_Branch")
                 .RuleFor(b => b.PharmacyBranchAddressEntities, f => addressFaker.Generate(f.Random.Int(1, 3)))
                 .RuleFor(b => b.PharmacyBranchContactEntities, f => contactFaker.Generate(f.Random.Int(1, 5)));
 
-            var pharmacyFaker = new Faker<PharmacyEntity>()
+            Faker<PharmacyEntity> pharmacyFaker = new Faker<PharmacyEntity>()
                 .RuleFor(p => p.Id, f => 0)
                 .RuleFor(p => p.Name, f =>
                 {
@@ -73,7 +73,7 @@ public class PharmacySeedData : ISeedData
                     return branchFaker.Generate(f.Random.Int(1, 5));
                 });
 
-            var addedPharmacyEntities = pharmacyFaker.Generate(count);
+            List<PharmacyEntity> addedPharmacyEntities = pharmacyFaker.Generate(count);
             await _unitOfWork.PharmacyWriteRepository.AddManyAsync(addedPharmacyEntities);
             return _unitOfWork.SaveChanges();
 

@@ -8,6 +8,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PharmacyService.Application.Features.Pharmacy.Commands.Update;
 using PharmacyService.Application.Features.Pharmacy.Rules.Abstractions;
+using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.PharmacyBranchAddress.Commands.Update;
 
@@ -26,9 +27,9 @@ public class UpdatePharmacyBranchAddressCommandHandler : IRequestHandler<UpdateP
     {
         long id = _dataProtectService.Decrypt(request.Id);
 
-    
 
-        var entity = await _unitOfWork.PharmacyBranchAddressReadRepository
+
+        PharmacyBranchAddressEntity? entity = await _unitOfWork.PharmacyBranchAddressReadRepository
             .GetWhere(y => y.Id == id, tracking: true)
             .FirstOrDefaultAsync(cancellationToken);
 

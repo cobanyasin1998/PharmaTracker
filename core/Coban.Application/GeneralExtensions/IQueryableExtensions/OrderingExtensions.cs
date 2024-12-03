@@ -16,16 +16,16 @@ public static class OrderingExtensions
 
         for (int i = 0; i < orderByProperties.Count; i++)
         {
-            var propertyName = orderByProperties[i].Field;
-            var ascending = orderByProperties[i].Ascending;
+            string propertyName = orderByProperties[i].Field;
+            bool ascending = orderByProperties[i].Ascending;
 
-            var param = Expression.Parameter(typeof(T), "x");
-            var property = Expression.Property(param, propertyName);
-            var sortExpression = Expression.Lambda(property, param);
+            ParameterExpression param = Expression.Parameter(typeof(T), "x");
+            MemberExpression property = Expression.Property(param, propertyName);
+            LambdaExpression sortExpression = Expression.Lambda(property, param);
 
             string methodName = AscendingOrDescending(ascending, i);
 
-            var resultExpression = Expression.Call(
+            MethodCallExpression resultExpression = Expression.Call(
                 typeof(Queryable),
                 methodName,
                 new Type[] { typeof(T), property.Type },
@@ -49,8 +49,8 @@ public static class OrderingExtensions
 
         for (int i = 0; i < keySelectors.Count; i++)
         {
-            var keySelector = keySelectors[i].KeySelector;
-            var ascending = keySelectors[i].Ascending;
+            Expression<Func<T, object>> keySelector = keySelectors[i].KeySelector;
+            bool ascending = keySelectors[i].Ascending;
 
             string methodName = AscendingOrDescending(ascending, i);
 
@@ -66,7 +66,7 @@ public static class OrderingExtensions
 
     private static string AscendingOrDescending(bool ascending, int i)
     {
-        var baseMethod = i == 0 ? "OrderBy" : "ThenBy";
+        string baseMethod = i == 0 ? "OrderBy" : "ThenBy";
         return ascending ? baseMethod : $"{baseMethod}Descending";
     }
 }
