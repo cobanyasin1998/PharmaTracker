@@ -4,21 +4,15 @@ namespace Coban.Application.SyncCommunication;
 
 public class DynamicHttpClient
 {
-    private static readonly HttpClient _httpClient;
-
-    static DynamicHttpClient()
+    private static readonly HttpClient _httpClient = new HttpClient(
+    new HttpClientHandler()
     {
-        HttpClientHandler handler = new HttpClientHandler()
-        {
-            MaxConnectionsPerServer = 100,
-            AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
-        };
-
-        _httpClient = new HttpClient(handler)
-        {
-            Timeout = TimeSpan.FromSeconds(30)
-        };
-    }
+        MaxConnectionsPerServer = 100,
+        AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
+    })
+    {
+        Timeout = TimeSpan.FromSeconds(30)
+    };
 
     public async Task<T> SendRequestAsync<T>(string url, HttpMethod method, object data = null, CancellationToken cancellationToken = default)
     {

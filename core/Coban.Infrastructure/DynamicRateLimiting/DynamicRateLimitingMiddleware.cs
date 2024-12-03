@@ -35,7 +35,7 @@ public class DynamicRateLimitingMiddleware
         await _next(context);
     }
 
-    private bool IsRateLimited(string cacheKey, int limit)
+    private static bool IsRateLimited(string cacheKey, int limit)
     {
         // Burada, belirli bir cache (Redis, MemoryCache vb.) kullanarak limit kontrolü yapılabilir.
         return false; // Örnek olarak her zaman geçerli

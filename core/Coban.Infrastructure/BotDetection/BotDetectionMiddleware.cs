@@ -25,7 +25,7 @@ public class BotDetectionMiddleware
         await _next(context);
     }
 
-    private bool IsBot(string userAgent)
+    private static bool IsBot(string userAgent)
     {
         string[] botIndicators = { "bot", "spider", "crawler", "curl", "wget" };
         return botIndicators.Any(userAgent.ToLower().Contains);
