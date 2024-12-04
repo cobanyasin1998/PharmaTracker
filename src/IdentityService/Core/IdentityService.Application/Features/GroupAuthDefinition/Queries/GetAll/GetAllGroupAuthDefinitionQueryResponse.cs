@@ -3,8 +3,5 @@ namespace GroupAuthDefinitionService.Application.Features.GroupAuthDefinition.Qu
 public class GetAllGroupAuthDefinitionQueryResponse
 {
     public List<GetAllGroupAuthDefinitionQueryResponseItemDto> GroupAuthDefinitions { get; set; }
-    public GetAllGroupAuthDefinitionQueryResponse(List<GetAllGroupAuthDefinitionQueryResponseItemDto> GroupAuthDefinitions)
-    {
-        GroupAuthDefinitions = GroupAuthDefinitions;
-    }
+  
 }

@@ -1,7 +1,7 @@
 ﻿using Coban.Application.Abstractions.Rules;
+using Coban.Application.Pipelines;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using PharmacyService.Application.Features.Pharmacy.Queries.GetAll.Specification.Factory;
 using System.Reflection;
 
 namespace PharmacyService.Application.Registration;
@@ -18,7 +18,7 @@ public static class ServiceRegistration
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
-            //configuration.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
+            configuration.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
             //configuration.AddOpenBehavior(typeof(DecryptIdBehavior<,>));
 
             // configuration.AddOpenBehavior(typeof(RequestTransactionBehavior<,>));

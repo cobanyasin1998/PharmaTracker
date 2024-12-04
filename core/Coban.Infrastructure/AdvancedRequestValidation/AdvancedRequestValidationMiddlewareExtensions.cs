@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Builder;
 
-namespace Coban.Infrastructure.AdvancedRequestValidation
+namespace Coban.Infrastructure.AdvancedRequestValidation;
+
+
+public static class AdvancedRequestValidationMiddlewareExtensions
 {
-    internal class AdvancedRequestValidationMiddlewareExtensions
-    {
-    }
+    public static void ConfigureAdvancedRequestValidationMiddleware(this IApplicationBuilder app)
+        => app.UseMiddleware<AdvancedRequestValidationMiddleware>();
 }

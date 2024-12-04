@@ -5,6 +5,7 @@ using PharmacyService.Application.Registration;
 using PharmacyService.Persistence.Registration;
 using Coban.Security.Middlewares.BlackList;
 using Serilog;
+using Coban.Infrastructure.AdvancedRequestValidation;
 namespace PharmacyService.Presentation;
 
 public class Program
@@ -59,12 +60,13 @@ public class Program
         if (app.Environment.IsDevelopment())
         {
             app.UseOpenApi();
-            app.UseSwaggerUi(); 
+            app.UseSwaggerUi();
 
         }
-        app.UseSerilogRequestLogging(); // HTTP request loglarý için
-
         app.ConfigureCustomExceptionMiddleware();
+        app.UseSerilogRequestLogging(); // HTTP request loglarý için
+        app.ConfigureAdvancedRequestValidationMiddleware();
+ 
         app.ConfigureCustomBlackListControlMiddleware();
        
         app.UseHttpsRedirection();

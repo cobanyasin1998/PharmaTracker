@@ -1,25 +1,15 @@
-﻿using Coban.Infrastructure.Extensions;
+﻿using Coban.Infrastructure.Exceptions.ExceptionTypes;
+using Coban.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Http;
 
 namespace Coban.Infrastructure.AdvancedRequestValidation;
 
-public class AdvancedRequestValidationMiddleware
+public class AdvancedRequestValidationMiddleware(RequestDelegate _next)
 {
-    private readonly RequestDelegate _next;
-
-    public AdvancedRequestValidationMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
-
     public async Task InvokeAsync(HttpContext context)
     {
         if (!context.Request.HasJsonContentType())
-        {
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
-            await context.Response.WriteAsync("Invalid request format.");
-            return;
-        }
+            throw new InvalidRequestException("Invalid request format.");
 
         await _next(context);
     }

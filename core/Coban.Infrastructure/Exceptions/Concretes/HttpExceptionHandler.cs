@@ -80,4 +80,19 @@ public class HttpExceptionHandler : ExceptionHandler
 
         return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
     }
+
+    protected override Task HandleException(InvalidRequestException exception, HttpContext context)
+    {
+        Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
+              errors: new List<GeneralErrorDto>
+              {
+                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
+              },
+              message: exception.Message,
+              errorType: ErrorType.BadRequest,
+              httpStatusCode: 400
+              );
+
+        return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+    }
 }

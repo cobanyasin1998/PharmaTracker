@@ -8,6 +8,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="FluentValidation" Version="11.11.0" />
+	  <PackageReference Include="MediatR" Version="12.4.1" />
 	  <PackageReference Include="Microsoft.AspNetCore.DataProtection.Abstractions" Version="9.0.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" Version="9.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
@@ -17,6 +18,7 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Coban.Consts\Coban.Consts.csproj" />
 	  <ProjectReference Include="..\Coban.Domain\Coban.Domain.csproj" />
+	  <ProjectReference Include="..\Coban.GeneralDto\Coban.GeneralDto.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
