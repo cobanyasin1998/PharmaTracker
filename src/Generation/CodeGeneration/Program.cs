@@ -2,6 +2,8 @@
 using System.IO;
 using System.Threading.Tasks;
 
+
+
 Console.WriteLine("Switch to service name:");
 Console.WriteLine("1. PharmacyService");
 Console.WriteLine("2. IdentityService");
@@ -37,11 +39,11 @@ catch (Exception ex)
 {
     Console.WriteLine($"An error occurred during code generation: {ex.Message}");
 }
-
+const string BasePath = @"C:\Users\Yasin\source\repos\PharmaTracker\src";
 static async Task GenerateCodeFilesAsync(string serviceName, string entityName)
 {
     string basePath = Path.Combine(
-        @"C:\Users\Yasin\source\repos\PharmaTracker\src",
+       BasePath,
         serviceName);
 
     var paths = new[]
@@ -108,28 +110,11 @@ static string GenerateCreateHandlerTemplate(string entityName)
                 
                 public class Create{{entityName}}CommandHandler : IRequestHandler<Create{{entityName}}CommandRequest, IResponse<Create{{entityName}}CommandResponse, GeneralErrorDto>>
                 {
-                    private readonly IMapper _mapper;
-                    private readonly IDataProtectService _dataProtectService;
-                    private readonly IUnitOfWork _unitOfWork;
-
-                    public Create{{entityName}}CommandHandler(IMapper mapper, IDataProtectService dataProtectService)
-                    {
-                        _mapper = mapper;
-                        _dataProtectService = dataProtectService;
-                        _unitOfWork = unitOfWork;
-                    }
+                   
 
                     public async Task<IResponse<Create{{entityName}}CommandResponse, GeneralErrorDto>> Handle(Create{{entityName}}CommandRequest request, CancellationToken cancellationToken)
                     {
-                       
-
-                        {{entityName}}Entity entity = _mapper.Map<Create{{entityName}}CommandRequest, {{entityName}}Entity>(request);
-
-                        await _unitOfWork.{{entityName}}WriteRepository.AddAsync(entity);
-                        await _unitOfWork.SaveChangesAsync(cancellationToken);
-
-                        return Response<Create{{entityName}}CommandResponse, GeneralErrorDto>
-                            .CreateSuccess(new Create{{entityName}}CommandResponse(_dataProtectService.Encrypt(entity.Id)));
+                          throw new NotImplementedException();
                     }
                 }
 
@@ -184,23 +169,11 @@ static string GenerateUpdateHandlerTemplate(string entityName)
                 
                 public class Update{{entityName}}CommandHandler : IRequestHandler<Update{{entityName}}CommandRequest, IResponse<Update{{entityName}}CommandResponse, GeneralErrorDto>>
                 {
-                    private readonly IMapper _mapper;
-                    private readonly IDataProtectService _dataProtectService;
-                    private readonly IUnitOfWork _unitOfWork;
-                    public Update{{entityName}}CommandHandler(IMapper mapper, IDataProtectService dataProtectService)
-                    {
-                        _mapper = mapper;
-                        _dataProtectService = dataProtectService;
-                        _unitOfWork = unitOfWork;
-                    }
+                   
                     public async Task<IResponse<Update{{entityName}}CommandResponse, GeneralErrorDto>> Handle(Update{{entityName}}CommandRequest request, CancellationToken cancellationToken)
                     {
                        
-                        {{entityName}}Entity entity = _mapper.Map<Update{{entityName}}CommandRequest, {{entityName}}Entity>(request);
-                        await _unitOfWork.{{entityName}}WriteRepository.UpdateAsync(entity);
-                        await _unitOfWork.SaveChangesAsync(cancellationToken);
-                        return Response<Update{{entityName}}CommandResponse, GeneralErrorDto>
-                            .CreateSuccess(new Update{{entityName}}CommandResponse(_dataProtectService.Encrypt(entity.Id)));
+                        throw new NotImplementedException();
                     }
                 }
                 """;
@@ -254,22 +227,10 @@ static string GenerateDeleteHandlerTemplate(string entityName)
                 
                 public class Delete{{entityName}}CommandHandler : IRequestHandler<Delete{{entityName}}CommandRequest, IResponse<Delete{{entityName}}CommandResponse, GeneralErrorDto>>
                 {
-                    private readonly IMapper _mapper;
-                    private readonly IDataProtectService _dataProtectService;
-                    private readonly IUnitOfWork _unitOfWork;
-                    public Delete{{entityName}}CommandHandler(IMapper mapper, IDataProtectService dataProtectService)
-                    {
-                        _mapper = mapper;
-                        _dataProtectService = dataProtectService;
-                        _unitOfWork = unitOfWork;
-                    }
+                   
                     public async Task<IResponse<Delete{{entityName}}CommandResponse, GeneralErrorDto>> Handle(Delete{{entityName}}CommandRequest request, CancellationToken cancellationToken)
                     {
-                       
-                        await _unitOfWork.{{entityName}}WriteRepository.DeleteAsync(request.Id);
-                        await _unitOfWork.SaveChangesAsync(cancellationToken);
-                        return Response<Delete{{entityName}}CommandResponse, GeneralErrorDto>
-                            .CreateSuccess(new Delete{{entityName}}CommandResponse());
+                          throw new NotImplementedException();
                     }
                 }
                 """;
@@ -282,7 +243,6 @@ static string GenerateDeleteRequestTemplate(string entityName)
                 
                 public class Delete{{entityName}}CommandRequest : IRequest<IResponse<Delete{{entityName}}CommandResponse, GeneralErrorDto>>
                 {
-                    public Guid Id { get; set; }
                 }
                 """;
 }
@@ -306,7 +266,6 @@ static string GenerateConstantsTemplate(string entityName)
                 
                 public static class {{entityName}}Constants
                 {
-                    public const string {{entityName}} = "{{entityName}}";
                 }
                 """;
 }
@@ -323,7 +282,6 @@ static string GenerateMappingProfileTemplate(string entityName)
                         CreateMap<Create{{entityName}}CommandRequest, {{entityName}}Entity>();
                         CreateMap<Update{{entityName}}CommandRequest, {{entityName}}Entity>();
                         CreateMap<{{entityName}}Entity, GetAll{{entityName}}QueryResponseItemDto>();
-                        CreateMap<{{entityName}}Entity, GetById{{entityName}}QueryResponseItemDto>();
                     }
                 }
                 """;
@@ -338,18 +296,10 @@ static string GenerateGetAllHandlerTemplate(string entityName)
                 
                 public class GetAll{{entityName}}QueryHandler : IRequestHandler<GetAll{{entityName}}QueryRequest, IResponse<GetAll{{entityName}}QueryResponse, GeneralErrorDto>>
                 {
-                    private readonly IMapper _mapper;
-                    private readonly IUnitOfWork _unitOfWork;
-                    public GetAll{{entityName}}QueryHandler(IMapper mapper)
-                    {
-                        _mapper = mapper;
-                        _unitOfWork = unitOfWork;
-                    }
+                   
                     public async Task<IResponse<GetAll{{entityName}}QueryResponse, GeneralErrorDto>> Handle(GetAll{{entityName}}QueryRequest request, CancellationToken cancellationToken)
                     {
-                        var entities = await _unitOfWork.{{entityName}}ReadRepository.GetAllAsync();
-                        return Response<GetAll{{entityName}}QueryResponse, GeneralErrorDto>
-                            .CreateSuccess(new GetAll{{entityName}}QueryResponse(_mapper.Map<List<GetAll{{entityName}}QueryResponseItemDto>>(entities)));
+                      throw new NotImplementedException();
                     }
                 }
                 """;
@@ -396,7 +346,7 @@ static string GenerateGetAllResponseItemDtoTemplate(string entityName)
 }
 static string GenerateGetByIdHandlerTemplate(string entityName)
 {
-    return "";
+    return $"{entityName}";
 }
 static string GenerateGetByIdRequestTemplate(string entityName)
 {
@@ -406,7 +356,7 @@ static string GenerateGetByIdRequestTemplate(string entityName)
                 
                 public class GetById{{entityName}}QueryRequest : IRequest<IResponse<GetById{{entityName}}QueryResponse, GeneralErrorDto>>
                 {
-                    public Guid Id { get; set; }
+                  
                 }
                 """;
 }
@@ -442,11 +392,7 @@ static string GenerateRulesTemplate(string entityName)
                 
                 public class {{entityName}}BusinessRule : I{{entityName}}BusinessRule
                 {
-                    private readonly IUnitOfWork _unitOfWork;
-                    public {{entityName}}BusinessRule(IUnitOfWork unitOfWork)
-                    {
-                        _unitOfWork = unitOfWork;
-                    }
+                   
                 }
                 """;
 }
