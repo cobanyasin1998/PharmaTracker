@@ -30,13 +30,12 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
     {
         IQueryable<PharmacyEntity>? query = _unitOfWork.PharmacyReadRepository.GetAll(tracking: false);
 
-
         List<GetAllPharmacyQueryResponseItemDto> pharmacyList = await query
             .ApplySpecification(PharmacySpecificationFactory.GetNameSpecification(request.RequestFilterDto?.Name))
             .ApplySpecification(PharmacySpecificationFactory.GetStatusSpecification(request.RequestFilterDto?.Status))
             .ApplySpecification(PharmacySpecificationFactory.GetLicenseNumberSpecification(request.RequestFilterDto?.LicenseNumber))
-            .ApplyFilters(request.CustomFilters)
-            .ApplyOrdering(orderByProperties: request.CustomSorting)            
+            .ApplyFilters(request.Filtering)
+            .ApplyOrdering(orderByProperties: (List<Coban.Application.Requests.OrderBy.Dto.Sorting>)request.Sorting)
             .Select(p => new GetAllPharmacyQueryResponseItemDto
             {
                 Id = _dataProtectService.Encrypt(p.Id),
@@ -49,21 +48,16 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
                 (x => x.Name, true),
                 (x => x.LicenseNumber, false)
             })
-            .ApplyPaging(pageNumber: request.Page, request.Size)
+            .ApplyPaging(pageNumber: request.Paging.Page, request.Paging.Size)
             .ToListAsync(cancellationToken);
 
         int totalCount = await query.CountAsync();
-        int totalPage = (int)Math.Ceiling((double)totalCount / pharmacyList.Count);
         return Response<GetAllPharmacyQueryResponse, GeneralErrorDto>.CreateSuccess(new GetAllPharmacyQueryResponse
         {
             TotalCount = totalCount,
             Result = pharmacyList,
-            ResultCount = pharmacyList.Count,
-            TotalPage = totalPage,
-            Next = request.Page < totalPage,
-            Previous = request.Page > 1,
-            Next3Page = request.Page + 3 < totalPage,
-            Previous3Page = request.Page - 3 > 1
+            TotalPage = (int)Math.Ceiling((double)totalCount / pharmacyList.Count)
+
         });
 
     }

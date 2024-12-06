@@ -7,7 +7,7 @@ public static class FilterExtensions
 {
     public static IQueryable<T> ApplyFilters<T>(
         this IQueryable<T> query,
-        List<FilterGroup> filterGroups)
+        IEnumerable<FilterGroup> filterGroups)
     {
         if (filterGroups == null || !filterGroups.Any())
             return query;

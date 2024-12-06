@@ -7,10 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="AutoMapper" Version="13.0.1" />
 	  <PackageReference Include="FluentValidation" Version="11.11.0" />
 	  <PackageReference Include="MediatR" Version="12.4.1" />
 	  <PackageReference Include="Microsoft.AspNetCore.DataProtection.Abstractions" Version="9.0.0" />
 	  <PackageReference Include="Microsoft.AspNetCore.DataProtection.Extensions" Version="9.0.0" />
+	  <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
 	  <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
@@ -22,6 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="Requests\Base\" />
 	  <Folder Include="Responses\Extensions\" />
 	</ItemGroup>
 

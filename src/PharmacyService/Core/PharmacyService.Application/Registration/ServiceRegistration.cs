@@ -19,7 +19,7 @@ public static class ServiceRegistration
         {
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             configuration.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
-            //configuration.AddOpenBehavior(typeof(DecryptIdBehavior<,>));
+            configuration.AddOpenBehavior(typeof(DecryptGetByIdBehavior<,>));
 
             // configuration.AddOpenBehavior(typeof(RequestTransactionBehavior<,>));
             //configuration.AddOpenBehavior(typeof(ExceptionHandlingBehavior<,>));

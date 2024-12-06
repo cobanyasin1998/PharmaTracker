@@ -18,9 +18,9 @@ public class BaseController : ControllerBase
     {
         return result.HttpStatusCode switch
         {
-            StatusCodes.Status400BadRequest => BadRequest(new { message = result.Message }),
-            StatusCodes.Status404NotFound => NotFound(new { message = result.Message }),
-            StatusCodes.Status401Unauthorized => Unauthorized(new { message = result.Message }),
+            StatusCodes.Status400BadRequest => BadRequest(result),
+            StatusCodes.Status404NotFound => NotFound(result),
+            StatusCodes.Status401Unauthorized => Unauthorized(result),
             StatusCodes.Status200OK => Ok(result),
             _ => StatusCode(result.HttpStatusCode, new
             {

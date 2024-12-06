@@ -42,12 +42,8 @@ public class GetAllPharmacyBranchQueryHandler : IRequestHandler<GetAllPharmacyBr
         {
             TotalCount = totalCount,
             Result = pharmacyList,
-            ResultCount = pharmacyList.Count,
             TotalPage = totalPage,
-            Next = request.Page < totalPage,
-            Previous = request.Page > 1,
-            Next3Page = request.Page + 3 < totalPage,
-            Previous3Page = request.Page - 3 > 1
+          
         });
     }
 }

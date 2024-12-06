@@ -1,6 +1,8 @@
 ﻿using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Enums;
 using Coban.Consts;
+using Coban.GeneralDto;
+using Microsoft.AspNetCore.Http;
 using System.Text.Json.Serialization;
 
 namespace Coban.Application.Responses.Base.Concretes;
@@ -57,6 +59,14 @@ public class Response<TData, TErrorDTO> : IResponse<TData, TErrorDTO>
     {
         return new Response<TData, TErrorDTO>(errors, message, errorType, httpStatusCode);
     }
+
+    public static Response<TData, GeneralErrorDto> CreateFailureGetByIdNotFound(
+        GeneralErrorDto error
+        )
+    {
+        return new Response<TData, GeneralErrorDto>(new List<GeneralErrorDto> { error }, GeneralOperationConsts.OperationFailed, Enums.ErrorType.NotFound, StatusCodes.Status404NotFound);
+    }
+
     #endregion
 
 
