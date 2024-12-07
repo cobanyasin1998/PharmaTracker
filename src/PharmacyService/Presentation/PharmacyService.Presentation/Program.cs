@@ -14,6 +14,7 @@ using Coban.Infrastructure.Middlewares.BlackList;
 
 using Serilog;
 using System.IO.Compression;
+using Coban.Infrastructure.Middlewares.BotDetection;
 
 
 namespace PharmacyService.Presentation;
@@ -34,6 +35,7 @@ public class Program
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = new UppercaseFirstLetterNamingPolicy();
+                options.JsonSerializerOptions.WriteIndented = true;
 
             });
         builder.Services.AddResponseCompression(opt =>
@@ -47,10 +49,8 @@ public class Program
             options.Level = CompressionLevel.Optimal; // Sýkýþtýrma seviyesi
         });
         builder.Services.AddEndpointsApiExplorer();
-        //Core katmanýndaki servislerin eklenmesi
         builder.Services.AddCoreApplicationServices();
 
-        //Pharmacy katmanýndaki servislerin eklenmesi
         builder.Services.AddPharmacyApplicationServices();
         builder.Services.AddPharmacyPersistenceServices(builder.Configuration);
         builder.Services.AddSwaggerDocument(config =>
@@ -93,7 +93,6 @@ public class Program
 
         }
         app.UseResponseCompression();
-
         app.ConfigureCustomExceptionMiddleware();
         app.ConfigurePerformanceWatchMiddleware();
         app.UseSerilogRequestLogging();
@@ -101,14 +100,10 @@ public class Program
         app.ConfigureAdvancedRequestValidationMiddleware();
         app.ConfigureAdvancedResponseValidationMiddleware();
         app.ConfigureCustomBlackListControlMiddleware();
-
+        app.ConfigureBotDetectionMiddleware();
         app.UseHttpsRedirection();
-
         app.UseAuthorization();
-
-
         app.MapControllers();
-
         app.Run();
     }
 }
