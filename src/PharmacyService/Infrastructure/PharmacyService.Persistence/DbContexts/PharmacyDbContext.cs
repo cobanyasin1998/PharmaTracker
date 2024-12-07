@@ -42,7 +42,7 @@ public sealed class PharmacyDbContext : DbContext
         return await base.SaveChangesAsync(cancellationToken);
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder) 
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(PharmacyDbContext).Assembly);
     }

@@ -25,7 +25,8 @@
 
 	<ItemGroup>
 	  <Folder Include="Requests\Base\" />
-	  <Folder Include="Responses\Extensions\" />
+	  <Folder Include="Requests\CommandRequest\" />
+	  <Folder Include="Requests\QueryRequest\" />
 	</ItemGroup>
 
 </Project>

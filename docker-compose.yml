@@ -24,6 +24,13 @@ services:
       - seq-data:/data
       - seq-logs:/logs
 
+  consul:
+    image: consul:latest
+    container_name: dev-consul
+    ports:
+      - "8500:8500"
+    command: agent -dev -client=0.0.0.0
+
 volumes:
   postgres-data:
   seq-data:

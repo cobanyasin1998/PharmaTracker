@@ -1,4 +1,4 @@
-﻿using Coban.Application.Services.Abstractions;
+﻿using Coban.Application.DataProtection.Abstractions;
 using Coban.GeneralDto;
 using MediatR;
 using System.Reflection;
@@ -22,12 +22,12 @@ public class DecryptGetByIdBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
         {
             if (property.Name.Equals("Id", StringComparison.OrdinalIgnoreCase) && property.PropertyType == typeof(string))
             {
-                string currentValue = property.GetValue(request) as string;
+                string? currentValue = property.GetValue(request) as string;
                 if (!string.IsNullOrEmpty(currentValue))
                 {
                     long decryptedValue = _dataProtectService.Decrypt(currentValue);
 
-                    PropertyInfo decryptedIdProperty = request.GetType()
+                    PropertyInfo? decryptedIdProperty = request.GetType()
                         .GetProperty("DecryptedId");
 
                     if (decryptedIdProperty is not null && decryptedIdProperty.PropertyType == typeof(long))

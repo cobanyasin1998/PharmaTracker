@@ -6,13 +6,8 @@ using PharmacyService.Application.Features.Pharmacy.Rules.Abstractions;
 
 namespace PharmacyService.Application.Features.Pharmacy.Rules;
 
-public class PharmacyBusinessRules : IPharmacyBusinessRule
+public class PharmacyBusinessRules(IUnitOfWork _unitOfWork) : IPharmacyBusinessRule
 {
-    private readonly IUnitOfWork _unitOfWork;
-
-    public PharmacyBusinessRules(IUnitOfWork unitOfWork) 
-        => _unitOfWork = unitOfWork;
-
     public async Task IsPharmacyNameUnique(string Name)
     {
         bool isExists = await _unitOfWork.PharmacyReadRepository

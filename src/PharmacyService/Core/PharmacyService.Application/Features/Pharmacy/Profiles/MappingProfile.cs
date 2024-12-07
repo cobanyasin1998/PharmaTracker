@@ -9,7 +9,7 @@ namespace PharmacyService.Application.Features.Pharmacy.Profiles;
 
 internal class MappingProfile : Profile
 {
-    public MappingProfile( )
+    public MappingProfile()
     {
         CreateMap<PharmacyEntity, CreatePharmacyCommandRequest>().ReverseMap();
         CreateMap<PharmacyEntity, GetByIdPharmacyQueryResponse>().ReverseMap();

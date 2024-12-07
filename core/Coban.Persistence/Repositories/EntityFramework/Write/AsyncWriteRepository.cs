@@ -1,4 +1,4 @@
-﻿using Coban.Application.Abstractions.Repositories.Base.Write;
+﻿using Coban.Application.Repositories.Base.Write;
 using Coban.Domain.Entities.Base;
 using Coban.Persistence.Repositories.EntityFramework.Abstractions;
 using Microsoft.EntityFrameworkCore;
@@ -14,9 +14,8 @@ public class AsyncWriteRepository<TEntity, TContext>
     protected readonly TContext Context;
 
     public AsyncWriteRepository(TContext context)
-    {
-        Context = context;
-    }
+        => Context = context;
+  
     public DbSet<TEntity> Table
         => Context.Set<TEntity>();
 

@@ -1,5 +1,5 @@
-﻿using Coban.Application.Abstractions.Repositories.Base.Read;
-using Coban.Application.Abstractions.Repositories.Base.Write;
+﻿using Coban.Application.Repositories.Base.Read;
+using Coban.Application.Repositories.Base.Write;
 using Coban.Persistence.Repositories.EntityFramework.Read;
 using Coban.Persistence.Repositories.EntityFramework.Write;
 using PharmacyService.Application.Abstractions.UnitOfWork;

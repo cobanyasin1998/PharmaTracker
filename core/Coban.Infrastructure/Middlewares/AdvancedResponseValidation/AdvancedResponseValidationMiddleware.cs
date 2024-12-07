@@ -1,5 +1,4 @@
-﻿using Coban.Application.Responses.Base.Abstractions;
-using Coban.Application.Responses.Base.Concretes;
+﻿using Coban.Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
@@ -34,18 +33,18 @@ public class AdvancedResponseValidationMiddleware
                 parsedResponse = JsonSerializer.Deserialize<JsonElement>(responseBody);
 
                 if (parsedResponse is not JsonElement jsonElement)
-                    throw new Exception("Invalid response format: Expected Response<TData, TErrorDTO> structure.");
+                    throw new InvalidResponseException("Invalid response format: Expected Response<TData, TErrorDTO> structure.");
 
                 string[] requiredProperties = { "Data", "Errors", "Message", "Success" };
                 foreach (String property in requiredProperties)
                 {
                     if (!jsonElement.TryGetProperty(property, out _))
-                        throw new Exception($"Invalid response format: Missing required property '{property}'.");
+                        throw new InvalidResponseException($"Invalid response format: Missing required property '{property}'.");
                 }
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                throw new Exception("Invalid response format: Expected Response<TData, TErrorDTO> structure.", ex);
+                throw new InvalidResponseException("Invalid response format: Expected Response<TData, TErrorDTO> structure.", ex);
             }
 
 

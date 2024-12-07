@@ -9,20 +9,12 @@ using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.Pharmacy.Queries.GetById;
 
-public class GetByIdPharmacyQueryHandler : IRequestHandler<GetByIdPharmacyQueryRequest, IResponse<GetByIdPharmacyQueryResponse, GeneralErrorDto>>
+public class GetByIdPharmacyQueryHandler(IMapper _mapper, IUnitOfWork _unitOfWork) 
+    : IRequestHandler<GetByIdPharmacyQueryRequest, IResponse<GetByIdPharmacyQueryResponse, GeneralErrorDto>>
 {
-    private readonly IMapper _mapper;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public GetByIdPharmacyQueryHandler(IMapper mapper, IUnitOfWork unitOfWork)
-    {
-        _mapper = mapper;
-        _unitOfWork = unitOfWork;
-    }
-
     public async Task<IResponse<GetByIdPharmacyQueryResponse, GeneralErrorDto>> Handle(GetByIdPharmacyQueryRequest request, CancellationToken cancellationToken)
     {
-        PharmacyEntity? pharmacyEntity = await _unitOfWork.PharmacyReadRepository.GetByIdAsync(request.DecryptedId, tracking: false, cancellationToken: cancellationToken);
+        PharmacyEntity? pharmacyEntity = await _unitOfWork.PharmacyReadRepository.GetByIdAsync(request.Id, tracking: false, cancellationToken: cancellationToken);
 
         if (pharmacyEntity is null)
             return Response<GetByIdPharmacyQueryResponse, GeneralErrorDto>.CreateFailureGetByIdNotFound(new GeneralErrorDto(PharmacyConstants.NotFound, ""));

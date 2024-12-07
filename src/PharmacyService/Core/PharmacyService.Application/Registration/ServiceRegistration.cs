@@ -1,4 +1,4 @@
-﻿using Coban.Application.Abstractions.Rules;
+﻿using Coban.Application.BusinessRules.Abstractions;
 using Coban.Application.Mediatr.Pipelines;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;

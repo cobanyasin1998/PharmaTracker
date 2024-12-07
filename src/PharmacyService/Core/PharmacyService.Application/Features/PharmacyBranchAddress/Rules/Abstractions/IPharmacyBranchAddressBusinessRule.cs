@@ -1,4 +1,4 @@
-﻿using Coban.Application.Abstractions.Rules;
+﻿using Coban.Application.BusinessRules.Abstractions;
 
 namespace PharmacyService.Application.Features.PharmacyBranchAddress.Rules.Abstractions;
 

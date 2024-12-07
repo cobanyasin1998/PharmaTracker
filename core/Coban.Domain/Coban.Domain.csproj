@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Coban.GeneralDto\Coban.GeneralDto.csproj" />
+  </ItemGroup>
+
 </Project>

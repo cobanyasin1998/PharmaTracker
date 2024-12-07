@@ -24,7 +24,7 @@ public class BaseController : ControllerBase
             StatusCodes.Status200OK => Ok(result),
             _ => StatusCode(result.HttpStatusCode, new
             {
-                message = result.Message ?? GeneralOperationConsts.AnUnexpectedErrorOccurred
+                result.Message
             })
         };
     }

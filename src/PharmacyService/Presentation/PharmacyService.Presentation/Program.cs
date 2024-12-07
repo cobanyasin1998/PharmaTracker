@@ -1,16 +1,18 @@
 using Coban.Application.Registration;
-using Coban.Infrastructure.Exceptions.Extensions;
+using Coban.Infrastructure.Extensions;
 using Coban.Persistence.SeedData.Managers;
-using Coban.Security.Middlewares.BlackList;
+using Microsoft.AspNetCore.ResponseCompression;
 using PharmacyService.Application.Registration;
 using PharmacyService.Persistence.Registration;
-using Serilog;
 using Coban.Infrastructure.Middlewares.AdvancedRequestValidation;
 using Coban.Infrastructure.Middlewares.AdvancedResponseValidation;
-using Coban.Infrastructure.Middlewares.PerformanceWatch;
 using Coban.Infrastructure.Middlewares.Maintenance;
-using Coban.Infrastructure.Extensions;
-using Microsoft.AspNetCore.ResponseCompression;
+using Coban.Infrastructure.Middlewares.PerformanceWatch;
+using Coban.Infrastructure.Middlewares.Exception;
+using Coban.Infrastructure.Middlewares.BlackList;
+
+
+using Serilog;
 using System.IO.Compression;
 
 

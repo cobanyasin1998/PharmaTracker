@@ -1,13 +1,10 @@
-﻿using Coban.Application.Abstractions.Rules;
+﻿using Coban.Application.DataProtection.Abstractions;
 using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
-using Coban.Application.Services.Abstractions;
 using Coban.GeneralDto;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PharmacyService.Application.Abstractions.UnitOfWork;
-using PharmacyService.Application.Features.Pharmacy.Commands.Update;
-using PharmacyService.Application.Features.Pharmacy.Rules.Abstractions;
 using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.PharmacyBranchAddress.Commands.Update;

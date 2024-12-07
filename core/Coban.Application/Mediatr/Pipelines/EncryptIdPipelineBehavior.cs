@@ -1,5 +1,5 @@
-﻿using Coban.Application.Responses;
-using Coban.Application.Services.Abstractions;
+﻿using Coban.Application.DataProtection.Abstractions;
+using Coban.Application.Responses;
 using MediatR;
 
 namespace Coban.Application.Mediatr.Pipelines;
@@ -17,10 +17,6 @@ public class EncryptIdPipelineBehavior<TRequest, TResponse>(IDataProtectService 
 
         if (dynamicResponse?.Data is BaseResponse baseResponse)
             baseResponse.EncId = _dataProtectService.Encrypt(baseResponse.Id);
-
-
         return response;
     }
-
-
 }

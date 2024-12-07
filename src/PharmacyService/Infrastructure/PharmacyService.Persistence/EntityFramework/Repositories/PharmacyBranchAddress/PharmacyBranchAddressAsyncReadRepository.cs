@@ -5,9 +5,6 @@ using PharmacyService.Persistence.DbContexts;
 
 namespace PharmacyService.Persistence.EntityFramework.Repositories.PharmacyBranchAddress;
 
-public class PharmacyBranchAddressAsyncReadRepository : AsyncReadRepository<PharmacyBranchAddressEntity, PharmacyDbContext>, IPharmacyBranchAddressAsyncReadRepository
+public class PharmacyBranchAddressAsyncReadRepository(PharmacyDbContext context) : AsyncReadRepository<PharmacyBranchAddressEntity, PharmacyDbContext>(context), IPharmacyBranchAddressAsyncReadRepository
 {
-    public PharmacyBranchAddressAsyncReadRepository(PharmacyDbContext context) : base(context)
-    {
-    }
 }

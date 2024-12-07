@@ -1,4 +1,4 @@
-﻿using Coban.Application.Abstractions.Repositories.Base.Read;
+﻿using Coban.Application.Repositories.Base.Read;
 using Coban.Domain.Entities.Base;
 using Coban.Persistence.Repositories.EntityFramework.Abstractions;
 using Microsoft.EntityFrameworkCore;
@@ -13,19 +13,17 @@ public class ReadRepository<TEntity, TContext>
 {
     protected readonly TContext Context;
 
-    public ReadRepository(TContext context)
-    {
-        Context = context;
-    }
+    public ReadRepository(TContext context) 
+        => Context = context;
+    
     public DbSet<TEntity> Table => Context.Set<TEntity>();
 
     public IQueryable<TEntity> GetAll(bool tracking = true)
     {
         IQueryable<TEntity>? query = Table.AsQueryable();
         if (!tracking)
-        {
             query = query.AsNoTracking();
-        }
+        
         return query;
     }
 
@@ -33,9 +31,8 @@ public class ReadRepository<TEntity, TContext>
     {
         IQueryable<TEntity>? query = Table.AsQueryable();
         if (!tracking)
-        {
             query = query.AsNoTracking();
-        }
+        
         return query.FirstOrDefault(x => x.Id == id);
     }
 
@@ -43,9 +40,8 @@ public class ReadRepository<TEntity, TContext>
     {
         IQueryable<TEntity>? query = Table.Where(predicate);
         if (!tracking)
-        {
             query = query.AsNoTracking();
-        }
+        
         return query;
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Coban.Application.GeneralExtensions.ValidationGeneralExtensions;
-using Coban.Application.GeneralExtensions.ValidationGeneralExtensions.Pharmacy;
 using FluentValidation;
 using PharmacyService.Application.Features.Pharmacy.Constants;
+using System.Text.RegularExpressions;
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Create;
 
@@ -12,8 +12,14 @@ public class CreatePharmancyCommandValidator : AbstractValidator<CreatePharmacyC
         RuleFor(p => p.Name).ApplyCommonStringRules(PharmacyConstants.Name);
         RuleFor(p => p.Description).ApplyCommonStringRules(PharmacyConstants.Description, max: 100);
         RuleFor(p => p.LicenseNumber).ApplyCommonStringRules(PharmacyConstants.LicenseNumber)
-            .Must(PharmacyValidationExtensions.BeValidLicenseNumber)
+            .Must(BeValidLicenseNumber)
             .WithMessage(PharmacyConstants.LicenseNumberInvalidFormat);
     }
-
+    public static bool BeValidLicenseNumber(string licenseNumber)
+    {
+        if (string.IsNullOrEmpty(licenseNumber))
+            return false;
+        string pattern = @"^\d{4}-\d{3}-\d{4}$";
+        return Regex.IsMatch(licenseNumber, pattern);
+    }
 }

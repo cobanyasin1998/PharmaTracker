@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Coban.Consts;
+using Newtonsoft.Json;
 
 namespace Coban.Application.SyncCommunication;
 
@@ -14,7 +15,7 @@ public class DynamicHttpClient
         Timeout = TimeSpan.FromSeconds(30)
     };
 
-    public async Task<T> SendRequestAsync<T>(string url, HttpMethod method, object data = null, CancellationToken cancellationToken = default)
+    public async Task<T> SendRequestAsync<T>(string url, HttpMethod method, object data, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -27,7 +28,7 @@ public class DynamicHttpClient
             if (data is not null && (method == HttpMethod.Post || method == HttpMethod.Put))
             {
                 string jsonContent = JsonConvert.SerializeObject(data);
-                requestMessage.Content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
+                requestMessage.Content = new StringContent(jsonContent, System.Text.Encoding.UTF8, GeneralOperationConsts.ApplicationJsonKey);
             }
 
             HttpResponseMessage response = await _httpClient.SendAsync(requestMessage, cancellationToken);
@@ -38,17 +39,17 @@ public class DynamicHttpClient
         }
         catch (TaskCanceledException ex)
         {
-            Console.WriteLine($"Request Timeout: {ex.Message}");
+            Console.WriteLine($"{HttpClientConsts.RequestTimeout} {ex.Message}");
             throw;
         }
         catch (HttpRequestException ex)
         {
-            Console.WriteLine($"Request Error: {ex.Message}");
+            Console.WriteLine($"{HttpClientConsts.RequestFailed} {ex.Message}");
             throw;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Unexpected Error: {ex.Message}");
+            Console.WriteLine($"{GeneralOperationConsts.AnUnexpectedErrorOccurred} {ex.Message}");
             throw;
         }
     }

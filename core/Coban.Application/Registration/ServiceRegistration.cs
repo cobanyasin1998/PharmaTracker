@@ -1,5 +1,6 @@
-﻿using Coban.Application.Services.Abstractions;
-using Coban.Application.Services.Concretes;
+﻿using Coban.Application.DataProtection.Abstractions;
+using Coban.Application.DataProtection.Concretes;
+using Coban.Consts;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,13 +15,13 @@ public static class ServiceRegistration
 
     private static void AddDataProtection(IServiceCollection services)
     {
-        IDataProtectionProvider dataProtectionProvider = DataProtectionProvider.Create(new DirectoryInfo("./Keys"));
+        IDataProtectionProvider dataProtectionProvider = DataProtectionProvider.Create(new DirectoryInfo(DataProtectionConsts.DirectoryKeyPath));
         services.AddSingleton(dataProtectionProvider);
 
         services.AddSingleton(sp =>
         {
             IDataProtectionProvider provider = sp.GetRequiredService<IDataProtectionProvider>();
-            return provider.CreateProtector("CorePurpose");
+            return provider.CreateProtector(DataProtectionConsts.CorePurpose);
         });
 
         services.AddSingleton<IDataProtectService, DataProtectService>();

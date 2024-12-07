@@ -1,4 +1,4 @@
-﻿using Coban.Application.Abstractions.Repositories.Base.Read;
+﻿using Coban.Application.Repositories.Base.Read;
 using Coban.Domain.Entities.Base;
 using Coban.Persistence.Repositories.EntityFramework.Abstractions;
 using Microsoft.EntityFrameworkCore;
@@ -13,19 +13,17 @@ public class AsyncReadRepository<TEntity, TContext>
 {
     protected readonly TContext Context;
 
-    public AsyncReadRepository(TContext context)
-    {
-        Context = context;
-    }
+    public AsyncReadRepository(TContext context) 
+        => Context = context;
+ 
     public DbSet<TEntity> Table => Context.Set<TEntity>();
 
     public async Task<TEntity?> GetByIdAsync(long id, bool tracking = true, CancellationToken cancellationToken = default)
     {
         IQueryable<TEntity>? query = Table.AsQueryable();
         if (!tracking)
-        {
             query = query.AsNoTracking();
-        }
+        
         return await query.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
     }
 
@@ -33,9 +31,8 @@ public class AsyncReadRepository<TEntity, TContext>
     {
         IQueryable<TEntity>? query = Table.AsQueryable();
         if (!tracking)
-        {
             query = query.AsNoTracking();
-        }
+        
         return query;
     }
 
@@ -43,10 +40,8 @@ public class AsyncReadRepository<TEntity, TContext>
     {
         IQueryable<TEntity>? query = Table.Where(predicate);
         if (!tracking)
-        {
             query = query.AsNoTracking();
-        }
+        
         return query;
     }
-
 }

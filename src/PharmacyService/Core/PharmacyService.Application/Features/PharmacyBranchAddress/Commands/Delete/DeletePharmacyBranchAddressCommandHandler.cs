@@ -1,6 +1,6 @@
-﻿using Coban.Application.Responses.Base.Abstractions;
+﻿using Coban.Application.DataProtection.Abstractions;
+using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
-using Coban.Application.Services.Abstractions;
 using Coban.GeneralDto;
 using MediatR;
 using Microsoft.EntityFrameworkCore;

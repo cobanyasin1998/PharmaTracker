@@ -5,10 +5,7 @@ using PharmacyService.Persistence.DbContexts;
 
 namespace PharmacyService.Persistence.EntityFramework.Repositories.Pharmacy;
 
-public class PharmacyAsyncWriteRepository : AsyncWriteRepository<PharmacyEntity, PharmacyDbContext>, IPharmacyAsyncWriteRepository
+public class PharmacyAsyncWriteRepository(PharmacyDbContext context) : AsyncWriteRepository<PharmacyEntity, PharmacyDbContext>(context), IPharmacyAsyncWriteRepository
 {
-    public PharmacyAsyncWriteRepository(PharmacyDbContext context) : base(context)
-    {
-    }
 }
 

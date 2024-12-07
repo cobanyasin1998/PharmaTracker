@@ -1,12 +1,12 @@
-﻿
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace Coban.Application.Responses;
-
-public abstract class BaseResponse
+namespace Coban.Application.Responses
 {
-    [JsonIgnore]
-    public long Id { get; set; }
-    [JsonProperty("Id")]
-    public string EncId { get; set; }
+    public class BaseResponse
+    {
+        [JsonIgnore]
+        public long Id { get; set; }
+        [JsonProperty("Id")]
+        public string EncId { get; set; }
+    }
 }
