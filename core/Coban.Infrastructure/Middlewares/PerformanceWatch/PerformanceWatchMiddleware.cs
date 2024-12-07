@@ -24,7 +24,13 @@ public class PerformanceWatchMiddleware
         if (stopwatch.ElapsedMilliseconds > 1000)
         {
             double elapsedSeconds = stopwatch.ElapsedMilliseconds / 1000.0;
-            _logger.LogWarning($"Slow request: {context.Request.Method} {context.Request.Path} took {elapsedSeconds:F2} seconds");
+
+            _logger.LogWarning(
+                "Slow request: {Method} {Path} took {ElapsedSeconds} seconds",
+                context.Request.Method,
+                context.Request.Path,
+                elapsedSeconds
+            );
         }
 
     }

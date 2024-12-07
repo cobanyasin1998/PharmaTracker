@@ -1,5 +1,5 @@
 ﻿using Coban.Application.Abstractions.Rules;
-using Coban.Application.Pipelines;
+using Coban.Application.Mediatr.Pipelines;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -20,6 +20,7 @@ public static class ServiceRegistration
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             configuration.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
             configuration.AddOpenBehavior(typeof(DecryptGetByIdBehavior<,>));
+            configuration.AddOpenBehavior(typeof(EncryptIdPipelineBehavior<,>));
 
             // configuration.AddOpenBehavior(typeof(RequestTransactionBehavior<,>));
             //configuration.AddOpenBehavior(typeof(ExceptionHandlingBehavior<,>));

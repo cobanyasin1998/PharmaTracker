@@ -5,11 +5,14 @@ namespace Coban.Application.GeneralExtensions.ValidationGeneralExtensions;
 public static class GeneralStringValidationExtensions
 {
     public static IRuleBuilderOptions<T, string> ApplyCommonStringRules<T>(
-           this IRuleBuilder<T, string> ruleBuilder, string fieldName)
+           this IRuleBuilder<T, string> ruleBuilder,
+           string fieldName,
+           int min = 3,
+           int max = 20)
     {
         return ruleBuilder
             .NotEmpty().WithMessage($"{fieldName} is required.")
-            .MinimumLength(3).WithMessage($"{fieldName} must not be less than 3 characters.")
-            .MaximumLength(100).WithMessage($"{fieldName} must not exceed 100 characters.");
+            .MinimumLength(min).WithMessage($"{fieldName} must not be less than {min} characters.")
+            .MaximumLength(max).WithMessage($"{fieldName} must not exceed {max} characters.");
     }
 }

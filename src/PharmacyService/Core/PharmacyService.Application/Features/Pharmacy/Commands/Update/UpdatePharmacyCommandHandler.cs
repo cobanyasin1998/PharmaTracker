@@ -7,26 +7,14 @@ using Coban.GeneralDto;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PharmacyService.Application.Abstractions.UnitOfWork;
+using PharmacyService.Application.Features.Pharmacy.Constants;
 using PharmacyService.Application.Features.Pharmacy.Rules.Abstractions;
 using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Update;
 
-public class UpdatePharmacyCommandHandler : IRequestHandler<UpdatePharmacyCommandRequest, IResponse<UpdatePharmacyCommandResponse, GeneralErrorDto>>
+public class UpdatePharmacyCommandHandler(IUnitOfWork _unitOfWork, IDataProtectService _dataProtectService, IPharmacyBusinessRule _pharmacyBusinessRules, IMapper _mapper) : IRequestHandler<UpdatePharmacyCommandRequest, IResponse<UpdatePharmacyCommandResponse, GeneralErrorDto>>
 {
-
-    private readonly IDataProtectService _dataProtectService;
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly IPharmacyBusinessRule _pharmacyBusinessRules;
-
-    public UpdatePharmacyCommandHandler( IDataProtectService dataProtectService, IUnitOfWork unitOfWork, IPharmacyBusinessRule pharmacyBusinessRules)
-    {
-      
-        _dataProtectService = dataProtectService;
-        _unitOfWork = unitOfWork;
-        _pharmacyBusinessRules = pharmacyBusinessRules;
-    }
-
     public async Task<IResponse<UpdatePharmacyCommandResponse, GeneralErrorDto>> Handle(UpdatePharmacyCommandRequest request, CancellationToken cancellationToken)
     {
         long id = _dataProtectService.Decrypt(request.Id);
@@ -41,24 +29,16 @@ public class UpdatePharmacyCommandHandler : IRequestHandler<UpdatePharmacyComman
             .FirstOrDefaultAsync(cancellationToken);
 
         if (entity is null)
-        {
-            throw new InvalidOperationException("Pharmacy Not Found");
-        }
+            return Response<UpdatePharmacyCommandResponse, GeneralErrorDto>.CreateFailureGetByIdNotFound(new GeneralErrorDto(PharmacyConstants.NotFound, ""));
 
-      
-
-        entity.Status = request.Status;
-        entity.LicenseNumber = request.LicenseNumber;
-        entity.Name = request.Name;
-        entity.Description = request.Description;
         
 
-        // Veritabanında Güncelleme ve Kaydetme
+        _mapper.Map(request, entity);
+
         _unitOfWork.PharmacyWriteRepository.Update(entity);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        // Başarılı Yanıt Dönülmesi
         return Response<UpdatePharmacyCommandResponse, GeneralErrorDto>
-            .CreateSuccess(new UpdatePharmacyCommandResponse(_dataProtectService.Encrypt(entity.Id)));
+            .CreateSuccess(new UpdatePharmacyCommandResponse(entity.Id), PharmacyConstants.Updated);
     }
 }

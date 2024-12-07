@@ -25,7 +25,7 @@ public class GetByIdPharmacyQueryHandler : IRequestHandler<GetByIdPharmacyQueryR
         PharmacyEntity? pharmacyEntity = await _unitOfWork.PharmacyReadRepository.GetByIdAsync(request.DecryptedId, tracking: false, cancellationToken: cancellationToken);
 
         if (pharmacyEntity is null)
-            return Response<GetByIdPharmacyQueryResponse, GeneralErrorDto>.CreateFailureGetByIdNotFound(new GeneralErrorDto(PharmacyConstants.PharmacyNotFound, ""));
+            return Response<GetByIdPharmacyQueryResponse, GeneralErrorDto>.CreateFailureGetByIdNotFound(new GeneralErrorDto(PharmacyConstants.NotFound, ""));
 
         GetByIdPharmacyQueryResponse getByIdPharmacyQueryResponse = _mapper.Map<GetByIdPharmacyQueryResponse>(pharmacyEntity);
 

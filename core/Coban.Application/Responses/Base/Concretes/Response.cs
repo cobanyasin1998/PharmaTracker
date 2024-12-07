@@ -32,7 +32,16 @@ public class Response<TData, TErrorDTO> : IResponse<TData, TErrorDTO>
         HttpStatusCode = 200;
         ErrorType = null;
     }
-
+    private Response(TData data,string message)
+    {
+        Data = data;
+        Errors = new List<TErrorDTO>();
+        Success = true;
+        Timestamp = DateTime.UtcNow;
+        Message = message;
+        HttpStatusCode = 200;
+        ErrorType = null;
+    }
     private Response(List<TErrorDTO> errors, string message, ErrorType errorType, int httpStatusCode = 500)
     {
         Errors = errors;
@@ -49,7 +58,10 @@ public class Response<TData, TErrorDTO> : IResponse<TData, TErrorDTO>
     {
         return new Response<TData, TErrorDTO>(data);
     }
-
+    public static Response<TData, TErrorDTO> CreateSuccess(TData? data,string message)
+    {
+        return new Response<TData, TErrorDTO>(data,message);
+    }
     public static Response<TData, TErrorDTO> CreateFailure(
         List<TErrorDTO> errors,
         string message,

@@ -33,7 +33,7 @@ public class GetAllPharmacyBranchQueryHandler : IRequestHandler<GetAllPharmacyBr
                 Status = p.Status
             })
             
-            .ApplyPaging(pageNumber: request.Page, request.Size)
+        //    .ApplyPaging(pageNumber: request.Page, request.Size)
             .ToListAsync(cancellationToken);
 
         int totalCount = await query.CountAsync();

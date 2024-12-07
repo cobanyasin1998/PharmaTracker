@@ -3,7 +3,7 @@ using Coban.GeneralDto;
 using MediatR;
 using System.Reflection;
 
-namespace Coban.Application.Pipelines;
+namespace Coban.Application.Mediatr.Pipelines;
 
 public class DecryptGetByIdBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IGetByIdRequest

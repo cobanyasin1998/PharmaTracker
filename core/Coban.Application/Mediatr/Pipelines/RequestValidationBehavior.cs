@@ -4,7 +4,7 @@ using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
 
-namespace Coban.Application.Pipelines;
+namespace Coban.Application.Mediatr.Pipelines;
 
 public class RequestValidationBehavior<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>

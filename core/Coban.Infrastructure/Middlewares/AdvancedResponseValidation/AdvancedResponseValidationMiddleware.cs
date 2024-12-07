@@ -36,7 +36,7 @@ public class AdvancedResponseValidationMiddleware
                 if (parsedResponse is not JsonElement jsonElement)
                     throw new Exception("Invalid response format: Expected Response<TData, TErrorDTO> structure.");
 
-                var requiredProperties = new[] { "Data", "Errors", "Message", "Success" };
+                string[] requiredProperties = { "Data", "Errors", "Message", "Success" };
                 foreach (String property in requiredProperties)
                 {
                     if (!jsonElement.TryGetProperty(property, out _))

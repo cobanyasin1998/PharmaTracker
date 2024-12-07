@@ -22,7 +22,7 @@ public class PharmacyBusinessRules : IPharmacyBusinessRule
             .AnyAsync();
 
         if (isExists)
-            throw new BusinessRuleException(PharmacyConstants.PharmacyNameAlreadyExists);
+            throw new BusinessRuleException(PharmacyConstants.NameAlreadyExists);
 
     }
     public async Task IsPharmacyNameUnique(string Name, long Id)
@@ -34,7 +34,7 @@ public class PharmacyBusinessRules : IPharmacyBusinessRule
             .AnyAsync();
 
         if (isExists)
-            throw new BusinessRuleException(PharmacyConstants.PharmacyNameAlreadyExists);
+            throw new BusinessRuleException(PharmacyConstants.NameAlreadyExists);
 
     }
     public async Task IsPharmacyLicenseNumberUnique(string LicenseNumber)
@@ -46,7 +46,7 @@ public class PharmacyBusinessRules : IPharmacyBusinessRule
             .AnyAsync();
 
         if (isExists)
-            throw new BusinessRuleException(PharmacyConstants.PharmacyLicenseNumberAlreadyExists);
+            throw new BusinessRuleException(PharmacyConstants.LicenseNumberAlreadyExists);
 
     }
     public async Task IsPharmacyLicenseNumberUnique(string LicenseNumber, long Id)
@@ -58,7 +58,7 @@ public class PharmacyBusinessRules : IPharmacyBusinessRule
             .AnyAsync();
 
         if (isExists)
-            throw new BusinessRuleException(PharmacyConstants.PharmacyLicenseNumberAlreadyExists);
+            throw new BusinessRuleException(PharmacyConstants.LicenseNumberAlreadyExists);
 
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-
-
+﻿using CodeGeneration;
 
 Console.WriteLine("Switch to service name:");
 Console.WriteLine("1. PharmacyService");
@@ -47,26 +43,23 @@ static async Task GenerateCodeFilesAsync(string serviceName, string entityName)
        BasePath,
         serviceName);
 
-    PathsDto[] paths =
+    PathDto[] paths =
     {
-        new PathsDto{ Type = "Create", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Create" },
-        new PathsDto{ Type = "Update", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Update" },
-        new PathsDto{ Type = "Delete", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Delete" },
-        new PathsDto{ Type = "Constants", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Constants" },
-        new PathsDto{ Type = "Profiles", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Profiles" },
-        new PathsDto{ Type = "GetAll", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Queries\\GetAll" },
-        new PathsDto{ Type = "GetById", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Queries\\GetById" },
-        new PathsDto{ Type = "RulesAbstractions", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Rules\\Abstractions" },
-        new PathsDto{ Type = "Rules", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Rules" }
+        new PathDto{ Type = "Create", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Create" },
+        new PathDto{ Type = "Update", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Update" },
+        new PathDto{ Type = "Delete", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Delete" },
+        new PathDto{ Type = "Constants", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Constants" },
+        new PathDto{ Type = "Profiles", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Profiles" },
+        new PathDto{ Type = "GetAll", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Queries\\GetAll" },
+        new PathDto{ Type = "GetById", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Queries\\GetById" },
+        new PathDto{ Type = "RulesAbstractions", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Rules\\Abstractions" },
+        new PathDto{ Type = "Rules", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Rules" }
     };
 
-    // Create directories
-    foreach (var item in paths)
-    {
+    foreach (PathDto item in paths)
         Directory.CreateDirectory(Path.Combine(basePath, item.Path));
-    }
+    
 
-    // Define file templates and tasks
     Task[] tasks =
     {
         CreateFileAsync(Path.Combine(basePath, paths[0].Path, $"Create{entityName}CommandHandler.cs"), GenerateCreateHandlerTemplate(entityName)),
@@ -93,7 +86,6 @@ static async Task GenerateCodeFilesAsync(string serviceName, string entityName)
         CreateFileAsync(Path.Combine(basePath, paths[8].Path, $"{entityName}BusinessRule.cs"), GenerateRulesTemplate(entityName))
     };
 
-    // Wait for all tasks to complete
     await Task.WhenAll(tasks);
 }
 
@@ -396,10 +388,4 @@ static string GenerateRulesTemplate(string entityName)
                    
                 }
                 """;
-}
-
-public class PathsDto
-{
-    public string Type { get; set; }
-    public string Path { get; set; }
 }

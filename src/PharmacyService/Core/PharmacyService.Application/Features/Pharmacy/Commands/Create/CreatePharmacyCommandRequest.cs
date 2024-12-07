@@ -6,7 +6,7 @@ namespace PharmacyService.Application.Features.Pharmacy.Commands.Create;
 
 public class CreatePharmacyCommandRequest : IRequest<IResponse<CreatePharmacyCommandResponse, GeneralErrorDto>>
 {
-    public String Name { get; set; }
-    public String Description { get; set; }
-    public String LicenseNumber { get; set; }
+    public  String Name { get; set; }
+    public  String Description { get; set; }
+    public  String LicenseNumber { get; set; }
 }

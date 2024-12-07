@@ -48,7 +48,7 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
             //    (x => x.Name, true),
             //    (x => x.LicenseNumber, false)
             //})
-            //.ApplyPaging(pageNumber: request.Paging.Page, request.Paging.Size)
+            .ApplyPaging(pageNumber: request.Paging.Page, request.Paging.Size)
             .ToListAsync(cancellationToken);
 
         int totalCount = await query.CountAsync();

@@ -1,5 +1,7 @@
 ﻿using Coban.Application.GeneralExtensions.ValidationGeneralExtensions;
+using Coban.Application.GeneralExtensions.ValidationGeneralExtensions.Pharmacy;
 using FluentValidation;
+using PharmacyService.Application.Features.Pharmacy.Constants;
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Update;
 
@@ -8,20 +10,16 @@ public class UpdatePharmacyCommandValidator : AbstractValidator<UpdatePharmacyCo
     public UpdatePharmacyCommandValidator()
     {
         RuleFor(p => p.Id)
-            .NotEmpty().WithMessage("Pharmacy Id is required.")
-            .NotNull().WithMessage("Pharmacy Id is required.");
+            .NotEmpty().WithMessage(PharmacyConstants.IdRequired)
+            .NotNull().WithMessage(PharmacyConstants.IdRequired);
 
         RuleFor(p => p.Status)
-            .IsInEnum().WithMessage("Pharmacy Status is required.");
+            .IsInEnum().WithMessage(PharmacyConstants.StatusRequired);
 
-
-        RuleFor(p => p.Name)
-               .ApplyCommonStringRules("Pharmacy Name");
-
-        RuleFor(p => p.Description)
-            .ApplyCommonStringRules("Pharmacy Description");
-
-        RuleFor(p => p.LicenseNumber)
-            .ApplyCommonStringRules("Pharmacy License Number");
+        RuleFor(p => p.Name).ApplyCommonStringRules(PharmacyConstants.Name);
+        RuleFor(p => p.Description).ApplyCommonStringRules(PharmacyConstants.Description, max: 100);
+        RuleFor(p => p.LicenseNumber).ApplyCommonStringRules(PharmacyConstants.LicenseNumber)
+            .Must(PharmacyValidationExtensions.BeValidLicenseNumber)
+            .WithMessage(PharmacyConstants.LicenseNumberInvalidFormat);
     }
 }
