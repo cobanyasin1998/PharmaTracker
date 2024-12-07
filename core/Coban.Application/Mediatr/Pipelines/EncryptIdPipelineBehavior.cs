@@ -1,6 +1,4 @@
 ﻿using Coban.Application.Responses;
-using Coban.Application.Responses.Base.Abstractions;
-using Coban.Application.Responses.Base.Concretes;
 using Coban.Application.Services.Abstractions;
 using MediatR;
 

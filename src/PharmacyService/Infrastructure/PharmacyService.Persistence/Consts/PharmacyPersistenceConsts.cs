@@ -25,4 +25,6 @@ public static class PharmacyPersistenceConsts
     public static readonly string PharmacyBranchAddressStatusIndex = "IX_PharmacyBranchAddresses_Status";
     #endregion
 
+
+
 }

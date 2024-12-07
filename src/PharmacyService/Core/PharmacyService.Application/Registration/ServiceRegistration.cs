@@ -10,26 +10,16 @@ public static class ServiceRegistration
 {
     public static void AddPharmacyApplicationServices(this IServiceCollection services)
     {
-        //FluentValidation servislerinin eklenmesi
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-        //AutoMapper servislerinin eklenmesi
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
-        //MediatR servislerinin eklenmesi
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             configuration.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
             configuration.AddOpenBehavior(typeof(DecryptGetByIdBehavior<,>));
             configuration.AddOpenBehavior(typeof(EncryptIdPipelineBehavior<,>));
-
-            // configuration.AddOpenBehavior(typeof(RequestTransactionBehavior<,>));
-            //configuration.AddOpenBehavior(typeof(ExceptionHandlingBehavior<,>));
-
         });
-        //Business Rules servislerinin eklenmesi
         services.AddBusinessRules();
-
-
     }
     private static IServiceCollection AddBusinessRules(this IServiceCollection services)
     {

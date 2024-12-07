@@ -50,7 +50,7 @@ public class Program
 
         //Pharmacy katmanýndaki servislerin eklenmesi
         builder.Services.AddPharmacyApplicationServices();
-        builder.Services.AddPharmacyPersistenceServices();
+        builder.Services.AddPharmacyPersistenceServices(builder.Configuration);
         builder.Services.AddSwaggerDocument(config =>
         {
             config.PostProcess = document =>
