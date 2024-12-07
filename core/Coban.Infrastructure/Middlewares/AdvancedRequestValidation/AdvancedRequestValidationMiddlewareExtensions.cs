@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 
-namespace Coban.Infrastructure.AdvancedRequestValidation;
-
+namespace Coban.Infrastructure.Middlewares.AdvancedRequestValidation;
 
 public static class AdvancedRequestValidationMiddlewareExtensions
 {

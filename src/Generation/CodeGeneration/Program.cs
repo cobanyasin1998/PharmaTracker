@@ -40,23 +40,24 @@ catch (Exception ex)
     Console.WriteLine($"An error occurred during code generation: {ex.Message}");
 }
 const string BasePath = @"C:\Users\Yasin\source\repos\PharmaTracker\src";
+
 static async Task GenerateCodeFilesAsync(string serviceName, string entityName)
 {
     string basePath = Path.Combine(
        BasePath,
         serviceName);
 
-    var paths = new[]
+    PathsDto[] paths =
     {
-        new { Type = "Create", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Create" },
-        new { Type = "Update", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Update" },
-        new { Type = "Delete", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Delete" },
-        new { Type = "Constants", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Constants" },
-        new { Type = "Profiles", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Profiles" },
-        new { Type = "GetAll", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Queries\\GetAll" },
-        new { Type = "GetById", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Queries\\GetById" },
-        new { Type = "RulesAbstractions", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Rules\\Abstractions" },
-        new { Type = "Rules", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Rules" }
+        new PathsDto{ Type = "Create", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Create" },
+        new PathsDto{ Type = "Update", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Update" },
+        new PathsDto{ Type = "Delete", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Commands\\Delete" },
+        new PathsDto{ Type = "Constants", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Constants" },
+        new PathsDto{ Type = "Profiles", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Profiles" },
+        new PathsDto{ Type = "GetAll", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Queries\\GetAll" },
+        new PathsDto{ Type = "GetById", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Queries\\GetById" },
+        new PathsDto{ Type = "RulesAbstractions", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Rules\\Abstractions" },
+        new PathsDto{ Type = "Rules", Path = $"Core\\{serviceName}.Application\\Features\\{entityName}\\Rules" }
     };
 
     // Create directories
@@ -66,7 +67,7 @@ static async Task GenerateCodeFilesAsync(string serviceName, string entityName)
     }
 
     // Define file templates and tasks
-    var tasks = new[]
+    Task[] tasks =
     {
         CreateFileAsync(Path.Combine(basePath, paths[0].Path, $"Create{entityName}CommandHandler.cs"), GenerateCreateHandlerTemplate(entityName)),
         CreateFileAsync(Path.Combine(basePath, paths[0].Path, $"Create{entityName}CommandRequest.cs"), GenerateCreateRequestTemplate(entityName)),
@@ -395,4 +396,10 @@ static string GenerateRulesTemplate(string entityName)
                    
                 }
                 """;
+}
+
+public class PathsDto
+{
+    public string Type { get; set; }
+    public string Path { get; set; }
 }

@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Coban.Infrastructure.BotDetection;
+namespace Coban.Infrastructure.Middlewares.BotDetection;
 
 public class BotDetectionMiddleware
 {
     private readonly RequestDelegate _next;
 
-    public BotDetectionMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
+    public BotDetectionMiddleware(RequestDelegate next) 
+        => _next = next;
+    
 
     public async Task InvokeAsync(HttpContext context)
     {

@@ -2,7 +2,7 @@
 using Coban.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Http;
 
-namespace Coban.Infrastructure.AdvancedRequestValidation;
+namespace Coban.Infrastructure.Middlewares.AdvancedRequestValidation;
 
 public class AdvancedRequestValidationMiddleware(RequestDelegate _next)
 {
@@ -14,4 +14,3 @@ public class AdvancedRequestValidationMiddleware(RequestDelegate _next)
         await _next(context);
     }
 }
-

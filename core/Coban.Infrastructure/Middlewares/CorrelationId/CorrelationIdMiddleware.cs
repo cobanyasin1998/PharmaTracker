@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Coban.Infrastructure.CorrelationId.Middlewares;
+namespace Coban.Infrastructure.Middlewares.CorrelationId;
 
 public class CorrelationIdMiddleware
 {

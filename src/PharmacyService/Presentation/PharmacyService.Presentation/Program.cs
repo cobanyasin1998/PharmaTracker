@@ -1,11 +1,19 @@
 using Coban.Application.Registration;
 using Coban.Infrastructure.Exceptions.Extensions;
 using Coban.Persistence.SeedData.Managers;
+using Coban.Security.Middlewares.BlackList;
 using PharmacyService.Application.Registration;
 using PharmacyService.Persistence.Registration;
-using Coban.Security.Middlewares.BlackList;
 using Serilog;
-using Coban.Infrastructure.AdvancedRequestValidation;
+using Coban.Infrastructure.Middlewares.AdvancedRequestValidation;
+using Coban.Infrastructure.Middlewares.AdvancedResponseValidation;
+using Coban.Infrastructure.Middlewares.PerformanceWatch;
+using Coban.Infrastructure.Middlewares.Maintenance;
+using Coban.Infrastructure.Extensions;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
+
+
 namespace PharmacyService.Presentation;
 
 public class Program
@@ -15,12 +23,31 @@ public class Program
         WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 
-        builder.Services.AddControllers();
         builder.Services.AddHttpContextAccessor();
+        builder.Services.AddControllers()
+            .ConfigureApiBehaviorOptions(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            })
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.PropertyNamingPolicy = new UppercaseFirstLetterNamingPolicy();
+
+            });
+        builder.Services.AddResponseCompression(opt =>
+        {
+            opt.EnableForHttps = true;
+            opt.Providers.Add<GzipCompressionProvider>();
+
+        });
+        builder.Services.Configure<GzipCompressionProviderOptions>(options =>
+        {
+            options.Level = CompressionLevel.Optimal; // Sýkýþtýrma seviyesi
+        });
         builder.Services.AddEndpointsApiExplorer();
         //Core katmanýndaki servislerin eklenmesi
         builder.Services.AddCoreApplicationServices();
- 
+
         //Pharmacy katmanýndaki servislerin eklenmesi
         builder.Services.AddPharmacyApplicationServices();
         builder.Services.AddPharmacyPersistenceServices();
@@ -38,7 +65,7 @@ public class Program
             configuration
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Seq("http://localhost:5341")               
+                .WriteTo.Seq("http://localhost:5341")
                 .ReadFrom.Configuration(context.Configuration);
         });
         WebApplication? app = builder.Build();
@@ -63,12 +90,16 @@ public class Program
             app.UseSwaggerUi();
 
         }
+        app.UseResponseCompression();
+
         app.ConfigureCustomExceptionMiddleware();
-        app.UseSerilogRequestLogging(); // HTTP request loglarý için
+        app.ConfigurePerformanceWatchMiddleware();
+        app.UseSerilogRequestLogging();
+        app.ConfigureMaintenanceMiddleware();
         app.ConfigureAdvancedRequestValidationMiddleware();
- 
+        app.ConfigureAdvancedResponseValidationMiddleware();
         app.ConfigureCustomBlackListControlMiddleware();
-       
+
         app.UseHttpsRedirection();
 
         app.UseAuthorization();

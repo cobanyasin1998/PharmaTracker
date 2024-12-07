@@ -34,8 +34,8 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
             .ApplySpecification(PharmacySpecificationFactory.GetNameSpecification(request.RequestFilterDto?.Name))
             .ApplySpecification(PharmacySpecificationFactory.GetStatusSpecification(request.RequestFilterDto?.Status))
             .ApplySpecification(PharmacySpecificationFactory.GetLicenseNumberSpecification(request.RequestFilterDto?.LicenseNumber))
-            .ApplyFilters(request.Filtering)
-            .ApplyOrdering(orderByProperties: (List<Coban.Application.Requests.OrderBy.Dto.Sorting>)request.Sorting)
+            //.ApplyFilters(request.Filtering)
+           // .ApplyOrdering(orderByProperties: (List<Coban.Application.Requests.OrderBy.Dto.Sorting>)request.Sorting)
             .Select(p => new GetAllPharmacyQueryResponseItemDto
             {
                 Id = _dataProtectService.Encrypt(p.Id),
@@ -43,12 +43,12 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
                 LicenseNumber = p.LicenseNumber,
                 Status = p.Status
             })
-            .ApplyOrdering(keySelectors: new List<(Expression<Func<GetAllPharmacyQueryResponseItemDto, object>>, bool)>
-            {
-                (x => x.Name, true),
-                (x => x.LicenseNumber, false)
-            })
-            .ApplyPaging(pageNumber: request.Paging.Page, request.Paging.Size)
+            //.ApplyOrdering(keySelectors: new List<(Expression<Func<GetAllPharmacyQueryResponseItemDto, object>>, bool)>
+            //{
+            //    (x => x.Name, true),
+            //    (x => x.LicenseNumber, false)
+            //})
+            //.ApplyPaging(pageNumber: request.Paging.Page, request.Paging.Size)
             .ToListAsync(cancellationToken);
 
         int totalCount = await query.CountAsync();

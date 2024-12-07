@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
-namespace Coban.Infrastructure.Logging.Middlewares;
+namespace Coban.Infrastructure.Middlewares.RequestResponseLogging;
 
 public class RequestResponseLoggingMiddleware
 {
