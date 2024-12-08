@@ -2,8 +2,8 @@
 
 public static class DataProtectionConsts
 {
-    public const string CorePurpose = "CorePurpose";
-    public const string DirectoryKeyPath = "./Keys";
-    
-    public const string NoValidKey = "No Valid Key";
+    public static readonly string CorePurpose = "CorePurpose";
+    public static readonly string DirectoryKeyPath = "./Keys";
+
+    public static readonly string NoValidKey = "No Valid Key";
 }

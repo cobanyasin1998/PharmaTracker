@@ -35,11 +35,8 @@ public static class ServiceRegistration
                 .FirstOrDefault(i => typeof(IBaseBusinessRule).IsAssignableFrom(i));
 
             if (interfaceType != null)
-            {
                 services.AddScoped(interfaceType, implementationType);
-            }
         }
-
         return services;
     }
 }

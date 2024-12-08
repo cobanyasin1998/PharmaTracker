@@ -2,7 +2,8 @@
 
 public static class HttpClientConsts
 {
-        public static string RequestTimeout = "Request Timeout";
-    public static string RequestFailed = "Request Failed";
+    public static readonly string RequestTimeout = "Request Timeout";
+    public static readonly string RequestFailed = "Request Failed";
 
 }
+

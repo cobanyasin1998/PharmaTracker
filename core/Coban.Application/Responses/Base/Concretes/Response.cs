@@ -3,7 +3,7 @@ using Coban.Application.Responses.Base.Enums;
 using Coban.Consts;
 using Coban.GeneralDto;
 using Microsoft.AspNetCore.Http;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Coban.Application.Responses.Base.Concretes;
 

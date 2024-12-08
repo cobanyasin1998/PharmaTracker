@@ -27,7 +27,20 @@ public class UpdatePharmacyCommandValidator : AbstractValidator<UpdatePharmacyCo
     {
         if (string.IsNullOrEmpty(licenseNumber))
             return false;
+
         string pattern = @"^\d{4}-\d{3}-\d{4}$";
-        return Regex.IsMatch(licenseNumber, pattern);
+
+        // Zaman aşımı süresi
+        TimeSpan timeout = TimeSpan.FromMilliseconds(500); // 500 ms
+
+        try
+        {
+            return Regex.IsMatch(licenseNumber, pattern, RegexOptions.None, timeout);
+        }
+        catch (RegexMatchTimeoutException)
+        {
+            // Zaman aşımı durumunda false döner
+            return false;
+        }
     }
 }

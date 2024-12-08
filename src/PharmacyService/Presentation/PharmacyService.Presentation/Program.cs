@@ -10,49 +10,72 @@ using Coban.Infrastructure.Middlewares.Maintenance;
 using Coban.Infrastructure.Middlewares.PerformanceWatch;
 using Coban.Infrastructure.Middlewares.Exception;
 using Coban.Infrastructure.Middlewares.BlackList;
-
-
+using Coban.Infrastructure.Middlewares.BotDetection;
 using Serilog;
 using System.IO.Compression;
-using Coban.Infrastructure.Middlewares.BotDetection;
-
+using PharmacyService.Presentation.SwaggerModel.Pharmacy;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace PharmacyService.Presentation;
 
-public class Program
+public static class Program
 {
     public static void Main(string[] args)
     {
-        WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+        // Services Configuration
+        ConfigureServices(builder);
 
+        // Serilog Configuration
+        ConfigureSerilog(builder);
+
+        WebApplication app = builder.Build();
+
+        // Data Seeding
+        SeedDatabase(app);
+
+        // Middleware Configuration
+        ConfigureMiddleware(app);
+
+        app.Run();
+    }
+
+    private static void ConfigureServices(WebApplicationBuilder builder)
+    {
+        // HttpContext Accessor
         builder.Services.AddHttpContextAccessor();
-        builder.Services.AddControllers()
-            .ConfigureApiBehaviorOptions(options =>
-            {
-                options.SuppressModelStateInvalidFilter = true;
-            })
-            .AddJsonOptions(options =>
-            {
-                options.JsonSerializerOptions.PropertyNamingPolicy = new UppercaseFirstLetterNamingPolicy();
-                options.JsonSerializerOptions.WriteIndented = true;
 
-            });
+        // Controllers with JSON Options
+        builder.Services.AddControllers().AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            options.SerializerSettings.Formatting = Formatting.Indented;
+        })
+        .ConfigureApiBehaviorOptions(options =>
+        {
+            options.SuppressModelStateInvalidFilter = true;
+        })
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.PropertyNamingPolicy = new UppercaseFirstLetterNamingPolicy();
+            options.JsonSerializerOptions.WriteIndented = true;
+        });
+
+        // Response Compression
         builder.Services.AddResponseCompression(opt =>
         {
             opt.EnableForHttps = true;
             opt.Providers.Add<GzipCompressionProvider>();
-
         });
         builder.Services.Configure<GzipCompressionProviderOptions>(options =>
         {
-            options.Level = CompressionLevel.Optimal; // Sýkýþtýrma seviyesi
+            options.Level = CompressionLevel.Optimal;
         });
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddCoreApplicationServices();
 
-        builder.Services.AddPharmacyApplicationServices();
-        builder.Services.AddPharmacyPersistenceServices(builder.Configuration);
+        // Swagger Documentation
         builder.Services.AddSwaggerDocument(config =>
         {
             config.PostProcess = document =>
@@ -61,37 +84,54 @@ public class Program
                 document.Info.Title = "My API";
                 document.Info.Description = "A sample API using NSwag in .NET Core";
             };
+            config.OperationProcessors.Add(new PharmacyModelSchemaProcessor());
+
         });
+
+        // Application Services
+        builder.Services.AddCoreApplicationServices();
+        builder.Services.AddPharmacyApplicationServices();
+        builder.Services.AddPharmacyPersistenceServices(builder.Configuration);
+
+        // Endpoints API Explorer
+        builder.Services.AddEndpointsApiExplorer();
+    }
+
+    private static void ConfigureSerilog(WebApplicationBuilder builder)
+    {
         builder.Host.UseSerilog((context, configuration) =>
         {
             configuration
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Seq("http://localhost:5341")
+                .WriteTo.Seq(builder.Configuration.GetSection("Serilog")["Seq"])
                 .ReadFrom.Configuration(context.Configuration);
         });
-        WebApplication? app = builder.Build();
+    }
 
-        using (IServiceScope scope = app.Services.CreateScope())
+    private static void SeedDatabase(WebApplication app)
+    {
+        using IServiceScope scope = app.Services.CreateScope();
+        SeedDataManager seedManager = scope.ServiceProvider.GetRequiredService<SeedDataManager>();
+
+        try
         {
-            SeedDataManager? seedManager = scope.ServiceProvider.GetRequiredService<SeedDataManager>();
-
-            try
-            {
-                seedManager.SeedAll().GetAwaiter().GetResult();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred during seeding: {ex.Message}");
-            }
+            seedManager.SeedAll().GetAwaiter().GetResult();
         }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred during seeding: {ex.Message}");
+        }
+    }
 
+    private static void ConfigureMiddleware(WebApplication app)
+    {
         if (app.Environment.IsDevelopment())
         {
             app.UseOpenApi();
             app.UseSwaggerUi();
-
         }
+
         app.UseResponseCompression();
         app.ConfigureCustomExceptionMiddleware();
         app.ConfigurePerformanceWatchMiddleware();
@@ -104,6 +144,5 @@ public class Program
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.MapControllers();
-        app.Run();
     }
 }

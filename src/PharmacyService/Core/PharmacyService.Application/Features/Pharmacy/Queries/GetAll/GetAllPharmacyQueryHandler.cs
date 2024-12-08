@@ -1,6 +1,5 @@
 ﻿using Coban.Application.DataProtection.Abstractions;
 using Coban.Application.GeneralExtensions.IQueryableExtensions;
-using Coban.Application.Requests.Filter.Dynamic.Extensions;
 using Coban.Application.Requests.Filter.Specification.Extensions;
 using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
@@ -10,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using PharmacyService.Application.Abstractions.UnitOfWork;
 using PharmacyService.Application.Features.Pharmacy.Queries.GetAll.Specification.Factory;
 using PharmacyService.Domain.Entities;
-using System.Linq.Expressions;
 
 namespace PharmacyService.Application.Features.Pharmacy.Queries.GetAll;
 

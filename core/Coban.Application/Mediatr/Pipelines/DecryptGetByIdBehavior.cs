@@ -20,7 +20,7 @@ public class DecryptGetByIdBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
         PropertyInfo[] properties = request.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
         foreach (PropertyInfo property in properties)
         {
-            if (property.Name.Equals("Id", StringComparison.OrdinalIgnoreCase) && property.PropertyType == typeof(string))
+            if (property.Name.Equals("EncId", StringComparison.OrdinalIgnoreCase) && property.PropertyType == typeof(string))
             {
                 string? currentValue = property.GetValue(request) as string;
                 if (!string.IsNullOrEmpty(currentValue))
@@ -28,7 +28,7 @@ public class DecryptGetByIdBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
                     long decryptedValue = _dataProtectService.Decrypt(currentValue);
 
                     PropertyInfo? decryptedIdProperty = request.GetType()
-                        .GetProperty("DecryptedId");
+                        .GetProperty("Id");
 
                     if (decryptedIdProperty is not null && decryptedIdProperty.PropertyType == typeof(long))
                     {

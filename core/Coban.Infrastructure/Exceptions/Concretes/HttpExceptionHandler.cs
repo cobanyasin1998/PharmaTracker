@@ -4,6 +4,7 @@ using Coban.GeneralDto;
 using Coban.Infrastructure.Exceptions.Abstractions;
 using Coban.Infrastructure.Exceptions.ExceptionTypes;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace Coban.Infrastructure.Exceptions.Concretes;
 
@@ -21,7 +22,7 @@ public class HttpExceptionHandler : ExceptionHandler
             httpStatusCode: 400
             );
 
-        return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+        return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
 
     }
     protected override Task HandleException(ValidationRuleException exception, HttpContext context)
@@ -36,7 +37,7 @@ public class HttpExceptionHandler : ExceptionHandler
              httpStatusCode: 400
              );
 
-        return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+        return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
     }
     protected override Task HandleException(Exception exception, HttpContext context)
     {
@@ -50,7 +51,7 @@ public class HttpExceptionHandler : ExceptionHandler
            httpStatusCode: 400
            );
 
-        return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+        return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
     }
     protected override Task HandleException(BlackListRuleException exception, HttpContext context)
     {
@@ -64,7 +65,7 @@ public class HttpExceptionHandler : ExceptionHandler
             httpStatusCode: 400
             );
 
-        return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+        return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
     }
     protected override Task HandleException(DataProtectKeyException exception, HttpContext context)
     {
@@ -78,7 +79,7 @@ public class HttpExceptionHandler : ExceptionHandler
             httpStatusCode: 400
             );
 
-        return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+        return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
     }
 
     protected override Task HandleException(InvalidRequestException exception, HttpContext context)
@@ -93,6 +94,6 @@ public class HttpExceptionHandler : ExceptionHandler
               httpStatusCode: 400
               );
 
-        return context.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(response));
+        return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
     }
 }

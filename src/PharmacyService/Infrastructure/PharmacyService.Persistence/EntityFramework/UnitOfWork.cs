@@ -8,13 +8,8 @@ using PharmacyService.Persistence.DbContexts;
 
 namespace PharmacyService.Persistence.EntityFramework;
 
-public class UnitOfWork : IUnitOfWork
+public class UnitOfWork(PharmacyDbContext _context) : IUnitOfWork
 {
-    private readonly PharmacyDbContext _context;
-
-    public UnitOfWork(PharmacyDbContext context) 
-        => _context = context;
-
     #region Save Methods
     public int SaveChanges()
     => _context.SaveChanges();
