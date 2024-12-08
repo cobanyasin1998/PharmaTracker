@@ -1,19 +1,15 @@
 ﻿using Coban.Application.DataProtection.Abstractions;
-using Coban.GeneralDto;
+using Coban.Application.Responses;
 using MediatR;
 using System.Reflection;
 
 namespace Coban.Application.Mediatr.Pipelines;
 
-public class DecryptGetByIdBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IGetByIdRequest
+public class DataProtectionBehavior<TRequest, TResponse>(IDataProtectService _dataProtectService) 
+    : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IBaseRequest
+    where TResponse : class
 {
-    private readonly IDataProtectService _dataProtectService;
-
-    public DecryptGetByIdBehavior(IDataProtectService dataProtectService)
-    {
-        _dataProtectService = dataProtectService;
-    }
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
@@ -41,8 +37,13 @@ public class DecryptGetByIdBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
                 }
             }
         }
+        TResponse response = await next();
 
-        return await next();
+        dynamic dynamicResponse = response;
+
+        if (dynamicResponse?.Data is BaseResponse baseResponse)
+            baseResponse.EncId = _dataProtectService.Encrypt(baseResponse.Id);
+        return response;
     }
 
 }

@@ -16,8 +16,7 @@ public static class ServiceRegistration
         {
             configuration.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             configuration.AddOpenBehavior(typeof(RequestValidationBehavior<,>));
-            configuration.AddOpenBehavior(typeof(DecryptGetByIdBehavior<,>));
-            configuration.AddOpenBehavior(typeof(EncryptIdPipelineBehavior<,>));
+            configuration.AddOpenBehavior(typeof(DataProtectionBehavior<,>));
         });
         services.AddBusinessRules();
     }
