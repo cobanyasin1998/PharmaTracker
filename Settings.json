@@ -1,0 +1,5 @@
+{
+  "PharmacyPostgreSql": {
+    "ConnectionString": "Host=localhost;Port=5432;Database=pharmacyServicePostgresDatabase;Username=pharmacyPostgres;Password=dRakyDKVyF5S"
+  }
+}

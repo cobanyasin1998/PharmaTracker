@@ -35,12 +35,11 @@ catch (Exception ex)
 {
     Console.WriteLine($"An error occurred during code generation: {ex.Message}");
 }
-const string BasePath = @"C:\Users\Yasin\source\repos\PharmaTracker\src";
 
 static async Task GenerateCodeFilesAsync(string serviceName, string entityName)
 {
     string basePath = Path.Combine(
-       BasePath,
+       "C:\\Users\\Yasin\\source\\repos\\PharmaTracker\\src",
         serviceName);
 
     PathDto[] paths =
