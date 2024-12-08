@@ -6,7 +6,7 @@ public class ExampleCustomFilter
 {
     private const string LicenseNumber = "LicenseNumber";
     private const string Eq = "equals";
-    public List<FilterGroup> ExampleFilter()
+    public static List<FilterGroup> ExampleFilter()
     {
         return new List<FilterGroup>();
     //    List<FilterGroup> filters = new List<FilterGroup>()
