@@ -3,14 +3,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace Coban.Infrastructure.Middlewares.RequestDeduplication;
 
-public class RequestDeduplicationMiddleware
+public class RequestDeduplicationMiddleware(RequestDelegate _next)
 {
-    private readonly RequestDelegate _next;
-    private static Dictionary<string, DateTime> _recentRequests = new();
-
-    public RequestDeduplicationMiddleware(RequestDelegate next) 
-        => _next = next;
-   
+    private static readonly Dictionary<string, DateTime> _recentRequests = [];
 
     public async Task InvokeAsync(HttpContext context)
     {

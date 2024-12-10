@@ -6,16 +6,12 @@ using System.Linq.Expressions;
 
 namespace Coban.Persistence.Repositories.EntityFramework.Read;
 
-public class ReadRepository<TEntity, TContext> 
+public class ReadRepository<TEntity, TContext>(TContext Context)
     : IReadRepository<TEntity>, IRepository<TEntity>
     where TEntity : BaseEntity 
     where TContext : DbContext
 {
-    protected readonly TContext Context;
 
-    public ReadRepository(TContext context) 
-        => Context = context;
-    
     public DbSet<TEntity> Table => Context.Set<TEntity>();
 
     public IQueryable<TEntity> GetAll(bool tracking = true)

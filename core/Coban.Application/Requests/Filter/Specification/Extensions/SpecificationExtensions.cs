@@ -4,8 +4,6 @@ namespace Coban.Application.Requests.Filter.Specification.Extensions;
 
 public static class SpecificationExtensions
 {
-    public static IQueryable<T> ApplySpecification<T>(this IQueryable<T> query, ISpecification<T> specification)
-    {
-        return query.Where(specification.ToExpression());
-    }
+    public static IQueryable<T> ApplySpecification<T>(this IQueryable<T> query, ISpecification<T> specification) 
+        => query.Where(specification.ToExpression());
 }

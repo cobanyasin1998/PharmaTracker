@@ -5,16 +5,10 @@ using Microsoft.Extensions.Configuration;
 namespace Coban.Infrastructure.Middlewares.BlackList;
 
 
-public class BlackListControlMiddleware
+public class BlackListControlMiddleware(RequestDelegate next, IConfiguration configuration)
 {
-    private readonly RequestDelegate _next;
-    private readonly HashSet<string> _blacklist;
-
-    public BlackListControlMiddleware(RequestDelegate next, IConfiguration configuration)
-    {
-        _next = next;
-        _blacklist = configuration.GetSection("Blacklist").Get<HashSet<string>>() ?? new HashSet<string>();
-    }
+    private readonly RequestDelegate _next = next;
+    private readonly HashSet<string> _blacklist = configuration.GetSection("Blacklist").Get<HashSet<string>>() ?? new HashSet<string>();
 
     public async Task InvokeAsync(HttpContext context)
     {

@@ -4,16 +4,8 @@ using System.Diagnostics;
 
 namespace Coban.Infrastructure.Middlewares.PerformanceWatch;
 
-public class PerformanceWatchMiddleware
+public class PerformanceWatchMiddleware(RequestDelegate _next, ILogger<PerformanceWatchMiddleware> _logger)
 {
-    private readonly RequestDelegate _next;
-    private readonly ILogger<PerformanceWatchMiddleware> _logger;
-
-    public PerformanceWatchMiddleware(RequestDelegate next, ILogger<PerformanceWatchMiddleware> logger)
-    {
-        _next = next;
-        _logger = logger;
-    }
 
     public async Task InvokeAsync(HttpContext context)
     {

@@ -4,7 +4,7 @@ namespace Coban.Infrastructure.Exceptions.ExceptionTypes;
 
 public class ValidationRuleException : Exception
 {
-    public List<ValidationErrorDto> ErrorDetails { get; } = new List<ValidationErrorDto>();
+    public List<ValidationErrorDto> ErrorDetails { get; } = [];
 
     public ValidationRuleException()
     {

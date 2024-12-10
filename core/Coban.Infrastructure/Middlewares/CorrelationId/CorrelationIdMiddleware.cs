@@ -2,14 +2,9 @@
 
 namespace Coban.Infrastructure.Middlewares.CorrelationId;
 
-public class CorrelationIdMiddleware
+public class CorrelationIdMiddleware(RequestDelegate _next)
 {
-    private readonly RequestDelegate _next;
     private const string CorrelationIdHeader = "X-Correlation-ID";
-    public CorrelationIdMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
 
     public async Task InvokeAsync(HttpContext context)
     {

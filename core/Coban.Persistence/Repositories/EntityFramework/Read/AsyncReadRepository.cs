@@ -6,16 +6,12 @@ using System.Linq.Expressions;
 
 namespace Coban.Persistence.Repositories.EntityFramework.Read;
 
-public class AsyncReadRepository<TEntity, TContext>
+public class AsyncReadRepository<TEntity, TContext>(TContext Context)
     : IAsyncReadRepository<TEntity>, IRepository<TEntity>
     where TEntity : BaseEntity
     where TContext : DbContext
 {
-    protected readonly TContext Context;
 
-    public AsyncReadRepository(TContext context) 
-        => Context = context;
- 
     public DbSet<TEntity> Table => Context.Set<TEntity>();
 
     public async Task<TEntity?> GetByIdAsync(long id, bool tracking = true, CancellationToken cancellationToken = default)

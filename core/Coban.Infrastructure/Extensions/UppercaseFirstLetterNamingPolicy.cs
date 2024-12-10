@@ -11,6 +11,6 @@ public class UppercaseFirstLetterNamingPolicy : JsonNamingPolicy
         if (string.IsNullOrEmpty(name))
             return name;
 
-        return char.ToUpperInvariant(name[0]) + name.Substring(1);
+        return char.ToUpperInvariant(name[0]) + name[1..];
     }
 }

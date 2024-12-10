@@ -3,16 +3,8 @@ using Microsoft.Extensions.Logging;
 
 namespace Coban.Infrastructure.Middlewares.RequestResponseLogging;
 
-public class RequestResponseLoggingMiddleware
+public class RequestResponseLoggingMiddleware(RequestDelegate _next, ILogger<RequestResponseLoggingMiddleware> _logger)
 {
-    private readonly RequestDelegate _next;
-    private readonly ILogger<RequestResponseLoggingMiddleware> _logger;
-
-    public RequestResponseLoggingMiddleware(RequestDelegate next, ILogger<RequestResponseLoggingMiddleware> logger)
-    {
-        _next = next;
-        _logger = logger;
-    }
 
     public async Task InvokeAsync(HttpContext context)
     {

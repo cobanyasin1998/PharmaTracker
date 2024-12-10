@@ -4,17 +4,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace Coban.Infrastructure.Middlewares.MaxRequestSize;
 
-public class MaxRequestSizeMiddleware
+public class MaxRequestSizeMiddleware(RequestDelegate _next, IConfiguration config)
 {
-    private readonly RequestDelegate _next;
-    private readonly long _maxRequestSizeInBytes;
+    private readonly long _maxRequestSizeInBytes = config.GetValue<int>(MaxRequestSize) * 1024 * 1024;
     private const string MaxRequestSize = "MaxRequestSize";
-
-    public MaxRequestSizeMiddleware(RequestDelegate next, IConfiguration config)
-    {
-        _next = next;
-        _maxRequestSizeInBytes = config.GetValue<int>(MaxRequestSize) * 1024 * 1024;
-    }
 
     public async Task InvokeAsync(HttpContext context)
     {

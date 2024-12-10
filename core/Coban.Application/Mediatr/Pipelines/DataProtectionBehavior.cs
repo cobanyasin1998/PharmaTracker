@@ -23,17 +23,10 @@ public class DataProtectionBehavior<TRequest, TResponse>(IDataProtectService _da
                 {
                     long decryptedValue = _dataProtectService.Decrypt(currentValue);
 
-                    PropertyInfo? decryptedIdProperty = request.GetType()
-                        .GetProperty("Id");
+                    PropertyInfo? decryptedIdProperty = request.GetType().GetProperty("Id");
 
                     if (decryptedIdProperty is not null && decryptedIdProperty.PropertyType == typeof(long))
-                    {
-                        decryptedIdProperty.SetValue(request, decryptedValue);
-                    }
-                    else
-                    {
-                        Console.WriteLine("DecryptedId property bulunamadı. BindingFlags kontrol edin.");
-                    }
+                        decryptedIdProperty.SetValue(request, decryptedValue);                    
                 }
             }
         }

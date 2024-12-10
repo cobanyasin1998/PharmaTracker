@@ -4,16 +4,10 @@ using Microsoft.Extensions.Configuration;
 
 namespace Coban.Infrastructure.Middlewares.Maintenance;
 
-public class MaintenanceMiddleware
+public class MaintenanceMiddleware(RequestDelegate _next, IConfiguration config)
 {
-    private readonly RequestDelegate _next;
-    private readonly bool _isInMaintenance;
+    private readonly bool _isInMaintenance = config.GetValue<bool>(MaintenanceModeKey);
     private const string MaintenanceModeKey = "MaintenanceMode";
-    public MaintenanceMiddleware(RequestDelegate next, IConfiguration config)
-    {
-        _next = next;
-        _isInMaintenance = config.GetValue<bool>(MaintenanceModeKey);
-    }
 
     public async Task InvokeAsync(HttpContext context)
     {

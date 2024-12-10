@@ -5,7 +5,7 @@ namespace Coban.Application.SyncCommunication;
 
 public class DynamicHttpClient
 {
-    private static readonly HttpClient _httpClient = new HttpClient(
+    private static readonly HttpClient _httpClient = new(
     new HttpClientHandler()
     {
         MaxConnectionsPerServer = 100,
@@ -15,7 +15,7 @@ public class DynamicHttpClient
         Timeout = TimeSpan.FromSeconds(30)
     };
 
-    public async Task<T> SendRequestAsync<T>(string url, HttpMethod method, object data, CancellationToken cancellationToken = default)
+    public static async Task<T> SendRequestAsync<T>(string url, HttpMethod method, object data, CancellationToken cancellationToken = default)
     {
         try
         {

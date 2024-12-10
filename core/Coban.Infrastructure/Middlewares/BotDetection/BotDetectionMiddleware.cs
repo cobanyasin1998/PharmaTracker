@@ -2,13 +2,8 @@
 
 namespace Coban.Infrastructure.Middlewares.BotDetection;
 
-public class BotDetectionMiddleware
+public class BotDetectionMiddleware(RequestDelegate _next)
 {
-    private readonly RequestDelegate _next;
-
-    public BotDetectionMiddleware(RequestDelegate next) 
-        => _next = next;
-    
 
     public async Task InvokeAsync(HttpContext context)
     {

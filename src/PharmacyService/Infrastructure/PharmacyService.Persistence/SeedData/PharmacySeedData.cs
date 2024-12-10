@@ -8,15 +8,8 @@ using PharmacyService.Domain.Enums;
 
 namespace PharmacyService.Persistence.SeedData;
 
-public class PharmacySeedData : ISeedData
+public class PharmacySeedData(IUnitOfWork _unitOfWork) : ISeedData
 {
-    private readonly IUnitOfWork _unitOfWork;
-
-    public PharmacySeedData(IUnitOfWork unitOfWork)
-    {
-        _unitOfWork = unitOfWork;
-    }
-
     public async Task<int> SeedEntityData(int count = 5000)
     {
         bool isExistsRecords = await _unitOfWork.PharmacyReadRepository.GetAll().AnyAsync();

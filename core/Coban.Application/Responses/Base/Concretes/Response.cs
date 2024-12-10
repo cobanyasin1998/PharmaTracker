@@ -76,7 +76,7 @@ public class Response<TData, TErrorDTO> : IResponse<TData, TErrorDTO>
         GeneralErrorDto error
         )
     {
-        return new Response<TData, GeneralErrorDto>(new List<GeneralErrorDto> { error }, GeneralOperationConsts.OperationFailed, Enums.ErrorType.NotFound, StatusCodes.Status404NotFound);
+        return new Response<TData, GeneralErrorDto>([error], GeneralOperationConsts.OperationFailed, Enums.ErrorType.NotFound, StatusCodes.Status404NotFound);
     }
 
     #endregion

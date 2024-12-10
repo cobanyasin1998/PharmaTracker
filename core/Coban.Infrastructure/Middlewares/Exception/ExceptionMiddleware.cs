@@ -6,18 +6,11 @@ using Microsoft.Extensions.Logging;
 namespace Coban.Infrastructure.Middlewares.Exception;
 
 
-public class ExceptionMiddleware
+public class ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
 {
-    private readonly RequestDelegate _next;
-    private readonly HttpExceptionHandler _httpExceptionHandler;
-    private readonly ILogger<ExceptionMiddleware> _logger;
-
-    public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
-    {
-        _next = next;
-        _httpExceptionHandler = new HttpExceptionHandler();
-        _logger = logger;
-    }
+    private readonly RequestDelegate _next = next;
+    private readonly HttpExceptionHandler _httpExceptionHandler = new();
+    private readonly ILogger<ExceptionMiddleware> _logger = logger;
 
     public async Task InvokeAsync(HttpContext httpContext)
     {

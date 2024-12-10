@@ -6,16 +6,12 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Coban.Persistence.Repositories.EntityFramework.Write;
 
-public class AsyncWriteRepository<TEntity, TContext>
+public class AsyncWriteRepository<TEntity, TContext>(TContext Context)
     : IAsyncWriteRepository<TEntity>, IRepository<TEntity>
     where TEntity : BaseEntity
     where TContext : DbContext
 {
-    protected readonly TContext Context;
 
-    public AsyncWriteRepository(TContext context)
-        => Context = context;
-  
     public DbSet<TEntity> Table
         => Context.Set<TEntity>();
 

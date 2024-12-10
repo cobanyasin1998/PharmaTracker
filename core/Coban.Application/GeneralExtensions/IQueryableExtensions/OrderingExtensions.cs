@@ -45,7 +45,7 @@ public static class OrderingExtensions
         this IQueryable<T> query,
         List<(Expression<Func<T, object>> KeySelector, bool Ascending)> keySelectors)
     {
-        if (keySelectors == null || !keySelectors.Any())
+        if (keySelectors == null || keySelectors.Count == 0)
             return query;
 
         IOrderedQueryable<T>? orderedQuery = null;

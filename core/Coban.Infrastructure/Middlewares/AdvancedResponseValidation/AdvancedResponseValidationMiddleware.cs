@@ -4,19 +4,12 @@ using System.Text.Json;
 
 namespace Coban.Infrastructure.Middlewares.AdvancedResponseValidation;
 
-public class AdvancedResponseValidationMiddleware
+public class AdvancedResponseValidationMiddleware(RequestDelegate _next)
 {
-    private readonly RequestDelegate _next;
-
-    public AdvancedResponseValidationMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
-
     public async Task InvokeAsync(HttpContext context)
     {
         Stream? originalResponseBodyStream = context.Response.Body;
-        using MemoryStream? memoryStream = new MemoryStream();
+        using MemoryStream? memoryStream = new();
         context.Response.Body = memoryStream;
 
         try
