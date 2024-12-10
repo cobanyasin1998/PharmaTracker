@@ -4,6 +4,7 @@ using NJsonSchema;
 using NSwag;
 using NSwag.Generation.Processors;
 using NSwag.Generation.Processors.Contexts;
+using System.Security.Cryptography;
 
 namespace PharmacyService.Presentation.SwaggerModel.Pharmacy;
 
@@ -57,28 +58,25 @@ public class PharmacyModelSchemaProcessor : IOperationProcessor
     }
     private string GenerateRandomLicenseNumber()
     {
-        _ = new Random();
-
-        // Format: XXXX-XXX-XXXX
-        string licenseNumber = string.Join("-",
+         return string.Join("-",
             new string[] {
-            GenerateRandomDigits(4), // First part: 4 digits
-            GenerateRandomDigits(3), // Second part: 3 digits
-            GenerateRandomDigits(4)  // Third part: 4 digits
+            GenerateRandomDigits(4), 
+            GenerateRandomDigits(3),
+            GenerateRandomDigits(4)
             });
-
-        return licenseNumber;
     }
     private string GenerateRandomDigits(int length)
     {
-        Random random = new Random();
-        string digits = string.Empty;
+        byte[] buffer = new byte[length];
+        using RandomNumberGenerator rng = RandomNumberGenerator.Create();
+        rng.GetBytes(buffer);
 
+        char[] digits = new char[length];
         for (int i = 0; i < length; i++)
         {
-            digits += random.Next(0, 10).ToString(); // Append random digit
+            digits[i] = (char)('0' + (buffer[i] % 10));
         }
 
-        return digits;
+        return new string(digits);
     }
 }
