@@ -1,6 +1,6 @@
 ﻿namespace PharmacyService.Application.Features.PharmacyBranch.Constants;
 
-public class PharmacyBranchConstants
+public static class PharmacyBranchConstants
 {
     private const string Prefix = "PharmacyBranch";
 

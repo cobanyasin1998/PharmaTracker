@@ -4,4 +4,5 @@ namespace PharmacyService.Application.Features.PharmacyBranchAddress.Queries.Get
 
 public class GetByIdPharmacyBranchAddressQueryResponse : BaseResponse
 {
+    public string Name { get; set; }
 }

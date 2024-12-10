@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Coban.Application.SyncCommunication;
 
-public class DynamicHttpClient
+public static class DynamicHttpClient
 {
     private static readonly HttpClient _httpClient = new(
     new HttpClientHandler()
@@ -15,11 +15,11 @@ public class DynamicHttpClient
         Timeout = TimeSpan.FromSeconds(30)
     };
 
-    public static async Task<T> SendRequestAsync<T>(string url, HttpMethod method, object data, CancellationToken cancellationToken = default)
+    public static async Task<T?> SendRequestAsync<T>(string url, HttpMethod method, object data, CancellationToken cancellationToken = default)
     {
         try
         {
-            HttpRequestMessage requestMessage = new HttpRequestMessage
+            HttpRequestMessage requestMessage = new()
             {
                 RequestUri = new Uri(url),
                 Method = method
@@ -34,8 +34,8 @@ public class DynamicHttpClient
             HttpResponseMessage response = await _httpClient.SendAsync(requestMessage, cancellationToken);
             response.EnsureSuccessStatusCode();
 
-            string responseData = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(responseData);
+            string responseData = await response.Content.ReadAsStringAsync(cancellationToken);
+            return JsonConvert.DeserializeObject<T?>(responseData);
         }
         catch (TaskCanceledException ex)
         {

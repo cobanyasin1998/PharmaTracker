@@ -30,7 +30,7 @@ public class HttpExceptionHandler : ExceptionHandler
         Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
              errors:
              [
-                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
+                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message ?? string.Empty)
              ],
              message: exception.Message,
              errorType: ErrorType.BusinessRuleViolation,
@@ -44,7 +44,7 @@ public class HttpExceptionHandler : ExceptionHandler
         Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
            errors:
            [
-                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
+                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message ?? string.Empty)
            ],
            message: exception.Message,
            errorType: ErrorType.BusinessRuleViolation,
@@ -58,7 +58,7 @@ public class HttpExceptionHandler : ExceptionHandler
         Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
             errors:
             [
-                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
+                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message ?? string.Empty)
             ],
             message: exception.Message,
             errorType: ErrorType.AccessDenied,
@@ -72,7 +72,7 @@ public class HttpExceptionHandler : ExceptionHandler
         Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
             errors:
             [
-                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
+                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message ?? string.Empty)
             ],
             message: exception.Message,
             errorType: ErrorType.BusinessRuleViolation,
@@ -87,7 +87,7 @@ public class HttpExceptionHandler : ExceptionHandler
         Response<object, GeneralErrorDto> response = Response<object, GeneralErrorDto>.CreateFailure(
               errors:
               [
-                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message)
+                new GeneralErrorDto(ErrorMessage: exception.Message,Details: exception.InnerException?.Message ?? string.Empty)
               ],
               message: exception.Message,
               errorType: ErrorType.BadRequest,

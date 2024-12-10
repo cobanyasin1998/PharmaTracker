@@ -1,4 +1,7 @@
 
+using PharmaGateway.API.Routes.PharmacyService.Pharmacy.Clusters;
+using PharmaGateway.API.Routes.PharmacyService.Pharmacy.Routes;
+
 namespace PharmaGateway.API;
 
 public static class Program
@@ -8,23 +11,26 @@ public static class Program
         WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 
-        builder.Services.AddControllers();
-        builder.Services.AddOpenApi();
+        builder.Services.AddReverseProxy()
+       .LoadFromMemory(
+            GetRoutes.PharmacyGetRoutes(),
+            GetClusters.PharmacyGetCluster()
+            );
 
-        WebApplication app = builder.Build();
 
-        if (app.Environment.IsDevelopment())
+
+        builder.Services.AddCors(options =>
         {
-            app.MapOpenApi();
-        }
-
-        app.UseHttpsRedirection();
-
-        app.UseAuthorization();
-
-
-        app.MapControllers();
-
+            options.AddPolicy("AllowAllOrigins", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            });
+        });
+        WebApplication app = builder.Build();
+        app.UseCors("AllowAllOrigins");
+        app.MapReverseProxy();
         app.Run();
     }
 }

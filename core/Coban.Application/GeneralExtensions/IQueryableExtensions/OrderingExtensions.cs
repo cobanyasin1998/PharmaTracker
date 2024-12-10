@@ -29,7 +29,7 @@ public static class OrderingExtensions
             MethodCallExpression resultExpression = Expression.Call(
                 typeof(Queryable),
                 methodName,
-                new Type[] { typeof(T), property.Type },
+                [typeof(T), property.Type],
                 (i == 0 ? query : orderedQuery).Expression,
                 Expression.Quote(sortExpression));
 
