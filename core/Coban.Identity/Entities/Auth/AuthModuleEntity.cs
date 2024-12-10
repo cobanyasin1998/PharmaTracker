@@ -1,6 +1,6 @@
 ﻿using Coban.Domain.Entities.Base;
 
-namespace IdentityService.Domain.Entities;
+namespace Coban.Identity.Entities.Auth;
 
 public class AuthModuleEntity : BaseEntity
 {
@@ -9,5 +9,3 @@ public class AuthModuleEntity : BaseEntity
 
     public virtual List<AuthFormEntity> AuthFormEntities { get; set; }
 }
-//Pharmacy
-//FileStorage

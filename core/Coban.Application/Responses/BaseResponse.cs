@@ -8,7 +8,7 @@ namespace Coban.Application.Responses
     {
         [JsonIgnore]
         public long Id { get; set; }
-        [JsonProperty("Id")]
-        public string EncId { get; set; }
+        [JsonProperty(nameof(Id))]
+        public String EncId { get; set; } = string.Empty;
     }
 }

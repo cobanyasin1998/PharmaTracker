@@ -1,6 +1,6 @@
 ﻿using Coban.Domain.Entities.Base;
 
-namespace IdentityService.Domain.Entities;
+namespace Coban.Identity.Entities.Base;
 
 public class UserGroupEntity : BaseEntity
 {

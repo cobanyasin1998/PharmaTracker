@@ -5,8 +5,8 @@ namespace PharmacyService.Application.Features.Pharmacy.Queries.GetById;
 
 public class GetByIdPharmacyQueryResponse : BaseResponse
 {
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public string LicenseNumber { get; set; }
+    public String Name { get; set; } = string.Empty;
+    public String Description { get; set; } = string.Empty;
+    public String LicenseNumber { get; set; } = string.Empty;
     public EEntityStatus Status { get; set; }
 }

@@ -1,6 +1,7 @@
 ﻿using Coban.Domain.Entities.Base;
+using Coban.Identity.Entities.Auth;
 
-namespace IdentityService.Domain.Entities;
+namespace Coban.Identity.Entities.Base;
 
 public class GroupEntity : BaseEntity
 {
