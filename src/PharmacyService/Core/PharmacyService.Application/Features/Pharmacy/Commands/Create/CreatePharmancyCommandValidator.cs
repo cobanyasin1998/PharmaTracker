@@ -2,7 +2,6 @@
 using FluentValidation;
 using PharmacyService.Application.Features.Pharmacy.Commands.Extensions;
 using PharmacyService.Application.Features.Pharmacy.Constants;
-using System.Text.RegularExpressions;
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Create;
 

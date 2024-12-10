@@ -1,47 +1,34 @@
-﻿using Coban.Application.DataProtection.Abstractions;
+﻿using AutoMapper;
+using Coban.Application.BusinessRules.Utility;
 using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
 using Coban.GeneralDto;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using PharmacyService.Application.Abstractions.UnitOfWork;
+using PharmacyService.Application.Features.PharmacyBranch.Constants;
 using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.PharmacyBranch.Commands.Update;
 
-public class UpdatePharmacyBranchCommandHandler : IRequestHandler<UpdatePharmacyBranchCommandRequest, IResponse<UpdatePharmacyBranchCommandResponse, GeneralErrorDto>>
+public class UpdatePharmacyBranchCommandHandler(IUnitOfWork _unitOfWork, IMapper _mapper) : IRequestHandler<UpdatePharmacyBranchCommandRequest, IResponse<UpdatePharmacyBranchCommandResponse, GeneralErrorDto>>
 {
-    private readonly IDataProtectService _dataProtectService;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public UpdatePharmacyBranchCommandHandler(IDataProtectService dataProtectService, IUnitOfWork unitOfWork)
-    {
-        _dataProtectService = dataProtectService;
-        _unitOfWork = unitOfWork;
-    }
-
     public async Task<IResponse<UpdatePharmacyBranchCommandResponse, GeneralErrorDto>> Handle(UpdatePharmacyBranchCommandRequest request, CancellationToken cancellationToken)
     {
-        long id = _dataProtectService.Decrypt(request.Id);
 
         PharmacyBranchEntity? entity = await _unitOfWork.PharmacyBranchReadRepository
-            .GetWhere(y => y.Id == id, tracking: true)
+            .GetWhere(y => y.Id == request.Id, tracking: true)
             .FirstOrDefaultAsync(cancellationToken);
 
         if (entity is null)
-        {
-            throw new InvalidOperationException("Pharmacy Not Found");
-        }
+            return Response<UpdatePharmacyBranchCommandResponse, GeneralErrorDto>.CreateFailureGetByIdNotFound(new GeneralErrorDto(PharmacyBranchConstants.NotFound, ""));
 
-        entity.Name = request.Name;
-        entity.Status = request.Status;
-      
-        // Veritabanında Güncelleme ve Kaydetme
+        _mapper.Map(request, entity);
+
         _unitOfWork.PharmacyBranchWriteRepository.Update(entity);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        // Başarılı Yanıt Dönülmesi
         return Response<UpdatePharmacyBranchCommandResponse, GeneralErrorDto>
-            .CreateSuccess(new UpdatePharmacyBranchCommandResponse(_dataProtectService.Encrypt(entity.Id)));
+            .CreateSuccess(new UpdatePharmacyBranchCommandResponse(entity.Id), PharmacyBranchConstants.Updated);
     }
 }

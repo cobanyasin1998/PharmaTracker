@@ -47,8 +47,6 @@ public class GetAllPharmacyQueryHandler(IDataProtectService _dataProtectService,
             TotalCount = totalCount,
             Result = pharmacyList,
             TotalPage = (int)Math.Ceiling((double)totalCount / pharmacyList.Count)
-
         });
-
     }
 }

@@ -10,41 +10,28 @@ using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.PharmacyBranchAddress.Queries.GetAll;
 
-public class GetAllPharmacyBranchAddressQueryHandler : IRequestHandler<GetAllPharmacyBranchAddressQueryRequest, IResponse<GetAllPharmacyBranchAddressQueryResponse, GeneralErrorDto>>
+public class GetAllPharmacyBranchAddressQueryHandler(IDataProtectService _dataProtectService, IUnitOfWork _unitOfWork)
+    : IRequestHandler<GetAllPharmacyBranchAddressQueryRequest, IResponse<GetAllPharmacyBranchAddressQueryResponse, GeneralErrorDto>>
 {
-    private readonly IDataProtectService _dataProtectService;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public GetAllPharmacyBranchAddressQueryHandler(IDataProtectService dataProtectService, IUnitOfWork unitOfWork)
-    {
-        _dataProtectService = dataProtectService;
-        _unitOfWork = unitOfWork;
-    }
-
     public async Task<IResponse<GetAllPharmacyBranchAddressQueryResponse, GeneralErrorDto>> Handle(GetAllPharmacyBranchAddressQueryRequest request, CancellationToken cancellationToken)
     {
         IQueryable<PharmacyBranchAddressEntity>? query = _unitOfWork.PharmacyBranchAddressReadRepository.GetAll(tracking: false);
 
-
         List<GetAllPharmacyBranchAddressQueryResponseItemDto> pharmacyBranchAddressList = await query
-            
             .Select(p => new GetAllPharmacyBranchAddressQueryResponseItemDto
             {
                 Id = _dataProtectService.Encrypt(p.Id),
-              
                 Status = p.Status
-            })            
-            .ApplyPaging(pageNumber: request.Page, request.Size)
+            })
+            .ApplyPaging(pageNumber: request.Paging.Page, request.Paging.Size)
             .ToListAsync(cancellationToken);
 
-        int totalCount = await query.CountAsync();
-        int totalPage = (int)Math.Ceiling((double)totalCount / pharmacyBranchAddressList.Count);
+        int totalCount = await query.CountAsync(cancellationToken: cancellationToken);
         return Response<GetAllPharmacyBranchAddressQueryResponse, GeneralErrorDto>.CreateSuccess(new GetAllPharmacyBranchAddressQueryResponse
         {
             TotalCount = totalCount,
             Result = pharmacyBranchAddressList,
-            TotalPage = totalPage,
-           
+            TotalPage = (int)Math.Ceiling((double)totalCount / pharmacyBranchAddressList.Count)
         });
     }
 }

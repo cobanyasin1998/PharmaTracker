@@ -6,7 +6,7 @@ using PharmacyService.Domain.Enums;
 namespace PharmacyService.Application.Features.PharmacyBranchContact.Commands.Create;
 
 
-public class CreatePharmacyBranchContactCommandRequest : IRequest<IResponse<CreatePharmacyBranchContactCommandResponse, GeneralErrorDto>>
+public class CreatePharmacyBranchContactCommandRequest : Coban.Application.Requests.IBaseRequest, IRequest<IResponse<CreatePharmacyBranchContactCommandResponse, GeneralErrorDto>>
 {
     public EContactType Type { get; set; }
     public string Value { get; set; }

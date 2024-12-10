@@ -1,14 +1,14 @@
-﻿using Coban.Application.Responses.Base.Abstractions;
+﻿using Coban.Application.Requests;
+using Coban.Application.Responses.Base.Abstractions;
 using Coban.Domain.Enums.Base;
 using Coban.GeneralDto;
 using MediatR;
 
 namespace PharmacyService.Application.Features.PharmacyBranchAddress.Commands.Update;
 
-public class UpdatePharmacyBranchAddressCommandRequest : IRequest<IResponse<UpdatePharmacyBranchAddressCommandResponse, GeneralErrorDto>>
+public class UpdatePharmacyBranchAddressCommandRequest : BaseRequest, IRequest<IResponse<UpdatePharmacyBranchAddressCommandResponse, GeneralErrorDto>>
 {
     public EEntityStatus Status { get; set; }
-    public String Id { get; set; }
 
     public bool IsPrimary { get; set; }
     public string Address { get; set; }

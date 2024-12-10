@@ -1,4 +1,4 @@
-﻿using Coban.Application.Responses.Base.Abstractions;
+﻿ using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
 using Coban.GeneralDto;
 using MediatR;

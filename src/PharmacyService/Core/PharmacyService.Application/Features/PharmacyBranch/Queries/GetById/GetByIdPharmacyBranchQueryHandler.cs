@@ -1,34 +1,26 @@
 ﻿using AutoMapper;
-using Coban.Application.DataProtection.Abstractions;
 using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
 using Coban.GeneralDto;
 using MediatR;
 using PharmacyService.Application.Abstractions.UnitOfWork;
-using PharmacyService.Application.Features.Pharmacy.Queries.GetById;
+using PharmacyService.Application.Features.PharmacyBranch.Constants;
 using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.PharmacyBranch.Queries.GetById;
 
-public class GetByIdPharmacyBranchQueryHandler : IRequestHandler<GetByIdPharmacyBranchQueryRequest, IResponse<GetByIdPharmacyBranchQueryResponse, GeneralErrorDto>>
+public class GetByIdPharmacyBranchQueryHandler(IMapper _mapper, IUnitOfWork _unitOfWork)
+    : IRequestHandler<GetByIdPharmacyBranchQueryRequest, IResponse<GetByIdPharmacyBranchQueryResponse, GeneralErrorDto>>
 {
-    private readonly IMapper _mapper;
-    private readonly IDataProtectService _dataProtectService;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public GetByIdPharmacyBranchQueryHandler(IMapper mapper, IDataProtectService dataProtectService, IUnitOfWork unitOfWork)
-    {
-        _mapper = mapper;
-        _dataProtectService = dataProtectService;
-        _unitOfWork = unitOfWork;
-    }
-
     public async Task<IResponse<GetByIdPharmacyBranchQueryResponse, GeneralErrorDto>> Handle(GetByIdPharmacyBranchQueryRequest request, CancellationToken cancellationToken)
     {
-        long id = _dataProtectService.Decrypt(request.Id);
-        PharmacyBranchEntity? pharmacyBranchEntity = await _unitOfWork.PharmacyBranchReadRepository.GetByIdAsync(id, tracking: false, cancellationToken: cancellationToken);
-        GetByIdPharmacyBranchQueryResponse dto = _mapper.Map<PharmacyBranchEntity, GetByIdPharmacyBranchQueryResponse>(pharmacyBranchEntity);
+        PharmacyBranchEntity? pharmacyBranchEntity = await _unitOfWork.PharmacyBranchReadRepository.GetByIdAsync(request.Id, tracking: false, cancellationToken: cancellationToken);
 
-        return Response<GetByIdPharmacyBranchQueryResponse, GeneralErrorDto>.CreateSuccess(dto);
+        if (pharmacyBranchEntity is null)
+            return Response<GetByIdPharmacyBranchQueryResponse, GeneralErrorDto>.CreateFailureGetByIdNotFound(new GeneralErrorDto(PharmacyBranchConstants.NotFound, ""));
+
+        GetByIdPharmacyBranchQueryResponse getByIdPharmacyQueryResponse = _mapper.Map<GetByIdPharmacyBranchQueryResponse>(pharmacyBranchEntity);
+
+        return Response<GetByIdPharmacyBranchQueryResponse, GeneralErrorDto>.CreateSuccess(getByIdPharmacyQueryResponse);
     }
 }

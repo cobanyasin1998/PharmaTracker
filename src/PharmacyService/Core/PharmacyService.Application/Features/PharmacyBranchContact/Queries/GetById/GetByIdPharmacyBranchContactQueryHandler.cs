@@ -1,34 +1,26 @@
 ﻿using AutoMapper;
-using Coban.Application.DataProtection.Abstractions;
 using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
 using Coban.GeneralDto;
 using MediatR;
 using PharmacyService.Application.Abstractions.UnitOfWork;
-using PharmacyService.Application.Features.Pharmacy.Queries.GetById;
+using PharmacyService.Application.Features.PharmacyBranch.Constants;
 using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.PharmacyBranchContact.Queries.GetById;
 
-public class GetByIdPharmacyBranchContactQueryHandler : IRequestHandler<GetByIdPharmacyBranchContactQueryRequest, IResponse<GetByIdPharmacyBranchContactQueryResponse, GeneralErrorDto>>
+public class GetByIdPharmacyBranchContactQueryHandler(IMapper _mapper, IUnitOfWork _unitOfWork)
+    : IRequestHandler<GetByIdPharmacyBranchContactQueryRequest, IResponse<GetByIdPharmacyBranchContactQueryResponse, GeneralErrorDto>>
 {
-    private readonly IMapper _mapper;
-    private readonly IDataProtectService _dataProtectService;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public GetByIdPharmacyBranchContactQueryHandler(IMapper mapper, IDataProtectService dataProtectService, IUnitOfWork unitOfWork)
-    {
-        _mapper = mapper;
-        _dataProtectService = dataProtectService;
-        _unitOfWork = unitOfWork;
-    }
-
     public async Task<IResponse<GetByIdPharmacyBranchContactQueryResponse, GeneralErrorDto>> Handle(GetByIdPharmacyBranchContactQueryRequest request, CancellationToken cancellationToken)
     {
-        long id = _dataProtectService.Decrypt(request.Id);
-        PharmacyBranchContactEntity? pharmacyBranchContactEntity = await _unitOfWork.PharmacyBranchContactReadRepository.GetByIdAsync(id, tracking: false, cancellationToken: cancellationToken);
-        GetByIdPharmacyBranchContactQueryResponse dto = _mapper.Map<PharmacyBranchContactEntity, GetByIdPharmacyBranchContactQueryResponse>(pharmacyBranchContactEntity);
+        PharmacyBranchContactEntity? pharmacyBranchContactEntity = await _unitOfWork.PharmacyBranchContactReadRepository.GetByIdAsync(request.Id, tracking: false, cancellationToken: cancellationToken);
 
-        return Response<GetByIdPharmacyBranchContactQueryResponse, GeneralErrorDto>.CreateSuccess(dto);
+        if (pharmacyBranchContactEntity is null)
+            return Response<GetByIdPharmacyBranchContactQueryResponse, GeneralErrorDto>.CreateFailureGetByIdNotFound(new GeneralErrorDto(PharmacyBranchConstants.NotFound, ""));
+
+        GetByIdPharmacyBranchContactQueryResponse getByIdPharmacyBranchContactQueryResponse = _mapper.Map<GetByIdPharmacyBranchContactQueryResponse>(pharmacyBranchContactEntity);
+
+        return Response<GetByIdPharmacyBranchContactQueryResponse, GeneralErrorDto>.CreateSuccess(getByIdPharmacyBranchContactQueryResponse);
     }
 }

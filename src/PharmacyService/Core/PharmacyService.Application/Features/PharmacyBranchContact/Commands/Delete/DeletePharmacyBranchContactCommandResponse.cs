@@ -1,4 +1,12 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranchContact.Commands.Delete;
+﻿using Coban.Application.Responses;
+
+namespace PharmacyService.Application.Features.PharmacyBranchContact.Commands.Delete;
 
 
-public record DeletePharmacyBranchContactCommandResponse(string Id);
+public class DeletePharmacyBranchContactCommandResponse : BaseResponse
+{
+    public DeletePharmacyBranchContactCommandResponse(long Id)
+    {
+        this.Id = Id;
+    }
+}

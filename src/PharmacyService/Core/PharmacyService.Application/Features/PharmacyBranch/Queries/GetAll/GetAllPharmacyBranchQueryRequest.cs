@@ -8,9 +8,7 @@ using MediatR;
 
 namespace PharmacyService.Application.Features.PharmacyBranch.Queries.GetAll;
 
-public class GetAllPharmacyBranchQueryRequest : FullRequestDto, IRequest<IResponse<GetAllPharmacyBranchQueryResponse, GeneralErrorDto>>
+public class GetAllPharmacyBranchQueryRequest(Paging paging, IEnumerable<FilterGroup>? filtering = null, IEnumerable<Sorting>? sorting = null) 
+    : FullRequestDto(paging, filtering, sorting), IRequest<IResponse<GetAllPharmacyBranchQueryResponse, GeneralErrorDto>>
 {
-    public GetAllPharmacyBranchQueryRequest(Paging paging, IEnumerable<FilterGroup> filtering = null, IEnumerable<Sorting> sorting = null) : base(paging, filtering, sorting)
-    {
-    }
 }

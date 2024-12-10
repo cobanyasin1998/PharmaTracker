@@ -1,4 +1,10 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranch.Commands.Delete;
+﻿using Coban.Application.Responses;
 
-
-public record DeletePharmacyBranchCommandResponse(string Id);
+namespace PharmacyService.Application.Features.PharmacyBranch.Commands.Delete;
+public class DeletePharmacyBranchCommandResponse : BaseResponse
+{
+    public DeletePharmacyBranchCommandResponse(long Id)
+    {
+        this.Id = Id;
+    }
+}

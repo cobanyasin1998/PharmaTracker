@@ -5,7 +5,7 @@ using MediatR;
 namespace PharmacyService.Application.Features.PharmacyBranchAddress.Commands.Create;
 
 
-public class CreatePharmacyBranchAddressCommandRequest : IRequest<IResponse<CreatePharmacyBranchAddressCommandResponse, GeneralErrorDto>>
+public class CreatePharmacyBranchAddressCommandRequest : Coban.Application.Requests.IBaseRequest, IRequest<IResponse<CreatePharmacyBranchAddressCommandResponse, GeneralErrorDto>>
 {
     public bool IsPrimary { get; set; }
     public string Address { get; set; }
@@ -16,6 +16,4 @@ public class CreatePharmacyBranchAddressCommandRequest : IRequest<IResponse<Crea
     public decimal? Latitude { get; set; }
     public decimal? Longitude { get; set; }
     public string PharmacyBranchEntityId { get; set; }
-
-
 }

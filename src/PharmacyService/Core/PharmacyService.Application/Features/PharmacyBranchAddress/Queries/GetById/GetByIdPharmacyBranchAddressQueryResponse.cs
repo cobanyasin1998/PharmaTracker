@@ -1,6 +1,7 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranchAddress.Queries.GetById;
+﻿using Coban.Application.Responses;
 
-public class GetByIdPharmacyBranchAddressQueryResponse
+namespace PharmacyService.Application.Features.PharmacyBranchAddress.Queries.GetById;
+
+public class GetByIdPharmacyBranchAddressQueryResponse : BaseResponse
 {
-    public String Id { get; set; }
 }

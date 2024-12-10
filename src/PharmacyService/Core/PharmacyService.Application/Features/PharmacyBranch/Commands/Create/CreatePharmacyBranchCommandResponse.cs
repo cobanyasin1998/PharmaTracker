@@ -1,4 +1,12 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranch.Commands.Create;
+﻿using Coban.Application.Responses;
 
+namespace PharmacyService.Application.Features.PharmacyBranch.Commands.Create;
 
-public record CreatePharmacyBranchCommandResponse(string Id);
+public class CreatePharmacyBranchCommandResponse : BaseResponse
+{
+    public CreatePharmacyBranchCommandResponse(long Id)
+    {
+        this.Id = Id;
+    }
+}
+

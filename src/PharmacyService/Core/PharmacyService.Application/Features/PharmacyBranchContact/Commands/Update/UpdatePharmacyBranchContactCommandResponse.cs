@@ -1,4 +1,11 @@
-﻿namespace PharmacyService.Application.Features.PharmacyBranchContact.Commands.Update;
+﻿using Coban.Application.Responses;
 
+namespace PharmacyService.Application.Features.PharmacyBranchContact.Commands.Update;
 
-public record UpdatePharmacyBranchContactCommandResponse(string Id);
+public class UpdatePharmacyBranchContactCommandResponse : BaseResponse
+{
+    public UpdatePharmacyBranchContactCommandResponse(long Id)
+    {
+        this.Id = Id;
+    }
+}
