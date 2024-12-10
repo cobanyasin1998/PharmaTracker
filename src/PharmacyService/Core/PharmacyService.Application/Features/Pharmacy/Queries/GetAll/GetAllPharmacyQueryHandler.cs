@@ -1,5 +1,6 @@
 ﻿using Coban.Application.DataProtection.Abstractions;
 using Coban.Application.GeneralExtensions.IQueryableExtensions;
+using Coban.Application.Requests.Filter.Dynamic.Extensions;
 using Coban.Application.Requests.Filter.Specification.Extensions;
 using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
@@ -12,17 +13,8 @@ using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.Pharmacy.Queries.GetAll;
 
-public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryRequest, IResponse<GetAllPharmacyQueryResponse, GeneralErrorDto>>
+public class GetAllPharmacyQueryHandler(IDataProtectService _dataProtectService, IUnitOfWork _unitOfWork) : IRequestHandler<GetAllPharmacyQueryRequest, IResponse<GetAllPharmacyQueryResponse, GeneralErrorDto>>
 {
-
-    private readonly IDataProtectService _dataProtectService;
-    private readonly IUnitOfWork _unitOfWork;
-
-    public GetAllPharmacyQueryHandler(IDataProtectService dataProtectService, IUnitOfWork unitOfWork)
-    {
-        _dataProtectService = dataProtectService;
-        _unitOfWork = unitOfWork;
-    }
 
     public async Task<IResponse<GetAllPharmacyQueryResponse, GeneralErrorDto>> Handle(GetAllPharmacyQueryRequest request, CancellationToken cancellationToken)
     {
@@ -32,8 +24,8 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
             .ApplySpecification(PharmacySpecificationFactory.GetNameSpecification(request.RequestFilterDto?.Name))
             .ApplySpecification(PharmacySpecificationFactory.GetStatusSpecification(request.RequestFilterDto?.Status))
             .ApplySpecification(PharmacySpecificationFactory.GetLicenseNumberSpecification(request.RequestFilterDto?.LicenseNumber))
-            //.ApplyFilters(request.Filtering)
-           // .ApplyOrdering(orderByProperties: (List<Coban.Application.Requests.OrderBy.Dto.Sorting>)request.Sorting)
+            .ApplyFilters(request.Filtering)
+           .ApplyOrdering(orderByProperties: request.Sorting)
             .Select(p => new GetAllPharmacyQueryResponseItemDto
             {
                 Id = _dataProtectService.Encrypt(p.Id),
@@ -41,11 +33,11 @@ public class GetAllPharmacyQueryHandler : IRequestHandler<GetAllPharmacyQueryReq
                 LicenseNumber = p.LicenseNumber,
                 Status = p.Status
             })
-            //.ApplyOrdering(keySelectors: new List<(Expression<Func<GetAllPharmacyQueryResponseItemDto, object>>, bool)>
-            //{
-            //    (x => x.Name, true),
-            //    (x => x.LicenseNumber, false)
-            //})
+            .ApplyOrdering(keySelectors:
+            [
+                (x => x.Name, true),
+                (x => x.LicenseNumber, false)
+            ])
             .ApplyPaging(pageNumber: request.Paging.Page, request.Paging.Size)
             .ToListAsync(cancellationToken);
 

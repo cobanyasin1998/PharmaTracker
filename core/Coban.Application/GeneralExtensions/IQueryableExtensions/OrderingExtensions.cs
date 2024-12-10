@@ -6,18 +6,19 @@ namespace Coban.Application.GeneralExtensions.IQueryableExtensions;
 public static class OrderingExtensions
 {
     public static IQueryable<T> ApplyOrdering<T>(
-        this IQueryable<T> query,
-        List<Sorting> orderByProperties)
+     this IQueryable<T> query,
+     IEnumerable<Sorting> orderByProperties)
     {
         if (orderByProperties == null || !orderByProperties.Any())
             return query;
 
         IOrderedQueryable<T>? orderedQuery = null;
 
-        for (int i = 0; i < orderByProperties.Count; i++)
+        int i = 0;
+        foreach (var orderByProperty in orderByProperties)
         {
-            string propertyName = orderByProperties[i].Field;
-            bool ascending = orderByProperties[i].Ascending;
+            string propertyName = orderByProperty.Field;
+            bool ascending = orderByProperty.Ascending;
 
             ParameterExpression param = Expression.Parameter(typeof(T), "x");
             MemberExpression property = Expression.Property(param, propertyName);
@@ -33,10 +34,12 @@ public static class OrderingExtensions
                 Expression.Quote(sortExpression));
 
             orderedQuery = (IOrderedQueryable<T>)query.Provider.CreateQuery<T>(resultExpression);
+            i++;
         }
 
-        return orderedQuery;
+        return orderedQuery!;
     }
+
 
     public static IQueryable<T> ApplyOrdering<T>(
         this IQueryable<T> query,

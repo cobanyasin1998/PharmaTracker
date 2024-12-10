@@ -9,9 +9,7 @@ public class UpdatePharmacyCommandValidator : AbstractValidator<UpdatePharmacyCo
 {
     public UpdatePharmacyCommandValidator()
     {
-        RuleFor(p => p.Id)
-            .NotEmpty().WithMessage(PharmacyConstants.IdRequired)
-            .NotNull().WithMessage(PharmacyConstants.IdRequired);
+   
 
         RuleFor(p => p.Status)
             .IsInEnum().WithMessage(PharmacyConstants.StatusRequired);

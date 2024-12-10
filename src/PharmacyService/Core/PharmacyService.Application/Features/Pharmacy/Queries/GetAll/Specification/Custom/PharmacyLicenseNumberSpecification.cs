@@ -6,8 +6,6 @@ namespace PharmacyService.Application.Features.Pharmacy.Queries.GetAll.Specifica
 
 public class PharmacyLicenseNumberSpecification(string _licenseNumber) : ISpecification<PharmacyEntity>
 {
-    public Expression<Func<PharmacyEntity, bool>> ToExpression()
-    {
-        return pharmacy => pharmacy.LicenseNumber == _licenseNumber;
-    }
+    public Expression<Func<PharmacyEntity, bool>> ToExpression() =>
+        pharmacy => pharmacy.LicenseNumber == _licenseNumber;
 }

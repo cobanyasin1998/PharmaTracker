@@ -7,24 +7,24 @@ public static class FilterExtensions
 {
     public static IQueryable<T> ApplyFilters<T>(
         this IQueryable<T> query,
-        IEnumerable<FilterGroup> filterGroups)
+        IEnumerable<FilterGroup>? filterGroups)
     {
-        if (filterGroups == null || !filterGroups.Any())
+        if (filterGroups is null || !filterGroups.Any())
             return query;
 
         ParameterExpression parameter = Expression.Parameter(typeof(T), "x");
 
-        Expression combinedExpression = (Expression)null;
+        Expression? combinedExpression = null;
 
         foreach (FilterGroup item in filterGroups)
         {
-            Expression expressionGroup = BuildExpression(parameter, item);
+            Expression? expressionGroup = BuildExpression(parameter, item);
             if (expressionGroup is not null)
             {
                 if (combinedExpression is null)
                     combinedExpression = expressionGroup;
                 else
-                    combinedExpression = CombineExpressions(new List<Expression> { combinedExpression, expressionGroup }, item.IntergroupLogic);
+                    combinedExpression = CombineExpressions([combinedExpression, expressionGroup], item.IntergroupLogic);
 
             }
 
@@ -38,9 +38,9 @@ public static class FilterExtensions
         return query;
     }
 
-    private static Expression BuildExpression(ParameterExpression parameter, FilterGroup filterGroup)
+    private static Expression? BuildExpression(ParameterExpression parameter, FilterGroup filterGroup)
     {
-        List<Expression> expressions = new List<Expression>();
+        List<Expression> expressions = [];
 
         if (filterGroup.Filters is not null)
         {
@@ -55,13 +55,13 @@ public static class FilterExtensions
         {
             foreach (FilterGroup childGroup in filterGroup.ChildGroups)
             {
-                Expression childExpression = BuildExpression(parameter, childGroup);
+                Expression? childExpression = BuildExpression(parameter, childGroup);
                 if (childExpression is not null)
                     expressions.Add(childExpression);
             }
         }
 
-        if (!expressions.Any())
+        if (expressions.Count == 0)
             return null;
 
         return CombineExpressions(expressions, filterGroup.InterfilterOperator);
@@ -90,49 +90,20 @@ public static class FilterExtensions
         else
             constant = Expression.Constant(filter.FilterValue);
 
-        switch (filter.FilterOperator.ToLower())
+        return filter.FilterOperator.ToLower() switch
         {
-            case "==":
-            case "equals":
-                return Expression.Equal(member, constant);
-
-            case "!=":
-            case "notequals":
-                return Expression.NotEqual(member, constant);
-
-            case ">":
-            case "greaterthan":
-                return Expression.GreaterThan(member, constant);
-
-            case "<":
-            case "lessthan":
-                return Expression.LessThan(member, constant);
-
-            case ">=":
-            case "greaterthanorequal":
-                return Expression.GreaterThanOrEqual(member, constant);
-
-            case "<=":
-            case "lessthanorequal":
-                return Expression.LessThanOrEqual(member, constant);
-
-            case "contains":
-                return Expression.Call(member, "Contains", null, constant);
-
-            case "startswith":
-                return Expression.Call(member, "StartsWith", null, constant);
-
-            case "endswith":
-                return Expression.Call(member, "EndsWith", null, constant);
-
-            case "isnull":
-                return Expression.Equal(member, Expression.Constant(null));
-
-            case "isnotnull":
-                return Expression.NotEqual(member, Expression.Constant(null));
-
-            default:
-                throw new NotSupportedException($"Unsupported filter operator: {filter.FilterOperator}");
-        }
+            "==" or "equals" => Expression.Equal(member, constant),
+            "!=" or "notequals" => Expression.NotEqual(member, constant),
+            ">" or "greaterthan" => Expression.GreaterThan(member, constant),
+            "<" or "lessthan" => Expression.LessThan(member, constant),
+            ">=" or "greaterthanorequal" => Expression.GreaterThanOrEqual(member, constant),
+            "<=" or "lessthanorequal" => Expression.LessThanOrEqual(member, constant),
+            "contains" => Expression.Call(member, "Contains", null, constant),
+            "startswith" => Expression.Call(member, "StartsWith", null, constant),
+            "endswith" => Expression.Call(member, "EndsWith", null, constant),
+            "isnull" => Expression.Equal(member, Expression.Constant(null)),
+            "isnotnull" => Expression.NotEqual(member, Expression.Constant(null)),
+            _ => throw new NotSupportedException($"Unsupported filter operator: {filter.FilterOperator}"),
+        };
     }
 }

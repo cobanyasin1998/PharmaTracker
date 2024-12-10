@@ -8,7 +8,7 @@ namespace PharmacyService.Application.Features.Pharmacy.Queries.GetAll.Specifica
 
 public static class PharmacySpecificationFactory
 {
-    public static  ISpecification<PharmacyEntity> GetNameSpecification(string? name)
+    public static ISpecification<PharmacyEntity> GetNameSpecification(string? name)
     {
         return string.IsNullOrEmpty(name)
             ? new NullSpecification<PharmacyEntity>()
@@ -17,7 +17,7 @@ public static class PharmacySpecificationFactory
 
     public static ISpecification<PharmacyEntity> GetStatusSpecification(EEntityStatus? status)
     {
-        return status == null
+        return status is null
             ? new NullSpecification<PharmacyEntity>()
             : new PharmacyStatusSpecification(status.Value);
     }
