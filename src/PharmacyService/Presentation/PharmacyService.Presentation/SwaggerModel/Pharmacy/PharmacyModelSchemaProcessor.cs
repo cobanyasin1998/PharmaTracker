@@ -45,7 +45,7 @@ public class PharmacyModelSchemaProcessor : IOperationProcessor
         return true; 
     }
 
-    private string GenerateRandomName(int minLength, int maxLength)
+    private static string GenerateRandomName(int minLength, int maxLength)
     {
         Faker faker = new();
         string factoryName = string.Empty;
