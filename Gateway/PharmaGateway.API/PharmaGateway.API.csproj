@@ -16,4 +16,8 @@
     <Folder Include="Routes\IdentityService\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\Coban.Consts\Coban.Consts.csproj" />
+  </ItemGroup>
+
 </Project>

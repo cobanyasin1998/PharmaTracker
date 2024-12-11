@@ -2,7 +2,7 @@
 
 public class Filter
 {
-    public string Member { get; set; } = string.Empty;
+    public String Member { get; set; } = String.Empty;
     public object? FilterValue { get; set; } = null;
-    public string FilterOperator { get; set; } = string.Empty;
+    public String FilterOperator { get; set; } = String.Empty;
 }

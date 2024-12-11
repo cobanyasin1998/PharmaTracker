@@ -9,4 +9,8 @@ public static class RouteConsts
     public const string PharmacyCreate = $"/Pharmacy/Create";
     public const string PharmacyUpdate = $"/Pharmacy/Update";
     public const string PharmacyGetAll = $"/Pharmacy/GetAll";
+
+    public const string PharmacyCreatePrefix = $"{PharmacyPrefix}Create";
+    public const string PharmacyUpdatePrefix = $"{PharmacyPrefix}Update";
+    public const string PharmacyGetAllPrefix = $"{PharmacyPrefix}GetAll";
 }

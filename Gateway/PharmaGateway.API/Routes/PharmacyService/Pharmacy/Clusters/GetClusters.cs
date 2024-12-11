@@ -3,7 +3,7 @@ using Yarp.ReverseProxy.Configuration;
 
 namespace PharmaGateway.API.Routes.PharmacyService.Pharmacy.Clusters;
 
-public class GetClusters
+public static class GetClusters
 {
     public static IReadOnlyList<ClusterConfig> PharmacyGetCluster()
     {

@@ -2,6 +2,6 @@
 
 public interface IDataProtectService
 {
-    string Encrypt(long originalId);
-    long Decrypt(string encryptedText);
+    String Encrypt(long originalId);
+    long Decrypt(String encryptedText);
 }

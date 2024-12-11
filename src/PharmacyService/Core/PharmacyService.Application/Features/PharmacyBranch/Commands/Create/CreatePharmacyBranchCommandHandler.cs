@@ -19,7 +19,7 @@ public class CreatePharmacyBranchCommandHandler(IMapper _mapper, IUnitOfWork _un
 
         long decryptedPharmacyEntityId = _dataProtectService.Decrypt(request.PharmacyEntityId);
 
-        request.PharmacyEntityId = string.Empty;
+        request.PharmacyEntityId = null;
 
         PharmacyBranchEntity entity = _mapper.Map<CreatePharmacyBranchCommandRequest, PharmacyBranchEntity>(request);
         entity.PharmacyEntityId = decryptedPharmacyEntityId;

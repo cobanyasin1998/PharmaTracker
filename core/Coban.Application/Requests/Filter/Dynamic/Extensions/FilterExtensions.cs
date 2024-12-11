@@ -67,7 +67,7 @@ public static class FilterExtensions
         return CombineExpressions(expressions, filterGroup.InterfilterOperator);
     }
 
-    private static Expression CombineExpressions(List<Expression> expressions, string groupOperator)
+    private static Expression CombineExpressions(List<Expression> expressions, String groupOperator)
     {
         return groupOperator?.ToLower() switch
         {

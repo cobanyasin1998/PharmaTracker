@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Coban.Application.BusinessRules.Utility;
 using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
 using Coban.GeneralDto;

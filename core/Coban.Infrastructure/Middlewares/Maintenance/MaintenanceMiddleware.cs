@@ -7,7 +7,7 @@ namespace Coban.Infrastructure.Middlewares.Maintenance;
 public class MaintenanceMiddleware(RequestDelegate _next, IConfiguration config)
 {
     private readonly bool _isInMaintenance = config.GetValue<bool>(MaintenanceModeKey);
-    private const string MaintenanceModeKey = "MaintenanceMode";
+    private const String MaintenanceModeKey = "MaintenanceMode";
 
     public async Task InvokeAsync(HttpContext context)
     {

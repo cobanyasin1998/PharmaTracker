@@ -4,9 +4,9 @@ namespace Coban.Application.GeneralExtensions.ValidationGeneralExtensions;
 
 public static class GeneralStringValidationExtensions
 {
-    public static IRuleBuilderOptions<T, string> ApplyCommonStringRules<T>(
-           this IRuleBuilder<T, string> ruleBuilder,
-           string fieldName,
+    public static IRuleBuilderOptions<T, String> ApplyCommonStringRules<T>(
+           this IRuleBuilder<T, String> ruleBuilder,
+           String fieldName,
            int min = 3,
            int max = 20)
     {
