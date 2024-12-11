@@ -1,13 +1,12 @@
 ﻿using Coban.Application.Repositories.Base.Read;
 using Coban.Application.Repositories.Base.Write;
+using Coban.Application.UnitOfWork;
 using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Abstractions.UnitOfWork;
-public interface IUnitOfWork
+public interface IUnitOfWork: IUnitOfWorkTransaction
 {
-    //Save Methods
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-    int SaveChanges();
+  
     //Pharmacy Entity Repository
     IAsyncWriteRepository<PharmacyEntity> PharmacyWriteRepository { get; }
     IAsyncReadRepository<PharmacyEntity> PharmacyReadRepository { get; }

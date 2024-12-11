@@ -19,5 +19,4 @@ public class GetAllPharmacyBranchAddressQueryResponseItemDto
     public decimal? Longitude { get; set; }
 
     public long PharmacyBranchEntityId { get; set; }
-    public EEntityStatus Status { get; set; }
 }

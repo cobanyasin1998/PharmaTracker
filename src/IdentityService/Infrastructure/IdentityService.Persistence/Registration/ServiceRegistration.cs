@@ -1,4 +1,5 @@
 ﻿using IdentityService.Persistence.DbContexts;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,7 +18,7 @@ public static class ServiceRegistration
 
         services.AddDbContext<IdentityDbContext>(opt =>
         {
-            //opt.UseNpgsql(connectionString); // burası mssql olacak
+            opt.UseSqlServer(connectionString);
         });
     }
 }

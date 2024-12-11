@@ -1,4 +1,4 @@
-
+using IdentityService.Persistence.Registration;
 namespace IdentityService.API;
 
 public static class Program
@@ -10,6 +10,7 @@ public static class Program
 
         builder.Services.AddControllers();
         builder.Services.AddOpenApi();
+        builder.Services.AddIdentityPersistenceServices(builder.Configuration);
 
         WebApplication app = builder.Build();
 
@@ -17,7 +18,6 @@ public static class Program
         {
             app.MapOpenApi();
         }
-
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
