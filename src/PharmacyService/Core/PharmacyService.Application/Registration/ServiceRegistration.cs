@@ -10,7 +10,7 @@ public static class ServiceRegistration
 {
     public static void AddPharmacyApplicationServices(this IServiceCollection services)
     {
-     //   services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddMediatR(configuration =>
         {

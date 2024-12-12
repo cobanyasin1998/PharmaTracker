@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http;
 using System.Security.Claims;
 
 namespace Coban.Identity.Extensions;
@@ -22,8 +21,8 @@ public static class ClaimsExtension
     public static string? GetClaimValue(this HttpContext httpContext, string claimType)
         => httpContext?.User?.Claims?.FirstOrDefault(c => c.Type == claimType)?.Value;
 
-    public static string? GetUserId(this HttpContext httpContext) 
-        => httpContext.GetClaimValue(ClaimTypes.NameIdentifier);
+    public static int GetUserId(this HttpContext httpContext) 
+        =>  Convert.ToInt32(httpContext.GetClaimValue(ClaimTypes.NameIdentifier));
   
     public static string? GetUserName(this HttpContext httpContext)
         => httpContext.GetClaimValue(ClaimTypes.Name);

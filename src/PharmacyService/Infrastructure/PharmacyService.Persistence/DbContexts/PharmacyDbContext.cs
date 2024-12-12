@@ -1,9 +1,9 @@
 ﻿using Coban.Domain.Entities.Base;
+using Coban.Identity.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PharmacyService.Domain.Entities;
-using System.Security.Claims;
 
 namespace PharmacyService.Persistence.DbContexts;
 
@@ -21,13 +21,8 @@ public sealed class PharmacyDbContext(DbContextOptions options, IHttpContextAcce
         int currentUserId = 0;
 
         if (_httpContextAccessor.HttpContext?.User?.Identity?.IsAuthenticated == true)
-        {
-            Claim? userIdClaim = _httpContextAccessor.HttpContext.User.Claims.Where(y => y.Type == ClaimTypes.NameIdentifier).FirstOrDefault();
-
-            if (userIdClaim is not null && int.TryParse(userIdClaim.Value, out int userId))
-                currentUserId = userId;
-            
-        }
+            currentUserId =  _httpContextAccessor.HttpContext.GetUserId();  
+        
 
         foreach (EntityEntry<BaseEntity> entity in datas)
         {
@@ -49,8 +44,6 @@ public sealed class PharmacyDbContext(DbContextOptions options, IHttpContextAcce
         return await base.SaveChangesAsync(cancellationToken);
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(PharmacyDbContext).Assembly);
-    }
+    protected override void OnModelCreating(ModelBuilder modelBuilder) 
+        => modelBuilder.ApplyConfigurationsFromAssembly(typeof(PharmacyDbContext).Assembly);
 }
