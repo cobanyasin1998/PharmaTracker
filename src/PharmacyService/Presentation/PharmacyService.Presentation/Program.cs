@@ -16,6 +16,10 @@ using System.IO.Compression;
 using PharmacyService.Presentation.SwaggerModel.Pharmacy;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Security.Claims;
 
 namespace PharmacyService.Presentation;
 
@@ -28,6 +32,35 @@ public static class Program
         // Services Configuration
         ConfigureServices(builder);
 
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+        {
+            opt.TokenValidationParameters = new()
+            {
+                ValidateIssuer = true,           //Oluþturulacak token deðerini kimlerin/ hangi originlerin/sitelerin kullanýcý belirlediðimiz deðerdir.
+                ValidateAudience = true,         //Oluþturulacak token deðerinin kimin daðýttýðýný ifade edeceðimiz alandýr
+                ValidateLifetime = true,         //Oluþturulacak token deðerinin süresini kontrol edecek olan doðrulamadýr.
+                ValidateIssuerSigningKey = true, //Üretilecek token deðerinin uygulamamýza ait bir deðer olduðunu security key verisinin doðrulanmasýdýr.
+                ValidAudience = builder.Configuration["JwtSettings:Audience"],
+                LifetimeValidator = (notBefore, expires, securityToken, validationParameters) => expires != null && expires > DateTime.UtcNow,
+                ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecurityKey"]!)),
+                NameClaimType = ClaimTypes.Name
+            };
+
+            opt.Events = new JwtBearerEvents
+            {
+                OnAuthenticationFailed = context =>
+                {
+                    Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+                    return Task.CompletedTask;
+                },
+                OnTokenValidated = context =>
+                {
+                    Console.WriteLine($"Token validated: {context.SecurityToken}");
+                    return Task.CompletedTask;
+                }
+            };
+        });
         // Serilog Configuration
         ConfigureSerilog(builder);
 
@@ -83,8 +116,10 @@ public static class Program
                 document.Info.Version = "v1";
                 document.Info.Title = "My API";
                 document.Info.Description = "A sample API using NSwag in .NET Core";
+
             };
-            config.OperationProcessors.Add(new PharmacyModelSchemaProcessor());
+
+           
 
         });
 
@@ -104,7 +139,7 @@ public static class Program
             configuration
                 .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.Seq(builder.Configuration.GetSection("Serilog")["Seq"])
+                .WriteTo.Seq(builder.Configuration.GetSection("Serilog")["Seq"]!)
                 .ReadFrom.Configuration(context.Configuration);
         });
     }
@@ -131,6 +166,8 @@ public static class Program
             app.UseOpenApi();
             app.UseSwaggerUi();
         }
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         app.UseResponseCompression();
         app.ConfigureCustomExceptionMiddleware();
@@ -142,7 +179,6 @@ public static class Program
         app.ConfigureCustomBlackListControlMiddleware();
         app.ConfigureBotDetectionMiddleware();
         app.UseHttpsRedirection();
-        app.UseAuthorization();
         app.MapControllers();
     }
 }

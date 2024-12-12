@@ -4,6 +4,7 @@ using Coban.Application.Responses.Base.Abstractions;
 using Coban.Application.Responses.Base.Concretes;
 using Coban.GeneralDto;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using PharmacyService.Application.Abstractions.UnitOfWork;
 using PharmacyService.Application.Features.Pharmacy.Constants;
 using PharmacyService.Application.Features.Pharmacy.Rules.Abstractions;
@@ -11,7 +12,7 @@ using PharmacyService.Domain.Entities;
 
 namespace PharmacyService.Application.Features.Pharmacy.Commands.Create;
 
-public class CreatePharmacyCommandHandler(IMapper _mapper, IUnitOfWork _unitOfWork, IPharmacyBusinessRule _pharmacyBusinessRules)
+public class CreatePharmacyCommandHandler(IMapper _mapper, IUnitOfWork _unitOfWork, IPharmacyBusinessRule _pharmacyBusinessRules, IHttpContextAccessor _contextAccessor)
     : IRequestHandler<CreatePharmacyCommandRequest, IResponse<CreatePharmacyCommandResponse, GeneralErrorDto>>
 {
     public async Task<IResponse<CreatePharmacyCommandResponse, GeneralErrorDto>> Handle(CreatePharmacyCommandRequest request, CancellationToken cancellationToken)
