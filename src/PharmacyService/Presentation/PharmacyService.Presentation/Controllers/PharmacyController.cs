@@ -1,4 +1,5 @@
-﻿using PharmacyService.Application.Features.Pharmacy.Commands.Create;
+﻿using Microsoft.AspNetCore.Authorization;
+using PharmacyService.Application.Features.Pharmacy.Commands.Create;
 using PharmacyService.Application.Features.Pharmacy.Commands.Delete;
 using PharmacyService.Application.Features.Pharmacy.Commands.Update;
 using PharmacyService.Application.Features.Pharmacy.Queries.GetAll;

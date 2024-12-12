@@ -6,16 +6,16 @@ namespace Coban.Application.SyncCommunication;
 public static class DynamicHttpClient
 {
     private static readonly HttpClient _httpClient = new(
-    new HttpClientHandler()
-    {
-        MaxConnectionsPerServer = 100,
-        AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
-    })
+        new HttpClientHandler()
+        {
+            MaxConnectionsPerServer = 100,
+            AutomaticDecompression = System.Net.DecompressionMethods.GZip | System.Net.DecompressionMethods.Deflate
+        })
     {
         Timeout = TimeSpan.FromSeconds(30)
     };
 
-    public static async Task<T?> SendRequestAsync<T>(string url, HttpMethod method, object data, CancellationToken cancellationToken = default)
+    public static async Task<T?> SendRequestAsync<T>(string url, HttpMethod method, object data, string? token = null, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -24,6 +24,11 @@ public static class DynamicHttpClient
                 RequestUri = new Uri(url),
                 Method = method
             };
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                requestMessage.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            }
 
             if (data is not null && (method == HttpMethod.Post || method == HttpMethod.Put))
             {
@@ -54,4 +59,3 @@ public static class DynamicHttpClient
         }
     }
 }
-

@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\..\..\core\Coban.GeneralDto\Coban.GeneralDto.csproj" />
     <ProjectReference Include="..\..\..\..\core\Coban.Infrastructure\Coban.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\..\core\Coban.Persistence\Coban.Persistence.csproj" />
+    <ProjectReference Include="..\..\..\SharedLibrary\SharedLibrary.csproj" />
     <ProjectReference Include="..\PharmacyService.Domain\PharmacyService.Domain.csproj" />
   </ItemGroup>
 

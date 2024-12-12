@@ -4,6 +4,7 @@ using Coban.Consts;
 using Coban.GeneralDto;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Coban.Application.Responses.Base.Concretes;
 
@@ -22,7 +23,11 @@ public class Response<TData, TErrorDTO> : IResponse<TData, TErrorDTO>
     #endregion
 
     #region Constructor Methods
-    private Response(TData data)
+    public Response()
+    {
+            
+    }
+    public Response(TData data)
     {
         Data = data;
         Errors = new List<TErrorDTO>();
@@ -32,7 +37,8 @@ public class Response<TData, TErrorDTO> : IResponse<TData, TErrorDTO>
         HttpStatusCode = 200;
         ErrorType = null;
     }
-    private Response(TData data,string message)
+
+    public Response(TData data,string message)
     {
         Data = data;
         Errors = new List<TErrorDTO>();
@@ -42,7 +48,7 @@ public class Response<TData, TErrorDTO> : IResponse<TData, TErrorDTO>
         HttpStatusCode = 200;
         ErrorType = null;
     }
-    private Response(List<TErrorDTO> errors, string message, ErrorType errorType, int httpStatusCode = 500)
+    public Response(List<TErrorDTO> errors, string message, ErrorType errorType, int httpStatusCode = 500)
     {
         Errors = errors;
         Message = message;

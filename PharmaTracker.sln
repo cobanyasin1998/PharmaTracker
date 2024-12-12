@@ -73,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PharmaGateway.API", "Gatewa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Coban.Identity", "core\Coban.Identity\Coban.Identity.csproj", "{82D804E9-2C05-4DD6-9E46-C79E66ADA0F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLibrary", "src\SharedLibrary\SharedLibrary.csproj", "{22439B6B-172E-46F3-A20B-797A188CD524}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,10 @@ Global
 		{82D804E9-2C05-4DD6-9E46-C79E66ADA0F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82D804E9-2C05-4DD6-9E46-C79E66ADA0F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82D804E9-2C05-4DD6-9E46-C79E66ADA0F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22439B6B-172E-46F3-A20B-797A188CD524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22439B6B-172E-46F3-A20B-797A188CD524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22439B6B-172E-46F3-A20B-797A188CD524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22439B6B-172E-46F3-A20B-797A188CD524}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -193,5 +199,6 @@ Global
 		{09EEA354-48CA-45C3-9FE6-18CCC0AC91DB} = {5836857A-B534-4569-9FC5-AEAC65108FE0}
 		{8F5A6668-FDDC-4812-9342-3D4E8FDFF755} = {CE5D1F7A-0DCA-4CE0-897D-32B2577FAD10}
 		{82D804E9-2C05-4DD6-9E46-C79E66ADA0F1} = {984EFFA4-BE55-4C45-B102-BF35068BAA9B}
+		{22439B6B-172E-46F3-A20B-797A188CD524} = {C42830DF-43C2-4451-BD7B-74ED559559A3}
 	EndGlobalSection
 EndGlobal

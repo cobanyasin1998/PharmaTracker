@@ -8,5 +8,6 @@ public class GetByIdPharmacyQueryResponse : BaseResponse
     public String Name { get; set; } = string.Empty;
     public String Description { get; set; } = string.Empty;
     public String LicenseNumber { get; set; } = string.Empty;
+    public string FullCreatedName { get; set; }
     public EEntityStatus Status { get; set; }
 }

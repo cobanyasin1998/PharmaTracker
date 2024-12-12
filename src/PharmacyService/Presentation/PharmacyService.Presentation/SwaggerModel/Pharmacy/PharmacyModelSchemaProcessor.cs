@@ -4,7 +4,6 @@ using NJsonSchema;
 using NSwag;
 using NSwag.Generation.Processors;
 using NSwag.Generation.Processors.Contexts;
-using System.Security.Cryptography;
 
 namespace PharmacyService.Presentation.SwaggerModel.Pharmacy;
 

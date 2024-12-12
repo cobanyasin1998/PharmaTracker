@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\..\..\core\Coban.Application\Coban.Application.csproj" />
     <ProjectReference Include="..\..\..\..\core\Coban.GeneralDto\Coban.GeneralDto.csproj" />
     <ProjectReference Include="..\..\..\..\core\Coban.Identity\Coban.Identity.csproj" />
+    <ProjectReference Include="..\..\..\SharedLibrary\SharedLibrary.csproj" />
     <ProjectReference Include="..\IdentityService.Domain\IdentityService.Domain.csproj" />
   </ItemGroup>
 
